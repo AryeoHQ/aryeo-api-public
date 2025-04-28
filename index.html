@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aryeo API Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.18.0/swagger-ui.min.css" />
+    <style>
+        body {
+            margin: 0;
+            background-color: #f4f7f9;
+        }
+
+        .swagger-ui {
+            max-width: 90%;
+            margin: auto;
+            padding-top: 20px;
+        }
+
+        .swagger-ui .scheme-container,
+        .swagger-ui .topbar {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="swagger-ui"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.18.0/swagger-ui-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.18.0/swagger-ui-standalone-preset.min.js"></script>
+    <script>
+        function loadApi(url) {
+            const cacheBuster = new Date().getTime()
+            const noCacheUrl = `${url}?t=${cacheBuster}`
+
+            document.getElementById('swagger-ui').innerHTML = ''
+            const ui = SwaggerUIBundle({
+                url: noCacheUrl,
+                dom_id: '#swagger-ui',
+                deepLinking: false,
+                validatorUrl: null,
+                presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+                layout: 'StandaloneLayout',
+            })
+            window.ui = ui
+        }
+
+        window.onload = function () {
+            loadApi("./Company.PUBLIC.json");
+        };
+    </script>
+</body>
+
+</html>
