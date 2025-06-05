@@ -3280,6 +3280,32 @@
           {
             "schema": {
               "type": "string",
+              "enum": [
+                "DELIVERED",
+                "UNDELIVERED",
+                "SCHEDULED",
+                "null"
+              ],
+              "example": "DELIVERED",
+              "minLength": 0,
+              "maxLength": 11
+            },
+            "in": "query",
+            "name": "filter[delivery_status]",
+            "description": "Return listings where the delivery status is equal to this value."
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "example": true
+            },
+            "in": "query",
+            "name": "filter[showcase]",
+            "description": "Return listings associated with a Showcase media request."
+          },
+          {
+            "schema": {
+              "type": "string",
               "example": "-created_at",
               "minLength": 1,
               "maxLength": 100
@@ -4228,79 +4254,6 @@
           }
         ],
         "summary": "Get order."
-      },
-      "put": {
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "minLength": 36,
-              "maxLength": 36,
-              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-              "example": "00000000-0000-4000-8000-000000000000"
-            },
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of an order. UUID Version 4."
-          }
-        ],
-        "x-external": true,
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ApiError404",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError404"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "ApiFail422",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiFail422"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ApiError500",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError500"
-                }
-              }
-            }
-          }
-        },
-        "x-undocumented": true,
-        "description": "Update order.",
-        "operationId": "orders-order-id-put",
-        "tags": [
-          "Orders"
-        ],
-        "summary": "Update order.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
       }
     },
     "/orders/{order_id}/notes": {
@@ -4371,6 +4324,145 @@
           "Notes"
         ],
         "summary": "Update order notes.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
+      }
+    },
+    "/orders/{order}/payments": {
+      "post": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "order",
+            "in": "path",
+            "required": true,
+            "description": "The ID of an order. UUID Version 4."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "The amount in cents",
+                    "example": 500
+                  },
+                  "tip_amount": {
+                    "type": "integer",
+                    "description": "The tip amount in cents",
+                    "example": 100,
+                    "minimum": 0
+                  },
+                  "collection_source": {
+                    "type": "string",
+                    "enum": [
+                      "PAYPAL",
+                      "VENMO",
+                      "STRIPE",
+                      "SQUARE",
+                      "QUICKBOOKS",
+                      "CONCIERGE",
+                      "CASH",
+                      "CHECK",
+                      "OTHER"
+                    ],
+                    "minLength": 5,
+                    "maxLength": 10,
+                    "description": "The source of the payment",
+                    "example": "CASH"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "minLength": 10,
+                    "maxLength": 10,
+                    "description": "The date for the payment in UTC (YYYY-MM-DD)",
+                    "example": "2025-01-01"
+                  },
+                  "notes": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 10000,
+                    "description": "Optional description of the payment",
+                    "example": "Description of payment"
+                  }
+                },
+                "required": [
+                  "amount",
+                  "currency",
+                  "collection_source",
+                  "date"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "201",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ApiError404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError404"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "ApiFail422",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiFail422"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ApiError500",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError500"
+                }
+              }
+            }
+          }
+        },
+        "x-undocumented": false,
+        "x-external": true,
+        "description": "Create a manual order payment.",
+        "operationId": "orders-order-payments-post",
+        "tags": [
+          "Payments",
+          "Orders"
+        ],
+        "summary": "Create a manual order payment.",
         "security": [
           {
             "Token": []
@@ -5945,6 +6037,320 @@
           "Products"
         ],
         "summary": "List products."
+      }
+    },
+    "/products/{product_id}/tags": {
+      "post": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of a product. UUID Version 4."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "ApiFail422",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiFail422"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ApiError500",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError500"
+                }
+              }
+            }
+          }
+        },
+        "x-undocumented": true,
+        "x-external": true,
+        "description": "Create tag.",
+        "operationId": "post-products-product-id-tags",
+        "tags": [
+          "Tags"
+        ],
+        "summary": "Create tag.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of a product. UUID Version 4."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ApiError404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError404"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "ApiFail422",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiFail422"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ApiError500",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError500"
+                }
+              }
+            }
+          }
+        },
+        "x-undocumented": true,
+        "x-external": true,
+        "description": "Update product tag.",
+        "operationId": "put-products-product-id-tags",
+        "tags": [
+          "Tags"
+        ],
+        "summary": "Update product tag.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
+      }
+    },
+    "/products/{product_id}/tags/{tag_id}": {
+      "put": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of a product. UUID Version 4."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "tag_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of a tag."
+          }
+        ],
+        "x-external": true,
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ApiError404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError404"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "ApiFail422",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiFail422"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ApiError500",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError500"
+                }
+              }
+            }
+          }
+        },
+        "x-undocumented": true,
+        "description": "Update tag.",
+        "operationId": "put-products-product-id-tags-tag-id",
+        "tags": [
+          "Tags"
+        ],
+        "summary": "Update tag.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of a product. UUID Version 4."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "tag_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of a tag."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ApiError404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError404"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "ApiFail422",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiFail422"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ApiError500",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError500"
+                }
+              }
+            }
+          }
+        },
+        "x-undocumented": true,
+        "x-external": true,
+        "description": "Delete product tag.",
+        "operationId": "delete-products-product-id-tags-tag-id",
+        "tags": [
+          "Tags"
+        ],
+        "summary": "Delete product tag.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
       }
     },
     "/product-categories": {
@@ -9761,6 +10167,102 @@
         "description": "Valuation data relating to the price of a listing.",
         "additionalProperties": false
       },
+      "CustomerTeamMembership": {
+        "type": "object",
+        "title": "CustomerTeamMembership",
+        "description": "A record of a customer team membership on the Aryeo platform.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 24,
+            "maxLength": 24,
+            "enum": [
+              "CUSTOMER_TEAM_MEMBERSHIP"
+            ],
+            "example": "CUSTOMER_TEAM_MEMBERSHIP",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "ID of the entity. UUID Version 4.",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The role of the customer team membership.",
+            "enum": [
+              "admin",
+              "member"
+            ],
+            "example": "admin"
+          },
+          "invitation_accepted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the invitation was accepted.",
+            "format": "date-time",
+            "minLength": 27,
+            "maxLength": 27,
+            "example": "2025-04-01T05:59:59.999999Z"
+          },
+          "status": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The status of the customer team membership.",
+            "enum": [
+              "deleted",
+              "archived",
+              "revoked",
+              "active",
+              "invited"
+            ],
+            "example": "active"
+          },
+          "customer_team": {
+            "$ref": "#/components/schemas/CustomerGroup"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the customer team membership is active.",
+            "example": true
+          },
+          "is_archived": {
+            "type": "boolean",
+            "description": "Whether the customer team membership is archived.",
+            "example": true
+          },
+          "is_deleted": {
+            "type": "boolean",
+            "description": "Whether the customer team membership is deleted.",
+            "example": true
+          },
+          "is_invited": {
+            "type": "boolean",
+            "description": "Whether the customer team membership is invited.",
+            "example": true
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "status",
+          "customer_team",
+          "is_active",
+          "is_archived",
+          "is_deleted",
+          "is_invited"
+        ],
+        "additionalProperties": false
+      },
       "Image": {
         "title": "Image",
         "type": "object",
@@ -11152,6 +11654,13 @@
           "co_list_agent": {
             "$ref": "#/components/schemas/Group"
           },
+          "customer_team_memberships": {
+            "type": "array",
+            "description": "customer_team_memberships",
+            "items": {
+              "$ref": "#/components/schemas/CustomerTeamMembership"
+            }
+          },
           "images": {
             "type": "array",
             "description": "images",
@@ -11217,6 +11726,21 @@
           "is_showcase": {
             "type": "boolean",
             "description": "Indicates if this is a Showcase listing",
+            "example": true
+          },
+          "is_showcasable": {
+            "type": "boolean",
+            "description": "Indicates if this listing can be showcased",
+            "example": true
+          },
+          "has_high_resolution_images": {
+            "type": "boolean",
+            "description": "Indicates if this listing has high resolution images",
+            "example": true
+          },
+          "has_zillow_imx_tour": {
+            "type": "boolean",
+            "description": "Indicates if this listing has a Zillow IMX tour",
             "example": true
           },
           "delivery_status": {
@@ -11438,6 +11962,34 @@
             "type": "string",
             "description": "The title of the product category.",
             "example": "Photography",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product category.",
+            "example": "Photography",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the product category.",
+            "example": "photography",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "color": {
+            "type": "string",
+            "description": "The color of the product category.",
+            "example": "#000000",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the product category.",
+            "example": "product",
             "minLength": 0,
             "maxLength": 255
           }
@@ -12027,6 +12579,12 @@
             "items": {
               "$ref": "#/components/schemas/ProductCategory"
             }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductCategory"
+            }
           }
         },
         "required": [
@@ -12565,6 +13123,9 @@
             "type": "integer",
             "description": "The amount actually collected",
             "example": 502
+          },
+          "order": {
+            "$ref": "#/components/schemas/Order"
           }
         },
         "required": [
@@ -14848,6 +15409,96 @@
         ],
         "additionalProperties": false
       },
+      "MediaRequestMediaSearchPayload": {
+        "title": "MediaRequestMediaSearchPayload",
+        "type": "object",
+        "description": "Payload for searching for listings that match the media request customer.",
+        "properties": {
+          "suggested": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "If true, only suggested listings or orders will be returned that match the media request address and customer.",
+            "example": true
+          },
+          "search": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "Search for listings or orders that match the media request customer and are not already associated with a media request.",
+            "example": "resource"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MediaSearchResource": {
+        "title": "MediaSearchResource",
+        "type": "object",
+        "description": "An object containing listings or orders.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": "object",
+            "description": "A collection of listings and orders.",
+            "properties": {
+              "object": {
+                "type": "string",
+                "minLength": 26,
+                "maxLength": 26,
+                "enum": [
+                  "MEDIA_REQUEST_MEDIA_SEARCH"
+                ],
+                "example": "MEDIA_REQUEST_MEDIA_SEARCH",
+                "description": "A canonical value representing a resource."
+              },
+              "listings": {
+                "type": "array",
+                "description": "A collection of listings.",
+                "items": {
+                  "$ref": "#/components/schemas/Listing"
+                }
+              },
+              "orders": {
+                "type": "array",
+                "description": "A collection of orders.",
+                "items": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            },
+            "required": [
+              "listings",
+              "orders"
+            ],
+            "additionalProperties": false
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
       "NotificationPreference": {
         "title": "NotificationPreference",
         "type": "object",
@@ -15189,6 +15840,37 @@
         },
         "required": [
           "status"
+        ],
+        "additionalProperties": false
+      },
+      "PaymentResource": {
+        "title": "OrderPaymentResource",
+        "type": "object",
+        "description": "An order payment.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Payment"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status",
+          "data"
         ],
         "additionalProperties": false
       },
