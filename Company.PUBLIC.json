@@ -4459,7 +4459,6 @@
         "description": "Create a manual order payment.",
         "operationId": "orders-order-payments-post",
         "tags": [
-          "Payments",
           "Orders"
         ],
         "summary": "Create a manual order payment.",
