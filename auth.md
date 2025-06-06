@@ -1,3 +1,0 @@
-# Auth
-
-Use tokens.
