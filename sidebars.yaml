@@ -1,9 +1,10 @@
 - page: index.md
   label: Home
 
-- group: Overview
-  directory: ./overview
+- group: Docs
+  directory: ./docs
+  expanded: always
 
 - group: API Reference
-  items:
-    - page: ./api/Company.PUBLIC.json
+  directory: ./api
+  expanded: always

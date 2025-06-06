@@ -3,6 +3,8 @@ logo:
   link: /
 
 openapi:
+  hideDownloadButtons: true
+  hideInfoMetadata: true
   showExtensions: true
   jsonSamplesExpandLevel: 5
   codeSamples:
