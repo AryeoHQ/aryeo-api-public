@@ -1,0 +1,10 @@
+- page: index.md
+  label: Home
+
+- group: Docs
+  directory: ./docs
+  expanded: always
+
+- group: API Reference
+  directory: ./api
+  expanded: always

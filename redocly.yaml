@@ -1,0 +1,25 @@
+logo:
+  image: ./images/logo.png
+  link: /
+
+openapi:
+  hideDownloadButtons: true
+  hideInfoMetadata: true
+  showExtensions: true
+  jsonSamplesExpandLevel: 5
+  codeSamples:
+    skipOptionalParameters: true
+    languages:
+      - lang: 'JavaScript'
+        label: 'JS'
+      - lang: 'PHP'
+      - lang: 'Go'
+      - lang: 'Python'
+      - lang: 'Java'
+      - lang: 'C#'
+      - lang: 'curl'
+        label: 'cURL'
+
+ignore:
+  - index.html
+  - CONTRIBUTING.md
