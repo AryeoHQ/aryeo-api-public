@@ -1,7 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "description": "The Aryeo API provides access to the Aryeo platform.",
+    "title": "Aryeo",
+    "description": "# Introduction\nThe Aryeo API provides access to the Aryeo platform.",
     "contact": {
       "name": "Admin",
       "url": "https://www.aryeo.com",
@@ -15,7 +16,8 @@
     "license": {
       "url": "https://choosealicense.com/licenses/apache-2.0/",
       "name": "Apache 2.0"
-    }
+    },
+    "version": "1.0.0"
   },
   "servers": [
     {
@@ -26,35 +28,43 @@
   "tags": [
     {
       "name": "Addresses",
-      "description": "Operations related to addresses."
+      "description": "Operations related to addresses. Addresses provide standardized address data."
     },
     {
       "name": "Appointments",
-      "description": "Operations related to appointments."
+      "description": "Operations related to appointments. Appointments are bookings for services that can be rescheduled, cancelled, and confirmed."
+    },
+    {
+      "name": "Company Users",
+      "description": "Operations related to company users. Companies capture media for their customers. Company users represent photographers, videographers, administrators, and other staff."
+    },
+    {
+      "name": "Customer Users",
+      "description": "Operations related to customer users. Customers receive media from companies. Customer users represent real-estate agents, assistants, listing coordinators, and brokerage members."
     },
     {
       "name": "Discounts",
-      "description": "Operations related to discounts."
+      "description": "Operations related to discounts. Discounts support percentage or fixed-amount discounts, and coupon codes."
     },
     {
       "name": "Listings",
-      "description": "Operations related to listings."
+      "description": "Operations related to listings. Listings are the core entity that connects properties with media services."
     },
     {
       "name": "Notes",
-      "description": "Operations related to notes."
+      "description": "Operations related to notes. Notes are contextual comments across various entities including orders, listings, customers, and appointments."
     },
     {
       "name": "Order Forms",
-      "description": "Operations related to order forms."
+      "description": "Operations related to order forms. Order forms are the customer-facing booking interfaces for service requests, product selection, and appointment scheduling."
     },
     {
       "name": "Order Items",
-      "description": "Operations related to order items."
+      "description": "Operations related to order items. Order items are the individual line items within orders."
     },
     {
       "name": "Orders",
-      "description": "Operations related to orders."
+      "description": "Operations related to orders. Orders are the service orders from customers."
     },
     {
       "name": "Payroll",
@@ -62,23 +72,19 @@
     },
     {
       "name": "Products",
-      "description": "Operations related to products."
+      "description": "Operations related to products. Products consist of the categories and offerings for services and products."
     },
     {
       "name": "Scheduling",
-      "description": "Operations related to scheduling."
+      "description": "Operations related to scheduling. Scheduling operations provide information about service provider availability."
     },
     {
       "name": "Tags",
-      "description": "Operations related to tags."
+      "description": "Operations related to tags. Tags are used to organize and categorize content using a flexible tagging system."
     },
     {
       "name": "Tasks",
-      "description": "Operations related to tasks."
-    },
-    {
-      "name": "Users",
-      "description": "Operations related to users."
+      "description": "Operations related to tasks. Tasks are used to track work items, assignments, and completion status."
     },
     {
       "name": "Videos",
@@ -1811,7 +1817,7 @@
         "description": "List company team members.",
         "operationId": "company-team-members-get",
         "tags": [
-          "Users"
+          "Company Users"
         ],
         "summary": "List company team members.",
         "security": [
@@ -1886,7 +1892,7 @@
         "description": "Get company team member.",
         "operationId": "company-team-members-company-team-member-id-get",
         "tags": [
-          "Users"
+          "Company Users"
         ],
         "summary": "Get company team member.",
         "security": [
@@ -1961,7 +1967,7 @@
         "description": "List company team member events.",
         "operationId": "company-team-members-company-team-member-id-events-get",
         "tags": [
-          "Users"
+          "Company Users"
         ],
         "summary": "List company team member events.",
         "security": [
@@ -2165,7 +2171,7 @@
         "description": "Get customer team member.",
         "operationId": "customer-team-members-customer-team-member-id-get",
         "tags": [
-          "Users"
+          "Customer Users"
         ],
         "summary": "Get customer team member.",
         "security": [
@@ -2240,7 +2246,7 @@
         "description": "List customer team memberships.",
         "operationId": "customer-teams-customer-team-id-memberships-get",
         "tags": [
-          "Users"
+          "Customer Users"
         ],
         "summary": "List customer team memberships.",
         "security": [
@@ -2289,7 +2295,7 @@
         "description": "Create customer team affiliate membership.",
         "operationId": "customer-teams-affiliate-memberships-post",
         "tags": [
-          "Users"
+          "Customer Users"
         ],
         "summary": "Create customer team affiliate membership.",
         "security": [
@@ -2318,8 +2324,8 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "201",
+          "200": {
+            "description": "200",
             "content": {
               "application/json": {
                 "schema": {
@@ -2361,7 +2367,16 @@
           {
             "Token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerTeamTagsPostPayload"
+              }
+            }
+          }
+        }
       },
       "put": {
         "parameters": [
@@ -2422,7 +2437,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Update customer team tag.",
         "operationId": "customer-teams-customer-team-id-tags-put",
@@ -2434,7 +2449,16 @@
           {
             "Token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerTeamTagsPutPayload"
+              }
+            }
+          }
+        }
       }
     },
     "/customer-teams/{customer_team_id}/tags/{tag_id}": {
@@ -2470,15 +2494,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+          "204": {
+            "description": "204"
           },
           "404": {
             "description": "ApiError404",
@@ -2511,7 +2528,6 @@
             }
           }
         },
-        "x-undocumented": true,
         "x-external": true,
         "description": "Delete customer team tag.",
         "operationId": "customer-teams-customer-team-id-tags-tag-id-delete",
@@ -2528,13 +2544,108 @@
     },
     "/customer-users": {
       "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "users"
+            },
+            "in": "query",
+            "name": "include",
+            "description": "Comma separated list of optional data to include in the response."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "in": "query",
+            "name": "filter[exclude_customers_in_team]",
+            "description": "Filter customers by customer team ID."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "in": "query",
+            "name": "filter[exclude_customers_in_pricing_plan]",
+            "description": "Filter customers by pricing plan ID."
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "example": true
+            },
+            "in": "query",
+            "name": "filter[exclude_customers_with_individual_pricing_plan]",
+            "description": "Filter customers that do not have an individual pricing plan."
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "example": true
+            },
+            "in": "query",
+            "name": "filter[exclude_customers_with_team_pricing_plan]",
+            "description": "Filter customers that do not have a team pricing plan."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "in": "query",
+            "name": "filter[customer_team_ids]",
+            "description": "Comma separated list of customer team IDs."
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "example": true
+            },
+            "in": "query",
+            "name": "filter[has_active_team_memberships]",
+            "description": "Filter customers that have active team memberships."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "john"
+            },
+            "in": "query",
+            "name": "filter[search]",
+            "description": "Filter customers by search."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "-created_at",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "in": "query",
+            "name": "sort",
+            "description": "Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-created_at`."
+          }
+        ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CustomerUserCollection",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CustomerUserCollection"
                 }
               }
             }
@@ -2570,12 +2681,12 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "List customer users.",
         "operationId": "customer-users-get",
         "tags": [
-          "Users"
+          "Customer Users"
         ],
         "summary": "List customer users.",
         "security": [
@@ -2585,13 +2696,23 @@
         ]
       },
       "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerUserPostPayload"
+              }
+            }
+          },
+          "description": "CustomerUserPostPayload"
+        },
         "responses": {
           "200": {
-            "description": "200",
+            "description": "GroupCustomer",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/GroupCustomer"
                 }
               }
             }
@@ -2627,12 +2748,12 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Create customer user.",
         "operationId": "customer-users-post",
         "tags": [
-          "Users"
+          "Customer Users"
         ],
         "summary": "Create customer user.",
         "security": [
@@ -2744,7 +2865,7 @@
         "description": "Store customer user credit transaction.",
         "operationId": "customer-users-user-credit-transactions-store-post",
         "tags": [
-          "Users"
+          "Customer Users"
         ],
         "summary": "Store customer user credit transaction.",
         "security": [
@@ -2756,13 +2877,114 @@
     },
     "/customers": {
       "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "users"
+            },
+            "in": "query",
+            "name": "include",
+            "description": "Comma separated list of optional data to include in the response."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "in": "query",
+            "name": "filter[exclude_ids]",
+            "description": "Comma separated list of customer user IDs to exclude from the response."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "gmail.com"
+            },
+            "in": "query",
+            "name": "filter[email_domain]",
+            "description": "Filter customers by email domain."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "john"
+            },
+            "in": "query",
+            "name": "filter[search]",
+            "description": "Filter customers by search."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "john.doe@gmail.com"
+            },
+            "in": "query",
+            "name": "filter[email]",
+            "description": "Filter customers by email."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "1234567890"
+            },
+            "in": "query",
+            "name": "filter[phone]",
+            "description": "Filter customers by phone."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "in": "query",
+            "name": "filter[customer_team_ids]",
+            "description": "Filter customers by customer team IDs."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "John Doe"
+            },
+            "in": "query",
+            "name": "filter[name]",
+            "description": "Filter customers by name."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "-created_at",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "in": "query",
+            "name": "sort",
+            "description": "Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-created_at`."
+          }
+        ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "GroupCustomerCollection",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/GroupCustomerCollection"
                 }
               }
             }
@@ -2798,12 +3020,12 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "List customers.",
         "operationId": "customers-get",
         "tags": [
-          "Users"
+          "Customer Users"
         ],
         "summary": "List customers.",
         "security": [
@@ -2813,13 +3035,23 @@
         ]
       },
       "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerPostPayload"
+              }
+            }
+          },
+          "description": "CustomerPostPayload"
+        },
         "responses": {
-          "201": {
-            "description": "201",
+          "200": {
+            "description": "GroupCustomerResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/GroupCustomerResource"
                 }
               }
             }
@@ -2845,12 +3077,12 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Create a customer.",
         "operationId": "customers-post",
         "tags": [
-          "Users"
+          "Customer Users"
         ],
         "summary": "Create a customer.",
         "security": [
@@ -4486,12 +4718,12 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "201",
+          "200": {
+            "description": "200",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OrderResource"
                 }
               }
             }
@@ -4517,7 +4749,6 @@
             }
           }
         },
-        "x-undocumented": true,
         "x-external": true,
         "description": "Create tag for order.",
         "operationId": "orders-order-id-tags-post",
@@ -4529,7 +4760,17 @@
           {
             "Token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderTagsPostPayload"
+              }
+            }
+          },
+          "description": "OrderTagsPostPayload"
+        }
       },
       "put": {
         "parameters": [
@@ -4657,15 +4898,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+          "204": {
+            "description": "204"
           },
           "404": {
             "description": "ApiError404",
@@ -4698,7 +4932,6 @@
             }
           }
         },
-        "x-undocumented": true,
         "x-external": true,
         "description": "Delete tag for order.",
         "operationId": "orders-order-id-tags-tag-id-delete",
@@ -7140,7 +7373,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/TagResource"
                 }
               }
             }
@@ -7166,7 +7399,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Create tag.",
         "operationId": "tags-post",
@@ -7178,7 +7411,17 @@
           {
             "Token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagPostPayload"
+              }
+            }
+          },
+          "description": "TagPostPayload"
+        }
       }
     },
     "/tags/{tag_id}": {
@@ -7201,15 +7444,8 @@
         ],
         "x-external": true,
         "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+          "204": {
+            "description": "204"
           },
           "404": {
             "description": "ApiError404",
@@ -7242,7 +7478,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "description": "Update tag.",
         "operationId": "tags-tag-id-put",
         "tags": [
@@ -7253,7 +7489,17 @@
           {
             "Token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagPutPayload"
+              }
+            }
+          },
+          "description": "TagPutPayload"
+        }
       }
     },
     "/tasks": {
@@ -8890,7 +9136,7 @@
               "boolean",
               "null"
             ],
-            "description": "Indicates if the group has restricted photographers.",
+            "description": "Whether the group is restricted from booking appointments with certain photographers.",
             "example": true
           },
           "is_visible": {
@@ -9049,14 +9295,9 @@
             "description": "Indicates if the order form instantly schedules appointments as soon as the order is placed."
           },
           "form_settings": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "example": "{}",
-            "minLength": 0,
-            "maxLength": 65535,
-            "description": "The settings for the order form."
+            "type": "object",
+            "description": "The settings for the order form.",
+            "additionalProperties": true
           },
           "owner": {
             "$ref": "#/components/schemas/Group"
@@ -10027,8 +10268,18 @@
       "CustomerGroup": {
         "title": "CustomerGroup",
         "type": "object",
-        "description": "Customer groups are used to group multiple customers together, allowing you to apply settings such as price overrides and billing customer configurations in bulk.",
+        "description": "A customer group is a legacy name for what is now a customer team. A customer team is a container for customers, allowing you to apply settings such as price overrides and billing customer configurations in bulk.",
         "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 13,
+            "maxLength": 13,
+            "enum": [
+              "CUSTOMER_TEAM"
+            ],
+            "example": "CUSTOMER_TEAM",
+            "description": "A canonical value representing a resource."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -10042,8 +10293,60 @@
             "type": "string",
             "maxLength": 255,
             "minLength": 0,
-            "description": "The name of the customer group.",
+            "description": "The name of the customer team.",
             "example": "John Doe Customer Group"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 2550,
+            "minLength": 0,
+            "description": "The description of the customer team.",
+            "example": "John Doe Customer Team is a customer team for John Doe."
+          },
+          "internal_notes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 2550,
+            "minLength": 0,
+            "description": "The internal notes of the customer team.",
+            "example": "John Doe's customer team normally doesn't work on Fridays."
+          },
+          "logo_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "example": "https://picsum.photos/640/480",
+            "description": "The logo image URL of the customer team.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "brokerage_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The name of the brokerage team.",
+            "example": "Grimes-Mante"
+          },
+          "brokerage_website": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "example": "http://www.tillman.info/aut-odio-qui-voluptatibus",
+            "description": "The website URL of the brokerage team.",
+            "minLength": 0,
+            "maxLength": 255
           },
           "affiliate_id": {
             "type": [
@@ -10052,11 +10355,73 @@
             ],
             "maxLength": 255,
             "minLength": 0,
-            "description": "The affliate ID for the customer group.",
+            "description": "The affliate ID for the customer team.",
             "example": "JOHN_DOE"
+          },
+          "should_display_original_price": {
+            "type": "boolean",
+            "description": "Indicates if original prices should be displayed for this customer team.",
+            "example": true
+          },
+          "should_disable_automated_payment_reminder_email": {
+            "type": "boolean",
+            "description": "Indicates if automated payment reminder emails should be disabled for this customer team.",
+            "example": true
+          },
+          "should_lock_downloads_before_payment": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the downloads should be locked before payment for this customer team.",
+            "example": true
+          },
+          "order_form_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid",
+            "description": "The ID of the order form.",
+            "example": "00000000-0000-4000-8000-000000000000"
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the customer team was created.",
+            "format": "date-time",
+            "minLength": 27,
+            "maxLength": 27,
+            "example": "2025-03-07T13:59:03.000000Z"
+          },
+          "is_showingtimeplus_team": {
+            "type": "boolean",
+            "description": "Indicates if the customer team is a ShowingTime team.",
+            "example": true
           },
           "billing_customer": {
             "$ref": "#/components/schemas/Group"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the customer group.",
+            "example": "active",
+            "minLength": 0,
+            "maxLength": 255,
+            "enum": [
+              "any_status",
+              "active",
+              "archived"
+            ]
+          },
+          "is_archived": {
+            "type": "boolean",
+            "description": "Indicates if the customer group is archived.",
+            "example": true
           }
         },
         "required": [
@@ -10246,17 +10611,340 @@
             "type": "boolean",
             "description": "Whether the customer team membership is invited.",
             "example": true
+          },
+          "is_default": {
+            "type": "boolean",
+            "description": "Whether the customer team membership is the default.",
+            "example": true
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the customer team membership was created.",
+            "format": "date-time",
+            "minLength": 27,
+            "maxLength": 27,
+            "example": "2025-04-01T05:59:59.999999Z"
+          },
+          "customer_user": {
+            "$ref": "#/components/schemas/CustomerUser"
+          },
+          "listing_delivery_notification_enabled": {
+            "type": "boolean",
+            "description": "Whether the customer team membership has listing delivery notifications enabled.",
+            "example": true
+          },
+          "is_showingtimeplus_workspace_membership": {
+            "type": "boolean",
+            "description": "Whether the customer team membership is a ShowingTime workspace membership.",
+            "example": true
+          },
+          "is_visible": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether the customer team membership is visible.",
+            "example": true
+          },
+          "order_index": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The order index of the customer team membership.",
+            "example": 1
           }
         },
         "required": [
           "id",
           "role",
           "status",
-          "customer_team",
-          "is_active",
-          "is_archived",
-          "is_deleted",
-          "is_invited"
+          "customer_team"
+        ],
+        "additionalProperties": false
+      },
+      "CustomerUser": {
+        "type": "object",
+        "title": "CustomerUser",
+        "description": "A record of a customer on the Aryeo platform.",
+        "properties": {
+          "object": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "A canonical value representing a resource.",
+            "example": "USER"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "ID of the entity. UUID Version 4.",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000"
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "example": "John",
+            "description": "Name of the user."
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "john.doe@gmail.com",
+            "description": "Email address of the user."
+          },
+          "avatar_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "example": "https://picsum.photos/300",
+            "description": "The avatar image URL of a user.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "phone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "123456789",
+            "description": "A phone number represented in whichever standards specified by the user, typically ###-###-#### (separated by hyphens).",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "logo_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "example": "https://picsum.photos/300",
+            "description": "The logo URL of a user.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "timezone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The default timezone for the customer.",
+            "example": "America/New_York"
+          },
+          "license_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "12345678",
+            "description": "The license number of a real estate agent. Only returned if group's type is AGENT."
+          },
+          "customer_team_memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerTeamMembership"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The date and time (ISO 8601 format) when the customer record was created.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          },
+          "is_visible": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the customer is visible.",
+            "example": true
+          },
+          "order_index": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The order index of the customer.",
+            "example": 1
+          },
+          "verification_status": {
+            "type": "string",
+            "description": "The verification status of the customer.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "verified",
+            "enum": [
+              "verified",
+              "unverified",
+              "new",
+              "sso"
+            ]
+          },
+          "credit_balance_amount": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The credit balance amount of the customer.",
+            "example": 100
+          },
+          "total_balance_amount": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The total balance amount of the customer.",
+            "example": 100
+          },
+          "is_showingtimeplus_user": {
+            "type": "boolean",
+            "description": "Whether the customer is a ShowingTime+ user.",
+            "example": true
+          },
+          "full_name": {
+            "type": "string",
+            "description": "The full name of the customer.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "John Doe"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the customer.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the customer.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Doe"
+          },
+          "phone_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The phone number of the customer.",
+            "example": "1234567890"
+          },
+          "profile_link": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The profile link of the customer.",
+            "example": "https://picsum.photos/300"
+          },
+          "internal_notes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 2550,
+            "description": "The internal notes of the customer.",
+            "example": "John Doe is a customer."
+          },
+          "agent_company_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The agent company name of the customer.",
+            "example": "John Doe Real Estate"
+          },
+          "agent_license_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The agent license number of the customer.",
+            "example": "1234567890"
+          },
+          "is_blocked_from_ordering": {
+            "type": "boolean",
+            "description": "Whether the customer is blocked from ordering.",
+            "example": true
+          },
+          "has_restricted_photographers": {
+            "type": "boolean",
+            "description": "Whether the customer is restricted from booking appointments with certain photographers.",
+            "example": true
+          },
+          "default_lock_downloads_before_payment": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether the customer has locked media downloads before payment as the default download setting.",
+            "example": true
+          },
+          "default_allows_access_to_marketing_material": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether the customer has access to the marketing material builder.",
+            "example": true
+          },
+          "avalara_customer_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The Avalara customer code of the customer.",
+            "example": "1234567890"
+          },
+          "quickbooks_customer_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The Quickbooks customer ID of the customer.",
+            "example": "1234567890"
+          }
+        },
+        "required": [
+          "id",
+          "email"
         ],
         "additionalProperties": false
       },
@@ -10831,6 +11519,114 @@
             "items": {
               "$ref": "#/components/schemas/Export"
             }
+          }
+        },
+        "additionalProperties": false
+      },
+      "EsoftOrderLine": {
+        "title": "EsoftOrderLine",
+        "type": "object",
+        "description": "An Esoft order line record.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 16,
+            "maxLength": 16,
+            "enum": [
+              "ESOFT_ORDER_LINE"
+            ],
+            "example": "ESOFT_ORDER_LINE",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "The ID of the marketing material. UUID Version 4."
+          },
+          "esoft_order_line_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": 6141841,
+            "description": "The Esoft order line ID from coconut."
+          },
+          "client_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": 701334,
+            "description": "The Esoft client ID."
+          },
+          "reference": {
+            "type": [
+              "string"
+            ],
+            "description": "The Esoft order refrence.",
+            "example": "123 Main St",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "status": {
+            "type": [
+              "enum"
+            ],
+            "description": "The Esoft order status.",
+            "example": "complete",
+            "enum": [
+              "complete",
+              "cancelled",
+              "draft",
+              "error",
+              "submitted"
+            ]
+          },
+          "esoft_product_id": {
+            "type": [
+              "number"
+            ],
+            "example": 700012,
+            "description": "The Esoft product ID."
+          },
+          "esoft_product_name": {
+            "type": [
+              "string"
+            ],
+            "description": "The Esoft product name.",
+            "example": "Standard Photo Editing",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "esoft_product_variant": {
+            "type": [
+              "string"
+            ],
+            "description": "The Esoft product variant.",
+            "example": "PH_VT",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "quantity": {
+            "type": [
+              "number"
+            ],
+            "example": 10,
+            "description": "The quantity of the Esoft product ordered (varies by product and company)."
+          },
+          "comments": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The Esoft order comments.",
+            "example": "Please add a watermark to the photos.",
+            "minLength": 0,
+            "maxLength": 65535
           }
         },
         "additionalProperties": false
@@ -11694,6 +12490,13 @@
             "description": "Marketing materials for this listing. ",
             "items": {
               "$ref": "#/components/schemas/MarketingMaterial"
+            }
+          },
+          "esoft_order_lines": {
+            "type": "array",
+            "description": "Esoft order lines for this listing.",
+            "items": {
+              "$ref": "#/components/schemas/EsoftOrderLine"
             }
           },
           "orders": {
@@ -13674,6 +14477,823 @@
         ],
         "additionalProperties": false
       },
+      "CustomerTeamTagsPutPayload": {
+        "title": "CustomerTeamTagsPutPayload",
+        "type": "object",
+        "description": "Payload for updating a tag on a customer team.",
+        "properties": {
+          "tag_ids": {
+            "type": "array",
+            "description": "The IDs of the tags to add to the customer team.",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "example": "00000000-0000-4000-8000-000000000000",
+              "description": "The ID of the tag to add to the customer team."
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerTeamTagsPostPayload": {
+        "title": "CustomerTeamTagsPostPayload",
+        "type": "object",
+        "description": "Payload for adding a tag to a customer team.",
+        "properties": {
+          "tag_id": {
+            "type": "string",
+            "description": "The ID of the tag to add to the customer team.",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "tag": {
+            "type": "object",
+            "description": "The tag to add to the customer team.",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the tag.",
+                "example": "Photography",
+                "minLength": 0,
+                "maxLength": 65536
+              },
+              "color": {
+                "type": "string",
+                "description": "The color of the tag.",
+                "example": "#FFFFFF",
+                "minLength": 0,
+                "maxLength": 7
+              }
+            },
+            "required": [
+              "name",
+              "color"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerUserCollection": {
+        "title": "CustomerUserCollection",
+        "type": "object",
+        "description": "A collection of customer users.",
+        "properties": {
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/CustomerUser"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "CustomerUserPostPayload": {
+        "title": "CustomerUserPostPayload",
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "First name.",
+            "example": "John",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name.",
+            "example": "Doe",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the user.",
+            "example": "john.doe@gmail.com",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "phone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "(123) 456-7890",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "A phone number represented in whichever standards specified by the user, typically ###-###-#### (separated by hyphens)."
+          },
+          "license_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "12345678",
+            "description": "The license number of a real estate agent."
+          },
+          "avatar_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "example": "https://picsum.photos/300",
+            "description": "The avatar image URL of a user.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "add_to_customer_team": {
+            "type": "boolean",
+            "description": "Whether to add the user to a customer team.",
+            "example": true
+          },
+          "customer_team_id": {
+            "type": "string",
+            "description": "The ID of the customer team to add the user to. Required if `add_to_customer_team` is `true`.",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "role": {
+            "type": "string",
+            "description": "The role of the user in the customer team. Required if `add_to_customer_team` is `true`.",
+            "example": "admin",
+            "minLength": 0,
+            "maxLength": 255,
+            "enum": [
+              "admin",
+              "member"
+            ]
+          },
+          "defines_new_team": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether to define a new team for the user. Required if `add_to_customer_team` is `false`.",
+            "example": true
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The name of the new team. Required if `defines_new_team` is `true`.",
+            "example": "John Doe Reality",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The description of the new team. Used if `defines_new_team` is `true`.",
+            "example": "Internal notes about the team.",
+            "minLength": 0,
+            "maxLength": 2550
+          },
+          "brokerage_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The name of the brokerage. Used if `defines_new_team` is `true`.",
+            "example": "John Doe Realty",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "timezone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The default timezone for the customer.",
+            "example": "America/New_York"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "add_to_customer_team"
+        ]
+      },
+      "GroupCustomer": {
+        "type": "object",
+        "title": "GroupCustomer",
+        "description": "A collection of users that can interact with the Aryeo platform. Permissions and properties are determined based on the group's type which can be creator, agent, or brokerage.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "description": "String representing the object's type. Objects of the same type share the same schema.",
+            "example": "GROUP",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "ID of the entity. UUID Version 4.",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000"
+          },
+          "type": {
+            "type": "string",
+            "example": "AGENT",
+            "description": "The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned.",
+            "minLength": 0,
+            "maxLength": 255,
+            "enum": [
+              "CREATOR",
+              "AGENT",
+              "BROKERAGE"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The name of the group.",
+            "example": "John Doe Reality"
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "email",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "john.doe@gmail.com",
+            "description": "The email address of a group."
+          },
+          "phone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "6175550173",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "A phone number represented in whichever standards specified by the group, typically ###-###-#### (separated by hyphens)."
+          },
+          "website_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "https://www.aryeo.com",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The website URL of a group.",
+            "format": "uri"
+          },
+          "logo_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The logo URL of a group.",
+            "format": "uri",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "https://picsum.photos/300"
+          },
+          "office_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "John Doe Brokerage",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The name of the brokerage or team of a real estate agent. Only returned if group's type is AGENT."
+          },
+          "license_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "12345678",
+            "description": "The license number of a real estate agent. Only returned if group's type is AGENT."
+          },
+          "timezone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The default timezone for the group.",
+            "example": "America/New_York"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "USD",
+            "description": "The default currency for the group.",
+            "enum": [
+              "USD",
+              "CAD",
+              "GBP",
+              "CHF",
+              "EUR",
+              "AUD",
+              "NZD",
+              "ZAR",
+              "DKK"
+            ]
+          },
+          "slug": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The slug for the group.",
+            "example": "example-photography"
+          },
+          "order_page_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The order page URL for the group.",
+            "example": "https://example-photography.aryeo.com/order"
+          },
+          "feature_flags": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "An array of feature flags for the group.",
+            "items": {
+              "type": "string",
+              "description": "The name of the feature flag.",
+              "example": "require_photographer_confirmations",
+              "minLength": 1,
+              "maxLength": 65535,
+              "enum": [
+                "alternate_unbranded_property_site_url",
+                "avalara_tax_syncing",
+                "avalara_taxes",
+                "byop",
+                "calendar",
+                "calendar_event_title_modified",
+                "customer_teams_order_form_landing_page_override",
+                "customer_teams_product_preselect",
+                "customer_portal_mobile_apps",
+                "customer_select_on_order_form_products_step",
+                "database_external_calendar_events",
+                "default_reschedule_toggle_false",
+                "download_center_fb_boost_1",
+                "embedded_payments",
+                "housecall_pro",
+                "idp_migration_in_progress",
+                "listings_create_page",
+                "listings_page",
+                "min_hour_targets",
+                "max_travel_distance",
+                "quickbooks_app",
+                "require_photographer_confirmations",
+                "restricted_image_downloads",
+                "showcase_app",
+                "showcase_order_form_visibility_designations",
+                "showingtime",
+                "team_member_restrictions",
+                "team_member_hide_customer_pii",
+                "virtual_staging_ai",
+                "virtuals1_custom_sms_notification_messages",
+                "webhooks",
+                "zapier",
+                "zendesk",
+                "zillow_3d_home",
+                "zillow_media_exclusives",
+                "zillow_photographer_branding",
+                "zillow_rentals"
+              ]
+            }
+          },
+          "order_page_background_color": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 7,
+            "minLength": 7,
+            "description": "The background color for the order page (has a hex value) for the group.",
+            "example": "#FF0000"
+          },
+          "default_order_form": {
+            "$ref": "#/components/schemas/OrderForm"
+          },
+          "use_territory_awareness": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "example": true,
+            "description": "Indicates if the order form by default uses territories to filter available users and products."
+          },
+          "availability_style": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "TIME",
+            "description": "The scheduling style the order form should use for timeslot selection by default.",
+            "enum": [
+              "TIME",
+              "TIME_OF_DAY",
+              "LEGACY"
+            ]
+          },
+          "slot_interval_minutes": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "example": 60,
+            "description": "How frequently slotted available times are on the order form by default."
+          },
+          "use_automated_user_assignment": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "example": true,
+            "description": "Indicates if the order form uses auto-assignment of users to appointments."
+          },
+          "automated_user_assignment_strategy": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "RECOMMENDED",
+            "description": "The default assignment strategy the order form should use to assign users to appointments, if applicable.",
+            "enum": [
+              "RECOMMENDED",
+              "HOURS_PRIORITY",
+              "DISTANCE",
+              "ROUND_ROBIN",
+              "PRIORITY_LIST"
+            ]
+          },
+          "show_user_names": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "example": true,
+            "description": "Indicates if the order form by default should display user's names after they have been assigned to an appointment."
+          },
+          "use_instant_appointment_scheduling": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "example": true,
+            "description": "Indicates if the order form by default instantly schedules appointments as soon as the order is placed."
+          },
+          "order_forms": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "An array of order forms a vendor group provides for placing orders. Only returned if group's type is CREATOR. ",
+            "items": {
+              "$ref": "#/components/schemas/OrderForm"
+            }
+          },
+          "users": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "The Aryeo users associated with this group.",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "is_brokerage_or_brokerage_agent": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "example": true,
+            "description": "Indicates if the group is a brokerage or brokerage agent."
+          },
+          "avatar_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "example": "https://picsum.photos/300",
+            "description": "The avatar image URL of a user.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "internal_notes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Internal notes about the group.",
+            "minLength": 0,
+            "maxLength": 2550,
+            "example": "Internal notes about the group."
+          },
+          "team_members": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "NOTE: Users do not have team members.",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User"
+          },
+          "social_profiles": {
+            "$ref": "#/components/schemas/SocialProfiles"
+          },
+          "customer_group": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "NOTE: Users do not have customer groups and they are deprecated.",
+            "minLength": 0,
+            "maxLength": 2550,
+            "example": "null"
+          },
+          "has_restricted_photographers": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether the group is restricted from booking appointments with certain photographers.",
+            "example": true
+          },
+          "custom_field_entries": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "NOTE: Need to make a migration plan for this.",
+            "items": {
+              "type": "object",
+              "description": "Custom field entries for the group.",
+              "additionalProperties": false
+            }
+          },
+          "billing_address": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The billing address of the group.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "123 Main St, Anytown, USA 12345"
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time the group was created.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          },
+          "restricted_photographers": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "The photographers restricted from the group.",
+            "items": {
+              "type": "object",
+              "description": "The photographers restricted from the group.",
+              "additionalProperties": false
+            }
+          },
+          "customer_team_memberships": {
+            "type": "array",
+            "description": "The list of customer team memberships associated with this group.",
+            "items": {
+              "$ref": "#/components/schemas/CustomerTeamMembership"
+            }
+          },
+          "is_visible": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the group is visible.",
+            "example": true
+          },
+          "order_index": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The order index of the group.",
+            "example": 1
+          },
+          "verification_status": {
+            "type": "string",
+            "description": "The verification status of the customer.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "verified",
+            "enum": [
+              "verified",
+              "unverified",
+              "new",
+              "sso"
+            ]
+          },
+          "credit_balance_amount": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The credit balance amount of the customer.",
+            "example": 100
+          },
+          "total_balance_amount": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The total balance amount of the customer.",
+            "example": 100
+          },
+          "is_showingtimeplus_user": {
+            "type": "boolean",
+            "description": "Whether the customer is a ShowingTime+ user.",
+            "example": true
+          },
+          "full_name": {
+            "type": "string",
+            "description": "The full name of the customer.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "John Doe"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the customer.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the customer.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Doe"
+          },
+          "phone_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The phone number of the customer.",
+            "example": "1234567890"
+          },
+          "profile_link": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The profile link of the customer.",
+            "example": "https://picsum.photos/300"
+          },
+          "agent_company_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The agent company name of the customer.",
+            "example": "John Doe Real Estate"
+          },
+          "agent_license_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The agent license number of the customer.",
+            "example": "1234567890"
+          },
+          "is_blocked_from_ordering": {
+            "type": "boolean",
+            "description": "Whether the customer is blocked from ordering.",
+            "example": true
+          },
+          "default_lock_downloads_before_payment": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether the customer has locked media downloads before payment as the default download setting.",
+            "example": true
+          },
+          "default_allows_access_to_marketing_material": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether the customer has access to the marketing material builder.",
+            "example": true
+          },
+          "avalara_customer_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The Avalara customer code of the customer.",
+            "example": "1234567890"
+          },
+          "quickbooks_customer_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The Quickbooks customer ID of the customer.",
+            "example": "1234567890"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
       "CreditTransactionResource": {
         "title": "CreditTransactionResource",
         "type": "object",
@@ -13749,6 +15369,219 @@
           "team_membership_type",
           "created_at",
           "updated_at"
+        ],
+        "additionalProperties": false
+      },
+      "GroupCustomerCollection": {
+        "title": "GroupCustomerCollection",
+        "type": "object",
+        "description": "A collection of group customers.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/GroupCustomer"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "CustomerPostPayload": {
+        "title": "CustomerPostPayload",
+        "type": "object",
+        "properties": {
+          "owner_first_name": {
+            "type": "string",
+            "description": "First name of the customer owner.",
+            "example": "John",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "owner_last_name": {
+            "type": "string",
+            "description": "Last name of the customer owner.",
+            "example": "Doe",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the customer owner.",
+            "example": "john.doe@gmail.com",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "phone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "(123) 456-7890",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "A phone number represented in whichever standards specified by the user, typically ###-###-#### (separated by hyphens)."
+          },
+          "avatar_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "example": "https://picsum.photos/300",
+            "description": "The avatar image URL of the customer.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "logo_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "example": "https://picsum.photos/300",
+            "description": "The logo image URL of the customer.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "website_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "example": "https://www.john-doe-realty.com",
+            "description": "The website URL of the customer.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "team_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The name of the customer team.",
+            "example": "John Doe Realty",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The description of the customer.",
+            "example": "John Doe Realty is a real estate company that specializes in selling homes in Space City.",
+            "minLength": 0,
+            "maxLength": 2550
+          },
+          "office_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The name of the office.",
+            "example": "John Doe Realty",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "customer_team_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the customer team.",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "license_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "12345678",
+            "description": "The license number of a real estate agent."
+          },
+          "timezone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The default timezone for the customer.",
+            "example": "America/New_York"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "owner_first_name",
+          "owner_last_name",
+          "email"
+        ]
+      },
+      "GroupCustomerResource": {
+        "title": "GroupCustomerResource",
+        "type": "object",
+        "description": "A group.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/GroupCustomer"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
         ],
         "additionalProperties": false
       },
@@ -15895,6 +17728,47 @@
         ],
         "additionalProperties": false
       },
+      "OrderTagsPostPayload": {
+        "title": "OrderTagsPostPayload",
+        "type": "object",
+        "description": "Payload for adding a tag to an order.",
+        "properties": {
+          "tag_id": {
+            "type": "string",
+            "description": "The ID of the tag to add to the order.",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "tag": {
+            "type": "object",
+            "description": "The tag to add to the order.",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the tag.",
+                "example": "Photography",
+                "minLength": 0,
+                "maxLength": 65536
+              },
+              "color": {
+                "type": "string",
+                "description": "The color of the tag.",
+                "example": "#FFFFFF",
+                "minLength": 0,
+                "maxLength": 7
+              }
+            },
+            "required": [
+              "name",
+              "color"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
       "OrderFormSessionPostPayload": {
         "title": "OrderFormSessionPostPayload",
         "type": "object",
@@ -16569,431 +18443,6 @@
         ],
         "additionalProperties": false
       },
-      "GroupCustomer": {
-        "type": "object",
-        "title": "GroupCustomer",
-        "description": "A collection of users that can interact with the Aryeo platform. Permissions and properties are determined based on the group's type which can be creator, agent, or brokerage.",
-        "properties": {
-          "object": {
-            "type": "string",
-            "description": "String representing the object\u2019s type. Objects of the same type share the same schema.",
-            "example": "GROUP",
-            "minLength": 1,
-            "maxLength": 100
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "minLength": 36,
-            "maxLength": 36,
-            "description": "ID of the entity. UUID Version 4.",
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-            "example": "00000000-0000-4000-8000-000000000000"
-          },
-          "type": {
-            "type": "string",
-            "example": "AGENT",
-            "description": "The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned.",
-            "minLength": 0,
-            "maxLength": 255,
-            "enum": [
-              "CREATOR",
-              "AGENT",
-              "BROKERAGE"
-            ]
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 255,
-            "minLength": 0,
-            "description": "The name of the group.",
-            "example": "John Doe Reality"
-          },
-          "email": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "email",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "john.doe@gmail.com",
-            "description": "The email address of a group."
-          },
-          "phone": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "example": "6175550173",
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "A phone number represented in whichever standards specified by the group, typically ###-###-#### (separated by hyphens)."
-          },
-          "website_url": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "example": "https://www.aryeo.com",
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "The website URL of a group.",
-            "format": "uri"
-          },
-          "logo_url": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The logo URL of a group.",
-            "format": "uri",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "https://picsum.photos/300"
-          },
-          "office_name": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "example": "John Doe Brokerage",
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "The name of the brokerage or team of a real estate agent. Only returned if group's type is AGENT."
-          },
-          "license_number": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "12345678",
-            "description": "The license number of a real estate agent. Only returned if group's type is AGENT."
-          },
-          "timezone": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "maxLength": 255,
-            "minLength": 0,
-            "description": "The default timezone for the group.",
-            "example": "America/New_York"
-          },
-          "currency": {
-            "type": "string",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "USD",
-            "description": "The default currency for the group.",
-            "enum": [
-              "USD",
-              "CAD",
-              "GBP",
-              "CHF",
-              "EUR",
-              "AUD",
-              "NZD",
-              "ZAR",
-              "DKK"
-            ]
-          },
-          "slug": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "maxLength": 255,
-            "minLength": 0,
-            "description": "The slug for the group.",
-            "example": "example-photography"
-          },
-          "order_page_url": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "maxLength": 255,
-            "minLength": 0,
-            "description": "The order page URL for the group.",
-            "example": "https://example-photography.aryeo.com/order"
-          },
-          "feature_flags": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "An array of feature flags for the group.",
-            "items": {
-              "type": "string",
-              "description": "The name of the feature flag.",
-              "example": "require_photographer_confirmations",
-              "minLength": 1,
-              "maxLength": 65535,
-              "enum": [
-                "alternate_unbranded_property_site_url",
-                "avalara_tax_syncing",
-                "avalara_taxes",
-                "byop",
-                "calendar",
-                "calendar_event_title_modified",
-                "customer_teams_order_form_landing_page_override",
-                "customer_teams_product_preselect",
-                "customer_portal_mobile_apps",
-                "customer_select_on_order_form_products_step",
-                "database_external_calendar_events",
-                "default_reschedule_toggle_false",
-                "download_center_fb_boost_1",
-                "embedded_payments",
-                "housecall_pro",
-                "idp_migration_in_progress",
-                "listings_create_page",
-                "listings_page",
-                "min_hour_targets",
-                "max_travel_distance",
-                "quickbooks_app",
-                "require_photographer_confirmations",
-                "restricted_image_downloads",
-                "showcase_app",
-                "showcase_order_form_visibility_designations",
-                "showingtime",
-                "team_member_restrictions",
-                "team_member_hide_customer_pii",
-                "virtual_staging_ai",
-                "virtuals1_custom_sms_notification_messages",
-                "webhooks",
-                "zapier",
-                "zendesk",
-                "zillow_3d_home",
-                "zillow_media_exclusives",
-                "zillow_photographer_branding",
-                "zillow_rentals"
-              ]
-            }
-          },
-          "order_page_background_color": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "maxLength": 7,
-            "minLength": 7,
-            "description": "The background color for the order page (has a hex value) for the group.",
-            "example": "#FF0000"
-          },
-          "default_order_form": {
-            "$ref": "#/components/schemas/OrderForm"
-          },
-          "use_territory_awareness": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "example": true,
-            "description": "Indicates if the order form by default uses territories to filter available users and products."
-          },
-          "availability_style": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "TIME",
-            "description": "The scheduling style the order form should use for timeslot selection by default.",
-            "enum": [
-              "TIME",
-              "TIME_OF_DAY",
-              "LEGACY"
-            ]
-          },
-          "slot_interval_minutes": {
-            "type": [
-              "integer",
-              "null"
-            ],
-            "example": 60,
-            "description": "How frequently slotted available times are on the order form by default."
-          },
-          "use_automated_user_assignment": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "example": true,
-            "description": "Indicates if the order form uses auto-assignment of users to appointments."
-          },
-          "automated_user_assignment_strategy": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "RECOMMENDED",
-            "description": "The default assignment strategy the order form should use to assign users to appointments, if applicable.",
-            "enum": [
-              "RECOMMENDED",
-              "HOURS_PRIORITY",
-              "DISTANCE",
-              "ROUND_ROBIN",
-              "PRIORITY_LIST"
-            ]
-          },
-          "show_user_names": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "example": true,
-            "description": "Indicates if the order form by default should display user's names after they have been assigned to an appointment."
-          },
-          "use_instant_appointment_scheduling": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "example": true,
-            "description": "Indicates if the order form by default instantly schedules appointments as soon as the order is placed."
-          },
-          "order_forms": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "An array of order forms a vendor group provides for placing orders. Only returned if group's type is CREATOR. ",
-            "items": {
-              "$ref": "#/components/schemas/OrderForm"
-            }
-          },
-          "users": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "The Aryeo users associated with this group.",
-            "items": {
-              "$ref": "#/components/schemas/User"
-            }
-          },
-          "is_brokerage_or_brokerage_agent": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "example": true,
-            "description": "Indicates if the group is a brokerage or brokerage agent."
-          },
-          "avatar_url": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri",
-            "example": "https://picsum.photos/300",
-            "description": "The avatar image URL of a user.",
-            "minLength": 0,
-            "maxLength": 255
-          },
-          "internal_notes": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Internal notes about the group.",
-            "minLength": 0,
-            "maxLength": 2550,
-            "example": "Internal notes about the group."
-          },
-          "team_members": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "NOTE: Users do not have team members.",
-            "items": {
-              "$ref": "#/components/schemas/User"
-            }
-          },
-          "owner": {
-            "$ref": "#/components/schemas/User"
-          },
-          "social_profiles": {
-            "$ref": "#/components/schemas/SocialProfiles"
-          },
-          "customer_group": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "NOTE: Users do not have customer groups and they are deprecated.",
-            "minLength": 0,
-            "maxLength": 2550,
-            "example": "null"
-          },
-          "has_restricted_photographers": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "description": "Indicates if the group has restricted photographers.",
-            "example": true
-          },
-          "custom_field_entries": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "NOTE: Need to make a migration plan for this.",
-            "items": {
-              "type": "object",
-              "description": "Custom field entries for the group.",
-              "additionalProperties": false
-            }
-          },
-          "billing_address": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The billing address of the group.",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "123 Main St, Anytown, USA 12345"
-          },
-          "created_at": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The date and time the group was created.",
-            "format": "date-time",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2021-06-30T20:30:00Z"
-          },
-          "restricted_photographers": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "The photographers restricted from the group.",
-            "items": {
-              "type": "object",
-              "description": "The photographers restricted from the group.",
-              "additionalProperties": false
-            }
-          }
-        },
-        "required": [
-          "id",
-          "type",
-          "name"
-        ],
-        "additionalProperties": false
-      },
       "PersonalAccessTokenCustomer": {
         "type": "object",
         "title": "PersonalAccessTokenCustomer",
@@ -17124,38 +18573,6 @@
           "password",
           "password_confirmation",
           "client"
-        ],
-        "additionalProperties": false
-      },
-      "GroupCustomerResource": {
-        "title": "GroupCustomerResource",
-        "type": "object",
-        "description": "A group.",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "success",
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "What was the state of the request?"
-          },
-          "data": {
-            "$ref": "#/components/schemas/GroupCustomer"
-          },
-          "timestamp": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The request timestamp (ISO 8601).",
-            "format": "date-time",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2021-06-30T20:30:00Z"
-          }
-        },
-        "required": [
-          "status"
         ],
         "additionalProperties": false
       },
@@ -17906,6 +19323,114 @@
           "vendor": {
             "$ref": "#/components/schemas/Group"
           },
+          "app_icon_url": {
+            "type": "string",
+            "description": "URL to the app icon image.",
+            "format": "uri",
+            "minLength": 0,
+            "maxLength": 2048,
+            "example": "https://example.com/app-icon.png"
+          },
+          "app_store_title": {
+            "type": "string",
+            "description": "Title displayed in app stores.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Property Tours App"
+          },
+          "app_store_subtitle": {
+            "type": "string",
+            "description": "Subtitle displayed in app stores.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Virtual Tours & Property Marketing"
+          },
+          "app_store_description": {
+            "type": "string",
+            "description": "Description displayed in app stores.",
+            "minLength": 0,
+            "maxLength": 4000,
+            "example": "View and share beautiful property tours and marketing materials."
+          },
+          "brand_name": {
+            "type": "string",
+            "description": "Name of the brand.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Acme Real Estate"
+          },
+          "brand_color": {
+            "type": "string",
+            "description": "Default brand color in hex format.",
+            "pattern": "^#[0-9A-Fa-f]{6}$",
+            "minLength": 7,
+            "maxLength": 7,
+            "example": "#FF5733"
+          },
+          "brand_logo_url": {
+            "type": "string",
+            "description": "URL to the brand logo image.",
+            "format": "uri",
+            "minLength": 0,
+            "maxLength": 2048,
+            "example": "https://example.com/brand-logo.png"
+          },
+          "display_mobile_banner": {
+            "type": "boolean",
+            "description": "Whether to display the mobile app banner.",
+            "example": true
+          },
+          "display_email_banner": {
+            "type": "boolean",
+            "description": "Whether to display the email banner.",
+            "example": true
+          },
+          "example_unparsed_address_part_one": {
+            "type": "string",
+            "description": "First part of an example unparsed address.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "123 Main Street"
+          },
+          "example_unparsed_address_part_two": {
+            "type": "string",
+            "description": "Second part of an example unparsed address.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Boston, MA 02110"
+          },
+          "example_hero_url": {
+            "type": "string",
+            "description": "URL to an example hero image.",
+            "format": "uri",
+            "minLength": 0,
+            "maxLength": 2048,
+            "example": "https://example.com/hero-image.jpg"
+          },
+          "example_image_url": {
+            "type": "string",
+            "description": "URL to an example regular image.",
+            "format": "uri",
+            "minLength": 0,
+            "maxLength": 2048,
+            "example": "https://example.com/image.jpg"
+          },
+          "example_video_url": {
+            "type": "string",
+            "description": "URL to an example video.",
+            "format": "uri",
+            "minLength": 0,
+            "maxLength": 2048,
+            "example": "https://example.com/video.mp4"
+          },
+          "example_floorplan_url": {
+            "type": "string",
+            "description": "URL to an example floorplan image.",
+            "format": "uri",
+            "minLength": 0,
+            "maxLength": 2048,
+            "example": "https://example.com/floorplan.jpg"
+          },
           "updated_at": {
             "type": "string",
             "description": "The date and time (ISO 8601 format) when the config was last updated.",
@@ -18466,6 +19991,47 @@
         ],
         "additionalProperties": false
       },
+      "TagPostPayload": {
+        "title": "TagPostPayload",
+        "type": "object",
+        "description": "Payload for creating a tag.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of the tag.",
+            "example": "customer_team",
+            "minLength": 0,
+            "maxLength": 65536,
+            "enum": [
+              "order",
+              "customer_team",
+              "product",
+              "order_form",
+              "virtual_staging_ai"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the tag.",
+            "example": "Photography",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "color": {
+            "type": "string",
+            "description": "The color of the tag.",
+            "example": "#FFFFFF",
+            "minLength": 0,
+            "maxLength": 7
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "name",
+          "color"
+        ]
+      },
       "TagResource": {
         "title": "TagResource",
         "type": "object",
@@ -18496,6 +20062,28 @@
         "required": [
           "status"
         ],
+        "additionalProperties": false
+      },
+      "TagPutPayload": {
+        "title": "TagPutPayload",
+        "description": "Payload for updating a tag.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the tag.",
+            "example": "Photography",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "color": {
+            "type": "string",
+            "description": "The color of the tag.",
+            "example": "#FFFFFF",
+            "minLength": 0,
+            "maxLength": 7
+          }
+        },
         "additionalProperties": false
       },
       "TaxPostPayload": {
