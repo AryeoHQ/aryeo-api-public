@@ -10406,6 +10406,11 @@
           "billing_customer": {
             "$ref": "#/components/schemas/Group"
           },
+          "billing_customer_pays_externally": {
+            "type": "boolean",
+            "description": "Indicates if the billing customer team membership pays externally.",
+            "example": true
+          },
           "status": {
             "type": "string",
             "description": "The status of the customer group.",
