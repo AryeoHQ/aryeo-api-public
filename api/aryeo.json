@@ -13170,6 +13170,20 @@
             "example": "#FFFFFF",
             "minLength": 7,
             "maxLength": 7
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the tag.",
+            "example": "order",
+            "minLength": 5,
+            "maxLength": 18,
+            "enum": [
+              "order",
+              "customer_team",
+              "product",
+              "order_form",
+              "virtual_staging_ai"
+            ]
           }
         },
         "required": [
