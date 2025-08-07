@@ -16272,7 +16272,7 @@
       "ListingPutShowcasePayload": {
         "title": "ListingPutShowcasePayload",
         "type": "object",
-        "description": "Payload for updating a Zillow showcase designation.",
+        "description": "Payload for updating a listing showcase designation.",
         "properties": {
           "is_showcase": {
             "type": "boolean",
