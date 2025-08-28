@@ -3363,7 +3363,7 @@
               "type": "string",
               "minLength": 0,
               "maxLength": 255,
-              "example": "list_agent,list_agent.social_profiles,list_agent.owner,co_list_agent,co_list_agent.social_profiles,co_list_agent.owner,images,videos,floor_plans,interactive_content,property_website"
+              "example": "list_agent,list_agent.social_profiles,list_agent.owner,co_list_agent,co_list_agent.social_profiles,co_list_agent.owner,images,files,videos,floor_plans,interactive_content,property_website"
             },
             "in": "query",
             "name": "include",
@@ -3684,7 +3684,7 @@
               "type": "string",
               "minLength": 0,
               "maxLength": 255,
-              "example": "list_agent,list_agent.social_profiles,list_agent.owner,co_list_agent,co_list_agent.social_profiles,co_list_agent.owner,images,videos,floor_plans,interactive_content,property_website,orders.appointments"
+              "example": "list_agent,list_agent.social_profiles,list_agent.owner,co_list_agent,co_list_agent.social_profiles,co_list_agent.owner,images,files,videos,floor_plans,interactive_content,property_website,orders.appointments"
             },
             "in": "query",
             "name": "include",
@@ -9139,6 +9139,14 @@
             "description": "Whether the group is restricted from booking appointments with certain photographers.",
             "example": true
           },
+          "is_payroll_enabled": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the group has payroll enabled.",
+            "example": true
+          },
           "is_visible": {
             "type": [
               "boolean",
@@ -11042,6 +11050,93 @@
         ],
         "additionalProperties": false
       },
+      "File": {
+        "title": "File",
+        "type": "object",
+        "description": "A generic downloadable file associated with a resource (e.g., a listing).",
+        "properties": {
+          "object": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "A canonical value representing a resource.",
+            "example": "FILE"
+          },
+          "id": {
+            "type": "string",
+            "description": "ID of the entity. UUID Version 4.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "0197f537-84c8-7329-b833-e28cd814a1ce"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "UUID of the file (duplicate of id in legacy contexts).",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "0197f537-84c8-7329-b833-e28cd814a1ce"
+          },
+          "filename": {
+            "type": "string",
+            "description": "The file's name or key.",
+            "example": "f7149b39-c3bf-47a1-b023-2f2e476ed0e5",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "file_type": {
+            "type": "string",
+            "description": "The file type or extension.",
+            "example": "jpg",
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A description of the file.",
+            "example": "Aut voluptatem numquam amet. Sed nihil ex ea maiores. Et corporis doloremque fugiat aut adipisci officia est ad.",
+            "minLength": 1,
+            "maxLength": 65535
+          },
+          "display_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "How this file should be displayed in the UI.",
+            "enum": [
+              "none",
+              "both"
+            ],
+            "example": "none"
+          },
+          "url": {
+            "type": "string",
+            "description": "A URL to access or download the file.",
+            "example": "https://cdn.aryeo.com/listings/cottagewood-rd-minnetrista-35649/resized/thumbnail/thumbnail-9c436b89-5717-403c-b5fa-054275a85ce3.jpg",
+            "minLength": 1,
+            "maxLength": 65535,
+            "format": "uri"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "filename",
+          "file_type",
+          "url"
+        ],
+        "additionalProperties": false
+      },
       "Video": {
         "title": "Video",
         "type": "object",
@@ -12464,6 +12559,13 @@
             "description": "images",
             "items": {
               "$ref": "#/components/schemas/Image"
+            }
+          },
+          "files": {
+            "type": "array",
+            "description": "files",
+            "items": {
+              "$ref": "#/components/schemas/File"
             }
           },
           "videos": {
