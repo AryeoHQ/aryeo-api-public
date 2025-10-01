@@ -9491,6 +9491,14 @@
             "type": "boolean",
             "description": "Whether the page is active.",
             "example": true
+          },
+          "page": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The page number this link points to.",
+            "example": 2
           }
         },
         "required": [
@@ -10270,6 +10278,156 @@
         },
         "required": [
           "status"
+        ],
+        "additionalProperties": false
+      },
+      "ImpersonatePostPayload": {
+        "type": "object",
+        "title": "ImpersonatePostPayload",
+        "description": "Values needed to impersonate a company user.",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Admin user email.",
+            "format": "email",
+            "example": "john.doe@gmail.com",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "password": {
+            "type": "string",
+            "description": "Admin user password.",
+            "example": "P@$$w0Rd",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "company_team_member_id": {
+            "type": "string",
+            "description": "ID of company team member.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid",
+            "example": "00000000-0000-4000-8000-000000000000"
+          },
+          "client": {
+            "type": "string",
+            "description": "The type of client.",
+            "example": "IOS",
+            "minLength": 1,
+            "maxLength": 255,
+            "enum": [
+              "IOS",
+              "ANDROID",
+              "PHPUNIT"
+            ]
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "company_team_member_id",
+          "client"
+        ],
+        "additionalProperties": false
+      },
+      "PersonalAccessToken": {
+        "type": "object",
+        "title": "PersonalAccessToken",
+        "description": "A personal access token, its user, and the it's users group (if applicable).",
+        "properties": {
+          "object": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "A canonical value representing a resource.",
+            "example": "PERSONAL_ACCESS_TOKEN"
+          },
+          "token": {
+            "type": "string",
+            "minLength": 0,
+            "description": "Authorization token for a user.",
+            "example": "token",
+            "maxLength": 8000
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "group": {
+            "$ref": "#/components/schemas/Group"
+          }
+        },
+        "required": [
+          "token",
+          "user"
+        ],
+        "additionalProperties": false
+      },
+      "PersonalAccessTokenResource": {
+        "title": "PersonalAccessTokenResource",
+        "type": "object",
+        "description": "A personal access token.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PersonalAccessToken"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "ApiError409": {
+        "type": "object",
+        "title": "ApiError409",
+        "description": "A conflict error returned by the API.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "message": {
+            "type": "string",
+            "description": "The error message.",
+            "example": "{ApiError message.}",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "code": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "A numeric code corresponding to the error.",
+            "example": 409
+          }
+        },
+        "required": [
+          "status",
+          "message"
         ],
         "additionalProperties": false
       },
@@ -14433,40 +14591,6 @@
         },
         "additionalProperties": false
       },
-      "ApiError409": {
-        "type": "object",
-        "title": "ApiError409",
-        "description": "A conflict error returned by the API.",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "error",
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "What was the state of the request?"
-          },
-          "message": {
-            "type": "string",
-            "description": "The error message.",
-            "example": "{ApiError message.}",
-            "minLength": 0,
-            "maxLength": 255
-          },
-          "code": {
-            "type": [
-              "integer",
-              "null"
-            ],
-            "description": "A numeric code corresponding to the error.",
-            "example": 409
-          }
-        },
-        "required": [
-          "status",
-          "message"
-        ],
-        "additionalProperties": false
-      },
       "AppointmentReschedulePutPayload": {
         "title": "AppointmentReschedulePayload",
         "type": "object",
@@ -16430,73 +16554,6 @@
           "email",
           "password",
           "client"
-        ],
-        "additionalProperties": false
-      },
-      "PersonalAccessToken": {
-        "type": "object",
-        "title": "PersonalAccessToken",
-        "description": "A personal access token, its user, and the it's users group (if applicable).",
-        "properties": {
-          "object": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "A canonical value representing a resource.",
-            "example": "PERSONAL_ACCESS_TOKEN"
-          },
-          "token": {
-            "type": "string",
-            "minLength": 0,
-            "description": "Authorization token for a user.",
-            "example": "token",
-            "maxLength": 8000
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "group": {
-            "$ref": "#/components/schemas/Group"
-          }
-        },
-        "required": [
-          "token",
-          "user"
-        ],
-        "additionalProperties": false
-      },
-      "PersonalAccessTokenResource": {
-        "title": "PersonalAccessTokenResource",
-        "type": "object",
-        "description": "A personal access token.",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "success",
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "What was the state of the request?"
-          },
-          "data": {
-            "$ref": "#/components/schemas/PersonalAccessToken"
-          },
-          "timestamp": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The request timestamp (ISO 8601).",
-            "format": "date-time",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2021-06-30T20:30:00Z"
-          }
-        },
-        "required": [
-          "status"
         ],
         "additionalProperties": false
       },
