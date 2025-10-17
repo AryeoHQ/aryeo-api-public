@@ -10593,6 +10593,24 @@
             "type": "boolean",
             "description": "Indicates if the customer group is archived.",
             "example": true
+          },
+          "website": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The website URL of the customer group.",
+            "example": "https://www.aryeo.com"
+          },
+          "is_default": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the customer group is the default customer group.",
+            "example": true
           }
         },
         "required": [
@@ -14722,6 +14740,56 @@
         ],
         "additionalProperties": false
       },
+      "CustomerTeamNotesPutPayload": {
+        "title": "CustomerTeamNotesPutPayload",
+        "type": "object",
+        "description": "Payload for updating customer team notes.",
+        "properties": {
+          "internal_notes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Internal notes for the customer team.",
+            "minLength": 0,
+            "maxLength": 65535,
+            "example": "These are internal notes about the customer team."
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerTeamResource": {
+        "title": "CustomerTeamResource",
+        "type": "object",
+        "description": "A customer team.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CustomerGroup"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
       "CustomerTeamTagsPutPayload": {
         "title": "CustomerTeamTagsPutPayload",
         "type": "object",
@@ -15827,6 +15895,56 @@
         },
         "required": [
           "status"
+        ],
+        "additionalProperties": false
+      },
+      "DeleteUserPostPayload": {
+        "type": "object",
+        "title": "DeleteUserPostPayload",
+        "description": "The user to create a delete request for.",
+        "properties": {
+          "company_id": {
+            "type": "string",
+            "description": "The ID of the company this user is associated with.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000"
+          },
+          "email": {
+            "type": "string",
+            "description": "An email.",
+            "format": "email",
+            "example": "john.doe@gmail.com",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "password": {
+            "type": "string",
+            "description": "A password.",
+            "example": "P@$$w0Rd",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "client": {
+            "type": "string",
+            "description": "The type of client.",
+            "example": "IOS",
+            "minLength": 1,
+            "maxLength": 255,
+            "enum": [
+              "IOS",
+              "ANDROID",
+              "PHPUNIT"
+            ]
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "company_id",
+          "client"
         ],
         "additionalProperties": false
       },
