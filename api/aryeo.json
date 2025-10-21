@@ -10593,6 +10593,24 @@
             "type": "boolean",
             "description": "Indicates if the customer group is archived.",
             "example": true
+          },
+          "website": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The website URL of the customer group.",
+            "example": "https://www.aryeo.com"
+          },
+          "is_default": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the customer group is the default customer group.",
+            "example": true
           }
         },
         "required": [
@@ -14704,6 +14722,56 @@
           },
           "links": {
             "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "CustomerTeamNotesPutPayload": {
+        "title": "CustomerTeamNotesPutPayload",
+        "type": "object",
+        "description": "Payload for updating customer team notes.",
+        "properties": {
+          "internal_notes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Internal notes for the customer team.",
+            "minLength": 0,
+            "maxLength": 65535,
+            "example": "These are internal notes about the customer team."
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerTeamResource": {
+        "title": "CustomerTeamResource",
+        "type": "object",
+        "description": "A customer team.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CustomerGroup"
           },
           "timestamp": {
             "type": [
