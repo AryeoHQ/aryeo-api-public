@@ -19862,6 +19862,227 @@
         ],
         "additionalProperties": false
       },
+      "Review": {
+        "title": "Review",
+        "type": "object",
+        "description": "A user review.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "description": "String representing type. Objects of the same type share the same schema.",
+            "example": "REVIEW",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "id": {
+            "type": "string",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "ID of the review. UUID Version 4.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "user_id": {
+            "type": "string",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "ID of the user. UUID Version 4.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "review_campaign_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "ID of the review campaign. UUID Version 4.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android",
+              "web"
+            ],
+            "example": "ios",
+            "description": "The source type of the review.",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "rating": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The rating given in the review (0.0-1.0).",
+            "example": 0.85,
+            "minimum": 0,
+            "maximum": 1
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Additional notes provided in the review.",
+            "example": "Great experience with the app!",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The date and time (ISO 8601 format) when the review was created.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "The date and time (ISO 8601 format) when the review was last updated.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "user_id",
+          "source_type",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "ReviewCollection": {
+        "title": "ReviewCollection",
+        "type": "object",
+        "description": "A collection of reviews.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/Review"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "ReviewPostPayload": {
+        "title": "ReviewPostPayload",
+        "type": "object",
+        "properties": {
+          "campaign_slug": {
+            "type": "string",
+            "description": "The slug of the review campaign. Campaign will be auto-created if it doesn't exist.",
+            "example": "aryeo-go-3.2.0",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android",
+              "web"
+            ],
+            "example": "ios",
+            "description": "The source type of the review.",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "rating": {
+            "type": "number",
+            "description": "The rating given in the review (0.0-1.0).",
+            "example": 0.85,
+            "minimum": 0,
+            "maximum": 1
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes provided in the review.",
+            "example": "Great experience with the app!",
+            "minLength": 0,
+            "maxLength": 65536
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "campaign_slug",
+          "source_type"
+        ]
+      },
+      "ReviewResource": {
+        "title": "ReviewResource",
+        "type": "object",
+        "description": "A review.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Review"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ]
+      },
       "CalendarDay": {
         "description": "A bookable time range with available users.",
         "type": "object",
