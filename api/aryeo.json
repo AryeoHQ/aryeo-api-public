@@ -3588,6 +3588,7 @@
                 "FOR_SALE",
                 "PENDING_SALE",
                 "PENDING_LEASE",
+                "FOR_RENT",
                 "SOLD",
                 "LEASED",
                 "OFF_MARKET",
@@ -13552,6 +13553,7 @@
               "FOR_LEASE",
               "PENDING_SALE",
               "PENDING_LEASE",
+              "FOR_RENT",
               "SOLD",
               "LEASED",
               "OFF_MARKET"
@@ -18732,6 +18734,7 @@
               "FOR_LEASE",
               "PENDING_SALE",
               "PENDING_LEASE",
+              "FOR_RENT",
               "SOLD",
               "LEASED",
               "OFF_MARKET"
