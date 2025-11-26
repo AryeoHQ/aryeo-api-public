@@ -187,11 +187,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "AddressResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/AddressResource"
                 }
               }
             }
@@ -227,7 +227,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get address.",
         "operationId": "addresses-address-get",
@@ -256,11 +256,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "AddressResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/AddressResource"
                 }
               }
             }
@@ -296,7 +296,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressPatchPayload"
+              }
+            }
+          },
+          "description": "AddressPatchPayload"
+        },
+        "x-undocumented": false,
         "x-external": true,
         "description": "Update address.",
         "operationId": "addresses-address-patch",
@@ -808,11 +818,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "AppointmentResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/AppointmentResource"
                 }
               }
             }
@@ -848,8 +858,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentPostponePutPayload"
+              }
+            }
+          }
+        },
         "description": "Postpone appointment.",
         "operationId": "appointments-appointment-id-postpone-put",
         "tags": [
@@ -986,11 +1005,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "AppointmentResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/AppointmentResource"
                 }
               }
             }
@@ -1026,8 +1045,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentAcceptPutPayload"
+              }
+            }
+          }
+        },
         "description": "Accept appointment.",
         "operationId": "appointments-appointment-id-accept-put",
         "tags": [
@@ -1061,11 +1089,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "AppointmentResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/AppointmentResource"
                 }
               }
             }
@@ -1101,8 +1129,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentDeclinePutPayload"
+              }
+            }
+          }
+        },
         "description": "Decline appointment.",
         "operationId": "appointments-appointment-id-decline-put",
         "tags": [
@@ -1136,11 +1173,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "AppointmentResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/AppointmentResource"
                 }
               }
             }
@@ -1176,8 +1213,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentSchedulePutPayload"
+              }
+            }
+          }
+        },
         "description": "Schedule appointment.",
         "operationId": "appointments-appointment-id-schedule-put",
         "tags": [
@@ -1207,15 +1253,41 @@
             "in": "path",
             "required": true,
             "description": "The ID of an appointment. UUID Version 4."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "assignee_id",
+            "in": "query",
+            "required": true,
+            "description": "The ID of a company team member. UUID Version 4."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "example": 60,
+              "minimum": 1,
+              "maximum": 360
+            },
+            "name": "duration",
+            "in": "query",
+            "required": true,
+            "description": "The duration of the event to schedule."
           }
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "AvailabilityResponse",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/AvailabilityResponse"
                 }
               }
             }
@@ -1251,14 +1323,14 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
-        "description": "Appointment availability.",
+        "description": "Check appointment availability.",
         "operationId": "appointments-appointment-id-availability-get",
         "tags": [
           "Appointments"
         ],
-        "summary": "Appointment availability.",
+        "summary": "Check appointment availability.",
         "security": [
           {
             "Token": []
@@ -1286,11 +1358,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Appointment3dhTourLinkResponse",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/Appointment3dhTourLinkResponse"
                 }
               }
             }
@@ -1326,7 +1398,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get appointment 3D Home Capture link.",
         "operationId": "appointments-appointment-id-3dh-tour-link-get",
@@ -1344,12 +1416,12 @@
     "/appointments/store": {
       "post": {
         "responses": {
-          "201": {
-            "description": "201",
+          "200": {
+            "description": "AppointmentResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/AppointmentResource"
                 }
               }
             }
@@ -1375,7 +1447,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentStorePostPayload"
+              }
+            }
+          },
+          "description": "AppointmentStorePostPayload"
+        },
+        "x-undocumented": false,
         "x-external": true,
         "description": "Create appointment.",
         "operationId": "appointments-store-post",
@@ -1393,12 +1475,12 @@
     "/billing/setup-intents": {
       "post": {
         "responses": {
-          "201": {
-            "description": "201",
+          "200": {
+            "description": "SetupIntentResponse",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/SetupIntentResponse"
                 }
               }
             }
@@ -1424,7 +1506,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Create billing setup intent.",
         "operationId": "billing-setup-intents-post",
@@ -1443,11 +1525,11 @@
       "post": {
         "responses": {
           "201": {
-            "description": "201",
+            "description": "CalendarEventResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CalendarEventResource"
                 }
               }
             }
@@ -1473,8 +1555,18 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "description": "BlockPostPayload",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlockPostPayload"
+              }
+            }
+          }
+        },
         "description": "Create block.",
         "operationId": "blocks-post",
         "tags": [
@@ -1507,15 +1599,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+          "204": {
+            "description": "No Content"
           },
           "404": {
             "description": "ApiError404",
@@ -1548,7 +1633,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Delete block.",
         "operationId": "blocks-block-id-delete",
@@ -1581,11 +1666,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CalendarBlockResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CalendarBlockResource"
                 }
               }
             }
@@ -1621,7 +1706,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get block.",
         "operationId": "blocks-block-id-get",
@@ -1654,11 +1739,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CalendarEventResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CalendarEventResource"
                 }
               }
             }
@@ -1694,7 +1779,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Update block.",
         "operationId": "blocks-block-id-put",
@@ -1709,74 +1794,15 @@
         ]
       }
     },
-    "/command-palette/commands": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ApiError404",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError404"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "ApiFail422",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiFail422"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ApiError500",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError500"
-                }
-              }
-            }
-          }
-        },
-        "x-undocumented": true,
-        "x-external": true,
-        "description": "List commands.",
-        "operationId": "command-palette-commands-get",
-        "tags": [
-          "Tasks"
-        ],
-        "summary": "List commands.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
-      }
-    },
     "/company-team-members": {
       "get": {
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CompanyTeamMemberCollection",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CompanyTeamMemberCollection"
                 }
               }
             }
@@ -1812,8 +1838,68 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "description": "Search term for company team members.",
+              "minLength": 1,
+              "maxLength": 255,
+              "example": "Brendan"
+            },
+            "in": "query",
+            "name": "filter[search]",
+            "description": "Return company team members with a match on the search term."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "Comma separated list of company team member IDs.",
+              "minLength": 1,
+              "maxLength": 255,
+              "example": "00000000-0000-4000-8000-000000000000,00000000-0000-4000-8000-000000000001"
+            },
+            "in": "query",
+            "name": "filter[ids]",
+            "description": "Return company team members with a match on the search term."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "company"
+            },
+            "in": "query",
+            "name": "include",
+            "description": "Comma separated list of optional data to include in the response.",
+            "allowEmptyValue": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "25",
+              "minLength": 1,
+              "maxLength": 5
+            },
+            "in": "query",
+            "name": "per_page",
+            "description": "The number of items per page. Defaults to 25."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 5,
+              "example": "2"
+            },
+            "in": "query",
+            "name": "page",
+            "description": "The requested page. Defaults to 1."
+          }
+        ],
         "description": "List company team members.",
         "operationId": "company-team-members-get",
         "tags": [
@@ -1843,15 +1929,27 @@
             "in": "path",
             "required": true,
             "description": "The ID of a company team member. UUID Version 4."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "company"
+            },
+            "in": "query",
+            "name": "include",
+            "description": "Comma separated list of optional data to include in the response.",
+            "allowEmptyValue": true
           }
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CompanyTeamMemberResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CompanyTeamMemberResource"
                 }
               }
             }
@@ -1887,7 +1985,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get company team member.",
         "operationId": "company-team-members-company-team-member-id-get",
@@ -1918,15 +2016,67 @@
             "in": "path",
             "required": true,
             "description": "The ID of a company team member. UUID Version 4."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2020-12-29T00:00:00-00:00",
+              "minLength": 20,
+              "maxLength": 20
+            },
+            "name": "start",
+            "in": "query",
+            "description": "The start date and time of the calendar events. ISO 8601 format."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2020-12-31T00:00:00-00:00",
+              "minLength": 20,
+              "maxLength": 20
+            },
+            "name": "end",
+            "in": "query",
+            "description": "The end date and time of the calendar events. ISO 8601 format."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "APPOINTMENT",
+              "minLength": 0,
+              "maxLength": 255,
+              "enum": [
+                "APPOINTMENT",
+                "CALENDAR_BLOCK",
+                "EXTERNAL",
+                "BUFFER",
+                "DECLINED_APPOINTMENT",
+                "UNSCHEDULED_APPOINTMENT"
+              ]
+            },
+            "name": "type",
+            "in": "query",
+            "description": "The type of the calendar events."
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "example": true
+            },
+            "name": "include_unscheduled",
+            "in": "query",
+            "description": "Include unscheduled appointments."
           }
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CalendarEventCollection",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CalendarEventCollection"
                 }
               }
             }
@@ -1962,7 +2112,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "List company team member events.",
         "operationId": "company-team-members-company-team-member-id-events-get",
@@ -2122,15 +2272,26 @@
             "in": "path",
             "required": true,
             "description": "The ID of a customer team member. UUID Version 4."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "customer"
+            },
+            "in": "query",
+            "name": "include",
+            "description": "Comma separated list of optional data to include in the response"
           }
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CustomerTeamMembershipResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CustomerTeamMembershipResource"
                 }
               }
             }
@@ -2166,7 +2327,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get customer team member.",
         "operationId": "customer-team-members-customer-team-member-id-get",
@@ -2197,15 +2358,69 @@
             "in": "path",
             "required": true,
             "description": "The ID of a customer team. UUID Version 4."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "search"
+            },
+            "in": "query",
+            "name": "filter[search]",
+            "description": "The search query to filter the customer team memberships."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "google.com"
+            },
+            "in": "query",
+            "name": "filter[email_domains][]",
+            "description": "The email domains to filter the customer team memberships."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255,
+              "example": "name"
+            },
+            "in": "query",
+            "name": "sort",
+            "description": "The field to sort the customer team memberships by."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "example": 10
+            },
+            "in": "query",
+            "name": "per_page",
+            "description": "The number of customer team memberships to return per page."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "example": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "The page number to return."
           }
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CustomerTeamMembershipCollection",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CustomerTeamMembershipCollection"
                 }
               }
             }
@@ -2241,7 +2456,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "List customer team memberships.",
         "operationId": "customer-teams-customer-team-id-memberships-get",
@@ -2260,11 +2475,11 @@
       "post": {
         "responses": {
           "201": {
-            "description": "201",
+            "description": "CustomerTeamMembershipResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CustomerTeamMembershipResource"
                 }
               }
             }
@@ -2290,8 +2505,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerTeamAffiliateMembershipPostPayload"
+              }
+            }
+          }
+        },
         "description": "Create customer team affiliate membership.",
         "operationId": "customer-teams-affiliate-memberships-post",
         "tags": [
@@ -2325,11 +2549,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CustomerTeamResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CustomerTeamResource"
                 }
               }
             }
@@ -2355,7 +2579,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Create customer team tag.",
         "operationId": "customer-teams-customer-team-id-tags-post",
@@ -3246,55 +3470,6 @@
           "Discounts"
         ],
         "summary": "Delete discount."
-      }
-    },
-    "/interactive-contents/url-check": {
-      "post": {
-        "responses": {
-          "201": {
-            "description": "201",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "ApiFail422",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiFail422"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ApiError500",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError500"
-                }
-              }
-            }
-          }
-        },
-        "x-undocumented": true,
-        "x-external": true,
-        "description": "Check interactive contents URL.",
-        "operationId": "interactive-contents-url-check-post",
-        "tags": [
-          "Orders"
-        ],
-        "summary": "Check interactive contents URL.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
       }
     },
     "/listings": {
@@ -8659,6 +8834,48 @@
             ],
             "example": true,
             "description": "Indicates if the user is a super user."
+          },
+          "verification_status": {
+            "type": "string",
+            "description": "The verification status of the user.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "verified",
+            "enum": [
+              "verified",
+              "unverified",
+              "new",
+              "sso"
+            ]
+          },
+          "password_expiration_days": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The number of days until the user's password expires.",
+            "example": 30
+          },
+          "timezone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "description": "The default timezone for the user.",
+            "example": "America/New_York"
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the user was created.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
           }
         },
         "required": [
@@ -8936,7 +9153,8 @@
                 "zillow_3d_home",
                 "zillow_media_exclusives",
                 "zillow_photographer_branding",
-                "zillow_rentals"
+                "zillow_rentals",
+                "zillow_streeteasy"
               ]
             }
           },
@@ -9388,9 +9606,12 @@
             "minLength": 1,
             "maxLength": 255,
             "enum": [
-              "WEB",
+              "ANDROID",
+              "ANDROID_ARYEO_GO",
+              "API",
               "IOS",
-              "API"
+              "IOS_ARYEO_GO",
+              "WEB"
             ],
             "example": "API",
             "description": "The source of the activity."
@@ -10281,6 +10502,585 @@
         ],
         "additionalProperties": false
       },
+      "AddressPatchPayload": {
+        "title": "AddressPatchPayload",
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The geographic latitude of some reference point of the location, specified in degrees and decimal parts. Positive numbers must not include the plus symbol.",
+            "example": 42.35157458574123,
+            "minimum": -180,
+            "maximum": 180
+          },
+          "longitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The geographic longitude of some reference point of the location, specified in degrees and decimal parts. Positive numbers must not include the plus symbol.",
+            "example": -71.05763741484657,
+            "maximum": 180,
+            "minimum": -180
+          },
+          "street_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "107",
+            "description": "The street number portion of a location's address. In some areas, the street number may contain non-numeric characters. This field can also contain extensions and modifiers to the street number, such as '1/2' or '-B'."
+          },
+          "street_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The street name portion of a location's address.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "South St"
+          },
+          "unit_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The number or portion of a larger building or complex. Examples are: 'APT G', '55', etc.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Unit 2F"
+          },
+          "postal_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The postal code portion of a location's address.",
+            "example": "02111",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The city of a location's address.",
+            "example": "Boston",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "city_region": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A sub-section or area of a defined city. Examples would be SoHo in New York, NY, Ironbound in Newark, NJ or Inside the Beltway.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Leather District"
+          },
+          "county_or_parish": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The County, Parish or other regional authority of the location.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Suffolk County"
+          },
+          "state_or_province": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ISO 3166-2 subdivision code for the state or province of the location. For example, \u201cMA\u201d for Massachusetts, United States.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "MA"
+          },
+          "state_or_province_region": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A sub-section or area of a defined state or province. Examples would be the Keys in FL or Hudson Valley in NY.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Cape Cod"
+          },
+          "country": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ISO 3166-1 country code for this for the country of the location.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "US"
+          },
+          "country_region": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A sub-section or area of a defined country. Examples would be Napa Valley in the US, or the Amalfi Coast in Italy.",
+            "example": "Napa Valley",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "external_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The type of external ID for the address.",
+            "enum": [
+              "GOOGLE"
+            ],
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "external_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The external ID for the address.",
+            "example": "1234567890",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "external_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The URL for the address.",
+            "example": "https://www.google.com",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "external_data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "The external data for the address.",
+            "items": {
+              "type": "object",
+              "description": "A key-value pair of custom field data.",
+              "additionalProperties": false
+            }
+          },
+          "is_map_dirty": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Does this address need to be geocoded?",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddressPredictionResult": {
+        "title": "AddressPredictionResult",
+        "type": "object",
+        "description": "Prediction result for an address.",
+        "properties": {
+          "external_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The type of external ID for the address.",
+            "enum": [
+              "GOOGLE"
+            ],
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "external_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The external ID for the address.",
+            "example": "1234567890",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "unparsed_address": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Unparsed text representation of the address. ",
+            "example": "107 South St, Boston MA, 02111",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "unparsed_address_part_one": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "Unparsed text representation of the first part of the address, typically including the street number, street name, and unit number if applicable.  ",
+            "example": "107 South St, Unit 2F"
+          },
+          "unparsed_address_part_two": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "Unparsed text representation of the second part of the address, typically including the city, state or province, and postal code.  ",
+            "example": "Boston, MA 02111"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "external_type",
+          "external_id",
+          "unparsed_address",
+          "unparsed_address_part_one",
+          "unparsed_address_part_two"
+        ]
+      },
+      "AddressPredictionResultCollection": {
+        "title": "AddressExternalCollection",
+        "type": "object",
+        "description": "A collection of external data for addresses.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/AddressPredictionResult"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ]
+      },
+      "AddressSearchResult": {
+        "title": "AddressSearchResult",
+        "type": "object",
+        "description": "Search result for an address.",
+        "properties": {
+          "latitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The geographic latitude of some reference point of the location, specified in degrees and decimal parts. Positive numbers must not include the plus symbol.",
+            "example": 42.35157458574123,
+            "minimum": -180,
+            "maximum": 180
+          },
+          "longitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The geographic longitude of some reference point of the location, specified in degrees and decimal parts. Positive numbers must not include the plus symbol.",
+            "example": -71.05763741484657,
+            "maximum": 180,
+            "minimum": -180
+          },
+          "street_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "107",
+            "description": "The street number portion of a location's address. In some areas, the street number may contain non-numeric characters. This field can also contain extensions and modifiers to the street number, such as '1/2' or '-B'."
+          },
+          "street_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The street name portion of a location's address.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "South St"
+          },
+          "unit_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The number or portion of a larger building or complex. Examples are: 'APT G', '55', etc.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Unit 2F"
+          },
+          "postal_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The postal code portion of a location's address.",
+            "example": "02111",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The city of a location's address.",
+            "example": "Boston",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "city_region": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A sub-section or area of a defined city. Examples would be SoHo in New York, NY, Ironbound in Newark, NJ or Inside the Beltway.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Leather District"
+          },
+          "county_or_parish": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The County, Parish or other regional authority of the location.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Suffolk County"
+          },
+          "state_or_province": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ISO 3166-2 subdivision code for the state or province of the location. For example, \u201cMA\u201d for Massachusetts, United States.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "MA"
+          },
+          "state_or_province_region": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A sub-section or area of a defined state or province. Examples would be the Keys in FL or Hudson Valley in NY.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "Cape Cod"
+          },
+          "country": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ISO 3166-1 country code for this for the country of the location.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "US"
+          },
+          "country_region": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A sub-section or area of a defined country. Examples would be Napa Valley in the US, or the Amalfi Coast in Italy.",
+            "example": "Napa Valley",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "timezone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The assumed timezone the address is located in.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "America/New_York"
+          },
+          "unparsed_address": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Unparsed text representation of the address. ",
+            "example": "107 South St, Boston MA, 02111",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "unparsed_address_part_one": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "Unparsed text representation of the first part of the address, typically including the street number, street name, and unit number if applicable.  ",
+            "example": "107 South St, Unit 2F"
+          },
+          "unparsed_address_part_one_formatting": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The formatting of the first part of the address.",
+            "example": "107 South St, Unit 2F",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "unparsed_address_part_two": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "Unparsed text representation of the second part of the address, typically including the city, state or province, and postal code.  ",
+            "example": "Boston, MA 02111"
+          },
+          "unparsed_address_part_two_formatting": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The formatting of the second part of the address.",
+            "example": "Boston, MA 02111",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "is_map_dirty": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "example": true,
+            "description": "Does this address need to be geocoded?"
+          },
+          "external_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The type of external ID for the address.",
+            "enum": [
+              "GOOGLE"
+            ],
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "external_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The external ID for the address.",
+            "example": "1234567890",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "external_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The URL for the address.",
+            "example": "https://maps.google.com/?cid=6291612540436414195",
+            "minLength": 0,
+            "maxLength": 255,
+            "format": "uri"
+          },
+          "external_data": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "The external data for the address."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddressSearchResultResource": {
+        "title": "AddressSearchResultResource",
+        "type": "object",
+        "description": "Search result for an address.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/AddressSearchResult"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ]
+      },
       "ImpersonatePostPayload": {
         "type": "object",
         "title": "ImpersonatePostPayload",
@@ -10428,6 +11228,82 @@
         "required": [
           "status",
           "message"
+        ],
+        "additionalProperties": false
+      },
+      "Tag": {
+        "title": "Tag",
+        "type": "object",
+        "description": "A label attached to something for the purpose of identification or categorization.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 19,
+            "maxLength": 19,
+            "enum": [
+              "APP\\TAGS\\MODELS\\TAG"
+            ],
+            "example": "APP\\TAGS\\MODELS\\TAG",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "description": "ID. UUID Version 4.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the tag.",
+            "example": "Photography",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the tag.",
+            "example": "photography",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "color": {
+            "type": "string",
+            "description": "The background color of the tag.",
+            "example": "#8BC34A",
+            "minLength": 7,
+            "maxLength": 7
+          },
+          "font_color": {
+            "type": "string",
+            "description": "The font color of the tag.",
+            "example": "#FFFFFF",
+            "minLength": 7,
+            "maxLength": 7
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the tag.",
+            "example": "order",
+            "minLength": 5,
+            "maxLength": 18,
+            "enum": [
+              "order",
+              "customer_team",
+              "product",
+              "order_form",
+              "virtual_staging_ai"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "color",
+          "font_color"
         ],
         "additionalProperties": false
       },
@@ -10611,6 +11487,15 @@
             ],
             "description": "Indicates if the customer group is the default customer group.",
             "example": true
+          },
+          "company": {
+            "$ref": "#/components/schemas/Group"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
           }
         },
         "required": [
@@ -10850,8 +11735,7 @@
         "required": [
           "id",
           "role",
-          "status",
-          "customer_team"
+          "status"
         ],
         "additionalProperties": false
       },
@@ -11129,6 +12013,24 @@
             "maxLength": 255,
             "description": "The Quickbooks customer ID of the customer.",
             "example": "1234567890"
+          },
+          "is_super": {
+            "type": "boolean",
+            "description": "Whether the customer is a super user.",
+            "example": true
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the customer.",
+            "example": "active",
+            "enum": [
+              "active",
+              "inactive",
+              "new",
+              "sso"
+            ],
+            "minLength": 0,
+            "maxLength": 255
           }
         },
         "required": [
@@ -12660,22 +13562,17 @@
               "string",
               "null"
             ],
-            "example": "COMING_SOON",
-            "description": "The status of the listing as it reflects the state of the contract between the listing agent and seller or an agreement with a buyer, including Active, Active Under Contract, Canceled, Closed, Expired, Pending, and Withdrawn.",
+            "example": "ACTIVE",
+            "description": "The status of the listing as it reflects the state of the contract between the listing agent and seller or an agreement with a buyer, including Active, Active Under Contract, Closed, Coming Soon, Hold, and Incomplete.",
             "minLength": 1,
             "maxLength": 100,
             "enum": [
               "ACTIVE",
               "ACTIVE_UNDER_CONTRACT",
-              "CANCELED",
               "CLOSED",
               "COMING_SOON",
-              "DELETE",
-              "EXPIRED",
               "HOLD",
-              "INCOMPLETE",
-              "PENDING",
-              "WITHDRAWN"
+              "INCOMPLETE"
             ]
           },
           "thumbnail_url": {
@@ -13394,82 +14291,6 @@
         },
         "required": [
           "id"
-        ],
-        "additionalProperties": false
-      },
-      "Tag": {
-        "title": "Tag",
-        "type": "object",
-        "description": "A label attached to something for the purpose of identification or categorization.",
-        "properties": {
-          "object": {
-            "type": "string",
-            "minLength": 19,
-            "maxLength": 19,
-            "enum": [
-              "APP\\TAGS\\MODELS\\TAG"
-            ],
-            "example": "APP\\TAGS\\MODELS\\TAG",
-            "description": "A canonical value representing a resource."
-          },
-          "id": {
-            "type": "string",
-            "description": "ID. UUID Version 4.",
-            "minLength": 36,
-            "maxLength": 36,
-            "format": "uuid",
-            "example": "00000000-0000-4000-8000-000000000000",
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
-          },
-          "name": {
-            "type": "string",
-            "description": "The name of the tag.",
-            "example": "Photography",
-            "minLength": 1,
-            "maxLength": 255
-          },
-          "slug": {
-            "type": "string",
-            "description": "The slug of the tag.",
-            "example": "photography",
-            "minLength": 1,
-            "maxLength": 255
-          },
-          "color": {
-            "type": "string",
-            "description": "The background color of the tag.",
-            "example": "#8BC34A",
-            "minLength": 7,
-            "maxLength": 7
-          },
-          "font_color": {
-            "type": "string",
-            "description": "The font color of the tag.",
-            "example": "#FFFFFF",
-            "minLength": 7,
-            "maxLength": 7
-          },
-          "type": {
-            "type": "string",
-            "description": "The type of the tag.",
-            "example": "order",
-            "minLength": 5,
-            "maxLength": 18,
-            "enum": [
-              "order",
-              "customer_team",
-              "product",
-              "order_form",
-              "virtual_staging_ai"
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "slug",
-          "color",
-          "font_color"
         ],
         "additionalProperties": false
       },
@@ -14294,7 +15115,6 @@
           }
         },
         "required": [
-          "object",
           "name"
         ],
         "additionalProperties": false
@@ -14366,6 +15186,110 @@
           },
           "company_user": {
             "$ref": "#/components/schemas/User"
+          },
+          "has_owner_role": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member has the owner role",
+            "example": true
+          },
+          "is_owner": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member is the owner",
+            "example": true
+          },
+          "invitation_accepted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the company team member invitation was accepted",
+            "format": "date-time",
+            "minLength": 27,
+            "maxLength": 27,
+            "example": "2025-04-01T05:59:59.999999Z"
+          },
+          "role": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The role of the team member",
+            "example": "ADMIN",
+            "enum": [
+              "ADMIN",
+              "MEMBER",
+              "OWNER"
+            ]
+          },
+          "status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The status of the team member",
+            "example": "active",
+            "enum": [
+              "active",
+              "invited",
+              "revoked"
+            ]
+          },
+          "is_active": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member is active",
+            "example": true
+          },
+          "is_invited": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member is invited",
+            "example": true
+          },
+          "is_revoked": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member is revoked",
+            "example": true
+          },
+          "scheduling_priority": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The scheduling priority of the team member",
+            "example": 1
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the company team member was created",
+            "format": "date-time",
+            "minLength": 27,
+            "maxLength": 27,
+            "example": "2025-04-01T05:59:59.999999Z"
+          },
+          "require_appointment_confirmation": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member requires appointment confirmation",
+            "example": true
           }
         },
         "required": [
@@ -14428,9 +15352,9 @@
             ],
             "description": "The date and time (ISO 8601 format) when attendance was accepted.",
             "format": "date-time",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2021-06-30T20:30:00Z"
+            "minLength": 27,
+            "maxLength": 27,
+            "example": "2025-04-01T05:59:59.999999Z"
           },
           "declined_at": {
             "type": [
@@ -14439,9 +15363,9 @@
             ],
             "description": "The date and time (ISO 8601 format) when attendance was declined.",
             "format": "date-time",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2021-06-30T20:30:00Z"
+            "minLength": 27,
+            "maxLength": 27,
+            "example": "2025-04-01T05:59:59.999999Z"
           }
         },
         "required": [
@@ -14609,6 +15533,30 @@
         },
         "additionalProperties": false
       },
+      "AppointmentPostponePutPayload": {
+        "title": "AppointmentPostponePutPayload",
+        "type": "object",
+        "description": "Payload for postponing an appointment record.",
+        "properties": {
+          "notify": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Sends a notification to the appointment's order's customer that the appointment was postponed.",
+            "example": true
+          },
+          "waive_fee": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Waives the late postponement fee for the appointment.",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
       "AppointmentReschedulePutPayload": {
         "title": "AppointmentReschedulePayload",
         "type": "object",
@@ -14650,6 +15598,268 @@
           "end_at"
         ],
         "additionalProperties": false
+      },
+      "AppointmentAcceptPutPayload": {
+        "title": "AppointmentAcceptPutPayload",
+        "type": "object",
+        "description": "Payload for accepting an appointment record.",
+        "properties": [],
+        "additionalProperties": false
+      },
+      "AppointmentDeclinePutPayload": {
+        "title": "AppointmentDeclinePutPayload",
+        "type": "object",
+        "description": "Payload for declining an appointment record.",
+        "properties": {
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The reason for declining the appointment. This reason must match one of the options provided by the company.",
+            "example": "I am unable to attend this appointment.",
+            "minLength": 0,
+            "maxLength": 255
+          }
+        },
+        "additionalProperties": false
+      },
+      "AppointmentSchedulePutPayload": {
+        "title": "AppointmentReschedulePayload",
+        "type": "object",
+        "description": "Payload for rescheduling an appointment record.",
+        "properties": {
+          "auto_confirm": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Automatically confirms the appointment without requiring confirmation from the customer.",
+            "example": true
+          },
+          "waive_fee": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Waives the late postponement fee for the appointment.",
+            "example": true
+          },
+          "start_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The new date and time (ISO 8601 format) when the appointment is set to start.",
+            "example": "2021-06-30T20:30:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "format": "date-time"
+          },
+          "end_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The new date and time (ISO 8601 format) when the appointment is set to end.",
+            "example": "2021-06-30T21:30:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "format": "date-time"
+          },
+          "notify": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Send a notification to the appointment's order's customer that the appointment was rescheduled.",
+            "example": true
+          },
+          "company_team_member_ids": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "minLength": 36,
+              "maxLength": 36,
+              "description": "The IDs of the company team members assigned to the appointment."
+            }
+          },
+          "user_ids": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "minLength": 36,
+              "maxLength": 36,
+              "description": "The IDs of the user assigned to the appointment."
+            }
+          }
+        },
+        "required": [
+          "start_at",
+          "end_at"
+        ],
+        "additionalProperties": false
+      },
+      "AvailabilityResponse": {
+        "title": "AvailabilityResponse",
+        "type": "object",
+        "description": "Availability response.",
+        "properties": {
+          "has_conflicts": {
+            "type": "boolean",
+            "description": "Indicates if there are any conflicts with the appointment.",
+            "example": true
+          }
+        },
+        "required": [
+          "has_conflicts"
+        ],
+        "additionalProperties": false
+      },
+      "Appointment3dhTourLinkResponse": {
+        "title": "Appointment3dhTourLinkResponse",
+        "type": "object",
+        "description": "Appointment 3D Home Capture link response.",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The URL of the appointment 3D Home Capture link.",
+            "example": "https://www.zillow.com/3d-home-tour/1234567890",
+            "format": "uri",
+            "minLength": 1,
+            "maxLength": 65535
+          },
+          "last_tour_started_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time the last tour started.",
+            "example": "2021-01-01 12:00:00"
+          },
+          "last_tour_started_by": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The user who started the last tour.",
+            "example": "John Doe"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "AppointmentStorePostPayload": {
+        "title": "AppointmentStorePostPayload",
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "The ID of the order to attach to the appointment.",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "address_id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "The ID of the address to attach to the appointment. If the order already has an address, this field is ignored.",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "start_at": {
+            "type": "string",
+            "description": "The new date and time (ISO 8601 format) when the appointment is set to start.",
+            "example": "2021-06-30T20:30:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "format": "date-time"
+          },
+          "end_at": {
+            "type": "string",
+            "description": "The new date and time (ISO 8601 format) when the appointment is set to end.",
+            "example": "2021-06-30T21:30:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "format": "date-time"
+          },
+          "company_team_member_ids": {
+            "type": "array",
+            "description": "Array of company team member IDs to attach to the appointment.",
+            "items": {
+              "description": "ID of a company team member. UUID Version 4.",
+              "type": "string",
+              "minLength": 36,
+              "maxLength": 36,
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            }
+          },
+          "item_ids": {
+            "type": "array",
+            "description": "Array of order item IDs to attach to the appointment.",
+            "items": {
+              "description": "ID of an order item. UUID Version 4.",
+              "type": "string",
+              "minLength": 36,
+              "maxLength": 36,
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            }
+          },
+          "notify": {
+            "type": "boolean",
+            "description": "Sends a notification to the attached company team members and customer.",
+            "example": true
+          },
+          "notifyCompany": {
+            "type": "boolean",
+            "description": "Sends a notification to the attached company team members.",
+            "example": true
+          },
+          "notifyCustomer": {
+            "type": "boolean",
+            "description": "Sends a notification to the attached customer.",
+            "example": true
+          },
+          "user_ids": {
+            "type": "array",
+            "description": "DEPRECATED: Array of user IDs to attach to the appointment.",
+            "items": {
+              "description": "ID of a user. UUID Version 4.",
+              "type": "string",
+              "minLength": 36,
+              "maxLength": 36,
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "order_id",
+          "start_at",
+          "end_at"
+        ]
       },
       "AuthEmailCheckPostPayload": {
         "type": "object",
@@ -14695,6 +15905,482 @@
         },
         "additionalProperties": false
       },
+      "SetupIntentResponse": {
+        "type": "object",
+        "title": "SetupIntentResponse",
+        "description": "A SetupIntentResponse contains the information pertaining to the SetupIntent.",
+        "properties": {
+          "client_secret": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The client secret for the SetupIntent.",
+            "example": "abc-123",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "client_secret"
+        ],
+        "additionalProperties": false
+      },
+      "BlockPostPayload": {
+        "type": "object",
+        "title": "BlockPostPayload",
+        "description": "Payload for creating a block.",
+        "properties": {
+          "company_team_member_ids": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "The IDs of the company team members assigned to the block.",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "minLength": 36,
+              "maxLength": 36,
+              "description": "The IDs of the company team members assigned to the block."
+            }
+          },
+          "user_ids": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "The IDs of the users assigned to the block.",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "minLength": 36,
+              "maxLength": 36,
+              "description": "The IDs of the users assigned to the block."
+            }
+          },
+          "start_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-10-04T12:15:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "description": "The start time of the block (ISO 8601 format)."
+          },
+          "end_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-10-04T12:30:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "description": "The end time of the block (ISO 8601 format)."
+          },
+          "title": {
+            "type": "string",
+            "example": "Other appointment",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The title of the block."
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "This is a description of the block.",
+            "minLength": 0,
+            "maxLength": 2000,
+            "description": "The description of the block."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "start_at",
+          "end_at",
+          "title"
+        ]
+      },
+      "CalendarEvent": {
+        "description": "A calendar event.",
+        "type": "object",
+        "title": "CalendarEvent",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "The ID of the calendar event."
+          },
+          "type": {
+            "type": "string",
+            "example": "appointment",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The type of the calendar event.",
+            "enum": [
+              "APPOINTMENT",
+              "CALENDAR_BLOCK",
+              "EXTERNAL",
+              "BUFFER",
+              "DECLINED_APPOINTMENT",
+              "UNSCHEDULED_APPOINTMENT"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "example": "Other appointment",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The title of the calendar event."
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "sdjsudsudsds",
+            "minLength": 0,
+            "maxLength": 2000,
+            "description": "The description of the calendar event."
+          },
+          "start_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "example": "2020-10-04T12:15:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "description": "The start time of the calendar event (ISO 8601 format)."
+          },
+          "end_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "example": "2020-10-04T12:30:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "description": "The end time of the calendar event (ISO 8601 format)."
+          },
+          "is_all_day": {
+            "type": "boolean",
+            "description": "Is the calendar event all day?",
+            "example": true
+          },
+          "duration": {
+            "type": "integer",
+            "example": 60,
+            "description": "The duration of the calendar event in minutes."
+          },
+          "is_busy": {
+            "type": "boolean",
+            "example": true,
+            "description": "Is the calendar event busy?"
+          },
+          "requires_confirmation": {
+            "type": "boolean",
+            "example": true,
+            "description": "Does the calendar event require confirmation?"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "CalendarEventResource": {
+        "title": "CalendarEventResource",
+        "type": "object",
+        "description": "The calendar event resource.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CalendarEvent"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "CalendarBlock": {
+        "description": "A calendar block.",
+        "type": "object",
+        "title": "CalendarBlock",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "The ID of the calendar event."
+          },
+          "type": {
+            "type": "string",
+            "example": "appointment",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The type of the calendar event.",
+            "enum": [
+              "APPOINTMENT",
+              "CALENDAR_BLOCK",
+              "EXTERNAL",
+              "BUFFER",
+              "DECLINED_APPOINTMENT",
+              "UNSCHEDULED_APPOINTMENT"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "example": "Other appointment",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The title of the calendar event."
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "sdjsudsudsds",
+            "minLength": 0,
+            "maxLength": 2000,
+            "description": "The description of the calendar event."
+          },
+          "start_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-10-04T12:15:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "description": "The start time of the calendar event (ISO 8601 format)."
+          },
+          "end_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-10-04T12:30:00Z",
+            "minLength": 20,
+            "maxLength": 20,
+            "description": "The end time of the calendar event (ISO 8601 format)."
+          },
+          "is_all_day": {
+            "type": "boolean",
+            "description": "Is the calendar event all day?",
+            "example": true
+          },
+          "duration": {
+            "type": "integer",
+            "example": 60,
+            "description": "The duration of the calendar event in minutes."
+          },
+          "is_busy": {
+            "type": "boolean",
+            "example": true,
+            "description": "Is the calendar event busy?"
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "company_team_members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompanyTeamMember"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "title",
+          "description",
+          "start_at",
+          "end_at",
+          "is_all_day",
+          "duration",
+          "is_busy"
+        ],
+        "additionalProperties": false
+      },
+      "CalendarBlockResource": {
+        "title": "CalendarBlockResource",
+        "type": "object",
+        "description": "The calendar block resource.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CalendarBlock"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "CompanyTeamMemberCollection": {
+        "title": "CompanyTeamMemberCollection",
+        "type": "object",
+        "description": "A collection of company team members",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/CompanyTeamMember"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "CompanyTeamMemberResource": {
+        "title": "CompanyTeamMemberResource",
+        "type": "object",
+        "description": "The company team member resource.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CompanyTeamMember"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "CalendarEventCollection": {
+        "title": "CalendarEventCollection",
+        "type": "object",
+        "description": "A collection of calendar events",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/CalendarEvent"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
       "CouponCollection": {
         "title": "CouponCollection",
         "type": "object",
@@ -14715,6 +16401,83 @@
             "description": "A collection of objects.",
             "items": {
               "$ref": "#/components/schemas/Coupon"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "CustomerTeamMembershipResource": {
+        "title": "CustomerTeamMembershipResource",
+        "type": "object",
+        "description": "A customer team membership.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CustomerTeamMembership"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "CustomerTeamMembershipCollection": {
+        "title": "CustomerTeamMembershipCollection",
+        "type": "object",
+        "description": "A collection of customer team memberships",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/CustomerTeamMembership"
             }
           },
           "meta": {
@@ -14790,6 +16553,33 @@
         ],
         "additionalProperties": false
       },
+      "CustomerTeamAffiliateMembershipPostPayload": {
+        "title": "CustomerTeamAffiliateMembershipPostPayload",
+        "type": "object",
+        "description": "Payload for adding an affiliate membership to a customer team.",
+        "properties": {
+          "affiliate_id": {
+            "type": "string",
+            "description": "The ID of the affiliate to add to the customer team.",
+            "example": "1234567890",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "customer_user_id": {
+            "type": "string",
+            "description": "The ID of the customer user to add to the customer team.",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "affiliate_id",
+          "customer_user_id"
+        ],
+        "additionalProperties": false
+      },
       "CustomerTeamTagsPutPayload": {
         "title": "CustomerTeamTagsPutPayload",
         "type": "object",
@@ -14816,7 +16606,10 @@
         "description": "Payload for adding a tag to a customer team.",
         "properties": {
           "tag_id": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "The ID of the tag to add to the customer team.",
             "example": "00000000-0000-4000-8000-000000000000",
             "format": "uuid",
@@ -14824,7 +16617,10 @@
             "maxLength": 36
           },
           "tag": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "description": "The tag to add to the customer team.",
             "properties": {
               "name": {
@@ -15225,7 +17021,8 @@
                 "zillow_3d_home",
                 "zillow_media_exclusives",
                 "zillow_photographer_branding",
-                "zillow_rentals"
+                "zillow_rentals",
+                "zillow_streeteasy"
               ]
             }
           },
@@ -19734,6 +21531,14 @@
             "minLength": 20,
             "maxLength": 20,
             "example": "2021-06-30T20:30:00Z"
+          },
+          "last_revision_id": {
+            "type": "string",
+            "description": "The ID of the last revision.",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "example": "00000000-0000-4000-8000-000000000000"
           }
         },
         "required": [
