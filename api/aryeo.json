@@ -19495,6 +19495,21 @@
             "type": "boolean",
             "example": true,
             "description": "Is the email channel enabled?"
+          },
+          "channels": {
+            "type": "array",
+            "description": "Channels that are available for this notification type.",
+            "items": {
+              "type": "string",
+              "description": "Name of a notification channel.",
+              "enum": [
+                "email",
+                "sms",
+                "in_app",
+                "push"
+              ],
+              "example": "email"
+            }
           }
         },
         "required": [
@@ -19502,7 +19517,8 @@
           "email",
           "sms",
           "in_app",
-          "push"
+          "push",
+          "channels"
         ],
         "additionalProperties": false
       },
@@ -19545,6 +19561,87 @@
         ],
         "additionalProperties": false
       },
+      "NotificationPreference-2": {
+        "title": "NotificationPreference",
+        "type": "object",
+        "description": "A notification preference to update.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 44,
+            "maxLength": 44,
+            "enum": [
+              "APP\\NOTIFICATIONS\\MODELS\\NOTIFICATIONCHANNEL"
+            ],
+            "example": "APP\\NOTIFICATIONS\\MODELS\\NOTIFICATIONCHANNEL",
+            "description": "A canonical value representing a resource."
+          },
+          "notification_type": {
+            "type": "string",
+            "description": "The notification type.",
+            "enum": [
+              "CREATOR_ORDER_RECEIVED",
+              "CREATOR_ORDER_PAYMENT_PROCESSED",
+              "CREATOR_APPOINTMENT_SCHEDULED",
+              "CREATOR_APPOINTMENT_RESCHEDULED",
+              "CREATOR_APPOINTMENT_CANCELED",
+              "CREATOR_APPOINTMENT_POSTPONED",
+              "CREATOR_APPOINTMENT_ASSIGNED",
+              "CREATOR_APPOINTMENT_UNASSIGNED",
+              "CREATOR_APPOINTMENT_REMINDER",
+              "CREATOR_CUSTOMER_TEAM_INVITATION",
+              "CREATOR_UPCOMING_APPOINTMENTS_SUMMARY",
+              "CREATOR_EXPORT_READY",
+              "CREATOR_TEAM_MEMBER_INVITATION",
+              "LISTING_DELIVERY",
+              "CUSTOMER_ORDER_CONFIRMATION",
+              "CUSTOMER_ORDER_PAYMENT_REQUIRED",
+              "CUSTOMER_APPOINTMENT_SCHEDULED",
+              "CUSTOMER_APPOINTMENT_RESCHEDULED",
+              "CUSTOMER_APPOINTMENT_CANCELED",
+              "CUSTOMER_APPOINTMENT_POSTPONED",
+              "CUSTOMER_APPOINTMENT_REMINDER",
+              "CUSTOMER_NEW_LEAD",
+              "CUSTOMER_TEAM_INVITATION",
+              "CUSTOMER_USER_VERIFICATION",
+              "CUSTOMER_USER_RESET_PASSWORD",
+              "CUSTOMER_USER_ACTIVATION",
+              "PORTAL_CUSTOM"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "CUSTOMER_APPOINTMENT_CANCELED"
+          },
+          "push": {
+            "type": "boolean",
+            "example": true,
+            "description": "Is the push channel enabled?"
+          },
+          "sms": {
+            "type": "boolean",
+            "example": true,
+            "description": "Is the sms channel enabled?"
+          },
+          "in_app": {
+            "type": "boolean",
+            "example": true,
+            "description": "Is the in-app channel enabled?"
+          },
+          "email": {
+            "type": "boolean",
+            "example": true,
+            "description": "Is the email channel enabled?"
+          }
+        },
+        "required": [
+          "notification_type",
+          "email",
+          "sms",
+          "in_app",
+          "push"
+        ],
+        "additionalProperties": false
+      },
       "NotificationPreferencesPutPayload": {
         "title": "NotificationPreferencesPutPayload",
         "type": "object",
@@ -19557,7 +19654,7 @@
             ],
             "description": "A notification preference.",
             "items": {
-              "$ref": "#/components/schemas/NotificationPreference"
+              "$ref": "#/components/schemas/NotificationPreference-2"
             }
           }
         },
