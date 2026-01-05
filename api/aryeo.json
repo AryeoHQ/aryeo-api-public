@@ -2596,7 +2596,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerTeamTagsPostPayload"
+                "$ref": "#/components/schemas/TagsPostPayload"
               }
             }
           }
@@ -4056,11 +4056,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CubiCasaFloorplanResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CubiCasaFloorplanResource"
                 }
               }
             }
@@ -4096,7 +4096,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get listing Cubicasa information.",
         "operationId": "listings-listing-id-cubi-casa-get",
@@ -4131,11 +4131,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "ListingDetailSearchResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/ListingDetailSearchResource"
                 }
               }
             }
@@ -4171,7 +4171,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Search listing details.",
         "operationId": "listings-listing-id-details-search-get",
@@ -4206,11 +4206,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "ListingStatsResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/ListingStatsResource"
                 }
               }
             }
@@ -4246,7 +4246,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get listing statistics.",
         "operationId": "listings-listing-id-stats-get",
@@ -4682,11 +4682,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "OrderResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OrderResource"
                 }
               }
             }
@@ -4722,8 +4722,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderNotesPutPayload"
+              }
+            }
+          }
+        },
         "description": "Update order notes.",
         "operationId": "orders-order-id-notes-put",
         "tags": [
@@ -5142,11 +5151,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "OrderResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OrderResource"
                 }
               }
             }
@@ -5182,8 +5191,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderBillingAddressPutPayload"
+              }
+            }
+          }
+        },
         "description": "Update order billing address.",
         "operationId": "orders-order-billing-address-put",
         "tags": [
@@ -5231,11 +5249,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "OrderResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OrderResource"
                 }
               }
             }
@@ -5271,7 +5289,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Delete order discount.",
         "operationId": "orders-order-discounts-discount-delete",
@@ -5306,11 +5324,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "PaymentInfoResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/PaymentInfoResource"
                 }
               }
             }
@@ -5346,7 +5364,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get payment information an order.",
         "operationId": "orders-order-payment-info-get",
@@ -5865,11 +5883,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "OrderItemPayRunItemDefaults",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OrderItemPayRunItemDefaults"
                 }
               }
             }
@@ -5905,7 +5923,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "List order item pay run item defaults.",
         "operationId": "order-items-order-item-id-pay-run-item-defaults-get",
@@ -6464,12 +6482,12 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "201",
+          "200": {
+            "description": "ProductResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/ProductResource"
                 }
               }
             }
@@ -6495,8 +6513,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagsPostPayload"
+              }
+            }
+          }
+        },
         "description": "Create tag.",
         "operationId": "post-products-product-id-tags",
         "tags": [
@@ -7592,11 +7619,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TagPostPayload"
+                "$ref": "#/components/schemas/TagOnlyPostPayload"
               }
             }
           },
-          "description": "TagPostPayload"
+          "description": "TagOnlyPostPayload"
         }
       }
     },
@@ -9580,17 +9607,64 @@
               "USER_LOGGED_IN",
               "USER_LOGGED_OUT",
               "USER_REGISTERED",
+              "ORDER_FEE_CREATED",
+              "ORDER_FEE_DELETED",
               "ORDER_MEDIA_DOWNLOADED",
               "ORDER_PLACED",
+              "ORDER_RECEIVED",
+              "ORDER_CREATED",
               "ORDER_VIEWED",
+              "ORDER_REFUNDED",
+              "ORDER_PAYMENT_COMPLETED",
+              "ORDER_PAYMENT_DELETED",
+              "ORDER_PAYMENT_ENTERED",
+              "ORDER_ATTACHED_TO_LISTING",
+              "ORDER_SYNCED_TO_QUICKBOOKS",
+              "ORDER_SYNC_TO_QUICKBOOKS_FAILED",
+              "ORDER_PAYMENT_SYNCED_TO_QUICKBOOKS",
+              "APPOINTMENT_ACCEPTED",
+              "APPOINTMENT_DECLINED",
               "APPOINTMENT_SCHEDULED",
+              "APPOINTMENT_REQUESTED",
               "APPOINTMENT_RESCHEDULED",
               "APPOINTMENT_POSTPONED",
               "APPOINTMENT_CANCELED",
               "APPOINTMENT_ASSIGNED",
               "APPOINTMENT_UNASSIGNED",
+              "APPOINTMENT_CREATOR_REMINDER_SENT",
+              "APPOINTMENT_CUSTOMER_REMINDER_SENT",
+              "LISTING_CREATED",
+              "LISTING_UPDATED",
+              "LISTING_DELIVERED",
+              "LISTING_CONTENT_DOWNLOADED",
+              "LISTING_VIEWED",
+              "MARKETING_MATERIAL_CREATED",
+              "NOTIFICATION_SENT",
               "CUSTOMER_TEAM_CREATED",
-              "CUSTOMER_TEAM_MEMBERSHIP_CREATED"
+              "CUSTOMER_TEAM_ARCHIVED",
+              "CUSTOMER_TEAM_PRICING_PLAN_APPLIED",
+              "CUSTOMER_TEAM_PRICING_PLAN_REMOVED",
+              "CUSTOMER_TEAM_INTERNAL_NOTE_UPDATED",
+              "CUSTOMER_TEAM_PRESELECTED_PRODUCTS_UPDATED",
+              "CUSTOMER_TEAM_DOWNLOAD_SETTINGS_UPDATED",
+              "CUSTOMER_TEAM_BILLING_TEAM_MEMBERSHIP_UPDATED",
+              "CUSTOMER_TEAM_BILLING_TEAM_MEMBERSHIP_REMOVED",
+              "CUSTOMER_TEAM_PRICE_OVERRIDES_UPDATED",
+              "CUSTOMER_TEAM_MEMBERSHIP_CREATED",
+              "CUSTOMER_TEAM_MEMBERSHIP_ARCHIVED",
+              "CUSTOMER_TEAM_MEMBERSHIP_DELETED",
+              "CUSTOMER_TEAM_MEMBERSHIP_REACTIVATED",
+              "CUSTOMER_TEAM_MEMBERSHIP_INVITATION_ACCEPTED",
+              "CUSTOMER_TEAM_MEMBERSHIP_REVOKED",
+              "DEFAULT_CUSTOMER_TEAM_MEMBERSHIP_ADDED",
+              "DEFAULT_CUSTOMER_TEAM_MEMBERSHIP_REMOVED",
+              "MEDIA_REQUEST_CREATED",
+              "MEDIA_REQUEST_CANCELED",
+              "MEDIA_REQUEST_ACCEPTED",
+              "MEDIA_REQUEST_ASSIGNED",
+              "MEDIA_REQUEST_DECLINED",
+              "MEDIA_REQUEST_DELIVERED",
+              "MEDIA_REQUEST_TRANSFERRED"
             ]
           },
           "description": {
@@ -16600,8 +16674,8 @@
         },
         "additionalProperties": false
       },
-      "CustomerTeamTagsPostPayload": {
-        "title": "CustomerTeamTagsPostPayload",
+      "TagsPostPayload": {
+        "title": "TagsPostPayload",
         "type": "object",
         "description": "Payload for adding a tag to a customer team.",
         "properties": {
@@ -16636,6 +16710,20 @@
                 "example": "#FFFFFF",
                 "minLength": 0,
                 "maxLength": 7
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of the tag.",
+                "example": "customer_team",
+                "minLength": 0,
+                "maxLength": 65536,
+                "enum": [
+                  "order",
+                  "customer_team",
+                  "product",
+                  "order_form",
+                  "virtual_staging_ai"
+                ]
               }
             },
             "required": [
@@ -18408,6 +18496,280 @@
         },
         "additionalProperties": false
       },
+      "CubiCasaFloorplanResult": {
+        "title": "CubiCasaFloorplanResult",
+        "type": "object",
+        "description": "A Cubicasa floorplan result.",
+        "properties": {
+          "full_address": {
+            "type": "string",
+            "description": "The full address.",
+            "example": "10 Rockefeller Plaza, New York, NY 10020",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "city": {
+            "type": "string",
+            "description": "The city.",
+            "example": "New York",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "county": {
+            "type": "string",
+            "description": "The county.",
+            "example": "United States",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "latitude": {
+            "type": "number",
+            "description": "The latitude.",
+            "example": 40.758044,
+            "minimum": -180,
+            "maximum": 180
+          },
+          "longitude": {
+            "type": "number",
+            "description": "The longitude.",
+            "example": -73.979479,
+            "minimum": -180,
+            "maximum": 180
+          },
+          "number": {
+            "type": "string",
+            "description": "The number.",
+            "example": "10",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "The postal code.",
+            "example": "10020",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "state": {
+            "type": "string",
+            "description": "The state.",
+            "example": "NY",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "street": {
+            "type": "string",
+            "description": "The street.",
+            "example": "Rockefeller Plaza",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "suite": {
+            "type": "string",
+            "description": "The suite.",
+            "example": "Apt 100",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "public_id": {
+            "type": "string",
+            "description": "The public ID.",
+            "example": "d7c378b1-2b02-4f97-8624-90f2fa154d42",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status.",
+            "example": "Ready",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "jpg_urls": {
+            "type": "array",
+            "description": "The JPG URLs.",
+            "items": {
+              "type": "string",
+              "description": "The JPG URL.",
+              "example": "https://www.afakedomain.com/10-rockerfeller-plaza-new-york-ny-united-states_0.jpg",
+              "minLength": 1,
+              "maxLength": 255,
+              "format": "uri"
+            }
+          }
+        },
+        "required": [
+          "full_address",
+          "city",
+          "county",
+          "latitude",
+          "longitude",
+          "number",
+          "postalCode",
+          "state",
+          "street",
+          "suite",
+          "public_id",
+          "status",
+          "jpg_urls"
+        ],
+        "additionalProperties": false
+      },
+      "CubiCasaFloorplan": {
+        "title": "CubiCasaFloorplan",
+        "type": "object",
+        "description": "A Cubicasa floorplan.",
+        "properties": {
+          "current_sync": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The Cubicasa current sync public ID.",
+            "example": "1234567890",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CubiCasaFloorplanResult"
+            }
+          },
+          "show_all": {
+            "type": "boolean",
+            "description": "Show all results.",
+            "example": true
+          },
+          "suggested": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "The suggested (floorplan) results."
+          }
+        },
+        "required": [
+          "current_sync",
+          "results",
+          "show_all",
+          "suggested"
+        ],
+        "additionalProperties": false
+      },
+      "CubiCasaFloorplanResource": {
+        "title": "CubiCasaFloorplanResource",
+        "type": "object",
+        "description": "A Cubicasa floorplan.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CubiCasaFloorplan"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ]
+      },
+      "ListingDetailSearch": {
+        "title": "ListingDetailSearch",
+        "type": "object",
+        "description": "Search results for a listing.",
+        "properties": {
+          "bedrooms": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Total number of bedrooms.",
+            "example": 4
+          },
+          "bathrooms": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Total number of bathrooms.",
+            "example": 3.5
+          },
+          "square_feet": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Total number of square feet.",
+            "example": 2511
+          },
+          "year_built": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Year the property was built.",
+            "example": 1960
+          },
+          "lot_size_acres": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Total area of the lot of a listing in acres. ",
+            "example": 0.47
+          }
+        },
+        "additionalProperties": false
+      },
+      "ListingDetailSearchResource": {
+        "title": "ListingDetailSearchResource",
+        "type": "object",
+        "description": "A listing detail search resource.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ListingDetailSearch"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
       "ListingPutShowcasePayload": {
         "title": "ListingPutShowcasePayload",
         "type": "object",
@@ -18419,6 +18781,79 @@
             "description": "Is this listing a showcase listing?"
           }
         },
+        "additionalProperties": false
+      },
+      "ListingStats": {
+        "title": "ListingStats",
+        "type": "object",
+        "description": "Stats for a listing.",
+        "properties": {
+          "totalViews": {
+            "type": [
+              "string",
+              "number",
+              "null"
+            ],
+            "description": "Total number of views.",
+            "example": 0
+          },
+          "totalUsers": {
+            "type": [
+              "string",
+              "number",
+              "null"
+            ],
+            "description": "Total number of users.",
+            "example": 0
+          },
+          "avgTimeOnPage": {
+            "type": [
+              "string",
+              "number",
+              "null"
+            ],
+            "description": "Average time on page.",
+            "example": 0
+          },
+          "topReferrer": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Top referrer.",
+            "example": "Jarrod Parkes",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "allReferrers": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "All referrers.",
+            "items": {
+              "type": "string",
+              "description": "Referrer.",
+              "example": "Jarrod Parkes",
+              "minLength": 0,
+              "maxLength": 255
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ListingStatsResource": {
+        "title": "ListingStatsResource",
+        "type": "object",
+        "description": "A listing stats resource.",
+        "properties": {
+          "main_listing_stats": {
+            "$ref": "#/components/schemas/ListingStats"
+          }
+        },
+        "required": [
+          "main_listing_stats"
+        ],
         "additionalProperties": false
       },
       "LoginPostPayload": {
@@ -19862,6 +20297,24 @@
         ],
         "additionalProperties": false
       },
+      "OrderNotesPutPayload": {
+        "title": "OrderNotesPutPayload",
+        "type": "object",
+        "description": "Payload for updating order notes.",
+        "properties": {
+          "internal_notes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Internal notes for the order.",
+            "example": "These are internal notes about the order.",
+            "minLength": 0,
+            "maxLength": 2550
+          }
+        },
+        "additionalProperties": false
+      },
       "PaymentResource": {
         "title": "OrderPaymentResource",
         "type": "object",
@@ -19956,6 +20409,458 @@
             "additionalProperties": false
           }
         },
+        "additionalProperties": false
+      },
+      "OrderBillingAddressPutPayload": {
+        "title": "OrderBillingAddressPutPayload",
+        "type": "object",
+        "description": "Payload for updating order billing address.",
+        "properties": {
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The city of the order's billing address.",
+            "example": "Edison",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "city_region": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The region of the order's billing address.",
+            "example": "",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "county_or_parish": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The county or parish of the order's billing address.",
+            "example": "",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "latitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The latitude of the order's billing address.",
+            "example": 40.52288659999999,
+            "minimum": -180,
+            "maximum": 180
+          },
+          "longitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The longitude of the order's billing address.",
+            "example": -74.35929720000001,
+            "minimum": -180,
+            "maximum": 180
+          },
+          "postal_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The postal code of the order's billing address.",
+            "example": "08817",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "state_or_province": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The state or province of the order's billing address.",
+            "example": "NJ",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "state_or_province_region": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The region of the state or province of the order's billing address.",
+            "example": "",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "street_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The street name of the order's billing address.",
+            "example": "Main St",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "street_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The street number of the order's billing address.",
+            "example": "123",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "unit_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The unit number of the order's billing address.",
+            "example": "",
+            "minLength": 0,
+            "maxLength": 255
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethod": {
+        "title": "PaymentMethod",
+        "description": "A payment method",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the payment method.",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "brand": {
+            "type": "string",
+            "description": "The brand of the payment method.",
+            "example": "visa",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "last_4": {
+            "type": "string",
+            "description": "The last 4 digits of the payment method.",
+            "example": "1234",
+            "minLength": 4,
+            "maxLength": 4
+          },
+          "exp_month": {
+            "type": "integer",
+            "description": "The month of the payment method.",
+            "example": 1,
+            "minimum": 1,
+            "maximum": 12
+          },
+          "exp_year": {
+            "type": "integer",
+            "description": "The year of the payment method.",
+            "example": 2025,
+            "minimum": 1000,
+            "maximum": 9999
+          },
+          "is_expired": {
+            "type": "boolean",
+            "description": "Whether the payment method is expired.",
+            "example": true
+          },
+          "stripe_external_id": {
+            "type": "string",
+            "description": "The external ID of the payment method.",
+            "example": "pm_1234567890",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "square_external_id": {
+            "type": "string",
+            "description": "The external ID of the payment method.",
+            "example": "sq_1234567890",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "id",
+          "brand",
+          "last_4",
+          "exp_month",
+          "exp_year",
+          "is_expired",
+          "stripe_external_id",
+          "square_external_id"
+        ],
+        "additionalProperties": false
+      },
+      "PaymentGateway": {
+        "title": "PaymentGateway",
+        "description": "A payment gateway",
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 11,
+            "maxLength": 11,
+            "enum": [
+              "INTEGRATION"
+            ],
+            "example": "INTEGRATION",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "description": "The ID of the payment gateway.",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the payment gateway.",
+            "example": "Stripe",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the payment gateway.",
+            "example": "PAYMENT_GATEWAY",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "provider": {
+            "type": "string",
+            "description": "The provider of the payment gateway.",
+            "example": "STRIPE_CONNECT",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "metadata": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "The custom field data of the payment gateway.",
+            "items": {
+              "type": "object",
+              "description": "A key-value pair of custom field data for the payment gateway.",
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "name",
+          "type",
+          "provider",
+          "metadata"
+        ],
+        "additionalProperties": false
+      },
+      "PaymentInfoConfig": {
+        "title": "PaymentInfoConfig",
+        "description": "A payment info config",
+        "type": "object",
+        "properties": {
+          "vgs_vault_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the VGS vault.",
+            "example": "something",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "vgs_environment": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The environment of the VGS vault.",
+            "example": "sandbox",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "square_client_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the Square client.",
+            "example": "sandbox-something",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "vgs_vault_id",
+          "vgs_environment",
+          "square_client_id"
+        ],
+        "additionalProperties": false
+      },
+      "PaymentInfo": {
+        "title": "PaymentInfo",
+        "description": "Payment information for an order.",
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 12,
+            "enum": [
+              "PAYMENT_INFO"
+            ],
+            "example": "PAYMENT_INFO",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "ID of the payment info. UUID Version 4.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "is_authenticated": {
+            "type": "boolean",
+            "description": "Whether the payment is authenticated.",
+            "example": true
+          },
+          "amount": {
+            "type": "integer",
+            "description": "The amount of the payment.",
+            "example": 1000
+          },
+          "upfront_percentage": {
+            "type": "number",
+            "description": "The upfront percentage of the payment.",
+            "example": 0.5
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency of the payment.",
+            "example": "usd",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "is_tipping_enabled": {
+            "type": "boolean",
+            "description": "Whether tipping is enabled for the payment.",
+            "example": true
+          },
+          "show_tipping_ui_expanded": {
+            "type": "boolean",
+            "description": "Whether the tipping UI is expanded for the payment.",
+            "example": true
+          },
+          "payment_gateway_is_available": {
+            "type": "boolean",
+            "description": "Whether the payment gateway is available for the payment.",
+            "example": true
+          },
+          "payment_methods": {
+            "type": "array",
+            "description": "The payment methods for the payment.",
+            "items": {
+              "$ref": "#/components/schemas/PaymentMethod"
+            }
+          },
+          "default_payment_method_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the default payment method for the payment.",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "default_payment_gateway": {
+            "$ref": "#/components/schemas/PaymentGateway"
+          },
+          "can_save_card": {
+            "type": "boolean",
+            "description": "Whether the customer can save a card for the payment.",
+            "example": true
+          },
+          "config": {
+            "$ref": "#/components/schemas/PaymentInfoConfig"
+          },
+          "requires_billing_address_during_order_form_submission": {
+            "type": "boolean",
+            "description": "Whether the billing address is required during the order form submission.",
+            "example": true
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "is_authenticated",
+          "amount",
+          "upfront_percentage",
+          "currency",
+          "is_tipping_enabled",
+          "show_tipping_ui_expanded",
+          "payment_gateway_is_available",
+          "payment_methods",
+          "default_payment_method_id",
+          "default_payment_gateway",
+          "can_save_card",
+          "config",
+          "requires_billing_address_during_order_form_submission"
+        ],
+        "additionalProperties": false
+      },
+      "PaymentInfoResource": {
+        "title": "PaymentInfoResource",
+        "type": "object",
+        "description": "Payment information for an order resource.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PaymentInfo"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "example": "2021-06-30T20:30:00Z",
+            "minLength": 20,
+            "maxLength": 20
+          }
+        },
+        "required": [
+          "status",
+          "data"
+        ],
         "additionalProperties": false
       },
       "OrderFormSessionPostPayload": {
@@ -20531,6 +21436,44 @@
         },
         "required": [
           "status"
+        ],
+        "additionalProperties": false
+      },
+      "OrderItemPayRunItemDefaults": {
+        "title": "OrderItemPayRunItemDefaults",
+        "type": "object",
+        "description": "The pay run item defaults for an order item.",
+        "properties": {
+          "order_item_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "The ID of the order item. UUID Version 4."
+          },
+          "title": {
+            "type": "string",
+            "example": "Complete Photography",
+            "description": "The title of the pay run item.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "company_team_member": {
+            "$ref": "#/components/schemas/CompanyTeamMember"
+          },
+          "amount": {
+            "type": "number",
+            "example": 100,
+            "description": "The amount of the pay run item."
+          }
+        },
+        "required": [
+          "order_item_id",
+          "title",
+          "company_team_member",
+          "amount"
         ],
         "additionalProperties": false
       },
@@ -21719,6 +22662,38 @@
         ],
         "additionalProperties": false
       },
+      "ProductResource": {
+        "title": "ProductResource",
+        "type": "object",
+        "description": "A product.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Product"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
       "ProductCategoryCollection": {
         "title": "ProductCatgoryCollection",
         "type": "object",
@@ -22409,8 +23384,8 @@
         ],
         "additionalProperties": false
       },
-      "TagPostPayload": {
-        "title": "TagPostPayload",
+      "TagOnlyPostPayload": {
+        "title": "TagOnlyPostPayload",
         "type": "object",
         "description": "Payload for creating a tag.",
         "properties": {
