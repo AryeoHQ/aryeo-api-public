@@ -8912,6 +8912,52 @@
         ],
         "additionalProperties": false
       },
+      "FeatureFlags": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "description": "An array of feature flags for the group.",
+        "items": {
+          "type": "string",
+          "description": "The name of the feature flag.",
+          "example": "customer_teams_order_form_landing_page_override",
+          "minLength": 1,
+          "maxLength": 65535,
+          "enum": [
+            "alternate_unbranded_property_site_url",
+            "avalara_tax_syncing",
+            "avalara_taxes",
+            "byop",
+            "calendar_event_title_modified",
+            "custom_field_uploads",
+            "customer_teams_order_form_landing_page_override",
+            "customer_teams_product_preselect",
+            "customer_teams_external_payments",
+            "customer_portal_mobile_app_automated_screenshots",
+            "database_external_calendar_events",
+            "default_reschedule_toggle_false",
+            "idp_migration_in_progress",
+            "listings_new_creation_flow",
+            "min_hour_targets",
+            "max_travel_distance",
+            "order_form_categories",
+            "require_photographer_confirmations",
+            "showcase_order_form_visibility_designations",
+            "team_member_restrictions",
+            "team_member_hide_customer_pii",
+            "virtual_staging_ai_v2",
+            "virtual_staging_ai_v2_pricing",
+            "virtuals1_custom_sms_notification_messages",
+            "quickbooks_app",
+            "webhooks",
+            "zillow_3d_home",
+            "zillow_streeteasy",
+            "zillow_rentals"
+          ]
+        },
+        "additionalProperties": false
+      },
       "SocialProfiles": {
         "title": "SocialProfiles",
         "type": [
@@ -9133,56 +9179,7 @@
             "example": "https://example-photography.aryeo.com/order"
           },
           "feature_flags": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "An array of feature flags for the group.",
-            "items": {
-              "type": "string",
-              "description": "The name of the feature flag.",
-              "example": "require_photographer_confirmations",
-              "minLength": 1,
-              "maxLength": 65535,
-              "enum": [
-                "alternate_unbranded_property_site_url",
-                "avalara_tax_syncing",
-                "avalara_taxes",
-                "byop",
-                "calendar",
-                "calendar_event_title_modified",
-                "customer_teams_order_form_landing_page_override",
-                "customer_teams_product_preselect",
-                "customer_portal_mobile_apps",
-                "customer_select_on_order_form_products_step",
-                "database_external_calendar_events",
-                "default_reschedule_toggle_false",
-                "download_center_fb_boost_1",
-                "embedded_payments",
-                "idp_migration_in_progress",
-                "listings_create_page",
-                "listings_page",
-                "min_hour_targets",
-                "max_travel_distance",
-                "quickbooks_app",
-                "require_photographer_confirmations",
-                "showcase_app",
-                "showcase_order_form_visibility_designations",
-                "showingtime",
-                "team_member_restrictions",
-                "team_member_hide_customer_pii",
-                "virtual_staging_ai",
-                "virtuals1_custom_sms_notification_messages",
-                "webhooks",
-                "zapier",
-                "zendesk",
-                "zillow_3d_home",
-                "zillow_media_exclusives",
-                "zillow_photographer_branding",
-                "zillow_rentals",
-                "zillow_streeteasy"
-              ]
-            }
+            "$ref": "#/components/schemas/FeatureFlags"
           },
           "order_page_background_color": {
             "type": [
@@ -17061,56 +17058,7 @@
             "example": "https://example-photography.aryeo.com/order"
           },
           "feature_flags": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "An array of feature flags for the group.",
-            "items": {
-              "type": "string",
-              "description": "The name of the feature flag.",
-              "example": "require_photographer_confirmations",
-              "minLength": 1,
-              "maxLength": 65535,
-              "enum": [
-                "alternate_unbranded_property_site_url",
-                "avalara_tax_syncing",
-                "avalara_taxes",
-                "byop",
-                "calendar",
-                "calendar_event_title_modified",
-                "customer_teams_order_form_landing_page_override",
-                "customer_teams_product_preselect",
-                "customer_portal_mobile_apps",
-                "customer_select_on_order_form_products_step",
-                "database_external_calendar_events",
-                "default_reschedule_toggle_false",
-                "download_center_fb_boost_1",
-                "embedded_payments",
-                "idp_migration_in_progress",
-                "listings_create_page",
-                "listings_page",
-                "min_hour_targets",
-                "max_travel_distance",
-                "quickbooks_app",
-                "require_photographer_confirmations",
-                "showcase_app",
-                "showcase_order_form_visibility_designations",
-                "showingtime",
-                "team_member_restrictions",
-                "team_member_hide_customer_pii",
-                "virtual_staging_ai",
-                "virtuals1_custom_sms_notification_messages",
-                "webhooks",
-                "zapier",
-                "zendesk",
-                "zillow_3d_home",
-                "zillow_media_exclusives",
-                "zillow_photographer_branding",
-                "zillow_rentals",
-                "zillow_streeteasy"
-              ]
-            }
+            "$ref": "#/components/schemas/FeatureFlags"
           },
           "order_page_background_color": {
             "type": [
