@@ -2678,7 +2678,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerTeamTagsPutPayload"
+                "$ref": "#/components/schemas/TagsPutPayload"
               }
             }
           }
@@ -5036,11 +5036,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderTagsPutPayload"
+                "$ref": "#/components/schemas/TagsPutPayload"
               }
             }
           },
-          "description": "OrderTagsPutPayload"
+          "description": "TagsPutPayload"
         },
         "security": [
           {
@@ -5938,390 +5938,6 @@
         ]
       }
     },
-    "/payroll/pay-run-items": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ApiError404",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError404"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "ApiFail422",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiFail422"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ApiError500",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError500"
-                }
-              }
-            }
-          }
-        },
-        "x-undocumented": true,
-        "x-external": true,
-        "description": "List payroll pay run items.",
-        "operationId": "payroll-pay-run-items-get",
-        "tags": [
-          "Payroll"
-        ],
-        "summary": "List payroll pay run items.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
-      },
-      "post": {
-        "responses": {
-          "201": {
-            "description": "201",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "ApiFail422",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiFail422"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ApiError500",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError500"
-                }
-              }
-            }
-          }
-        },
-        "x-undocumented": true,
-        "x-external": true,
-        "description": "Create payroll pay run item.",
-        "operationId": "payroll-pay-run-items-post",
-        "tags": [
-          "Payroll"
-        ],
-        "summary": "Create payroll pay run item.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
-      }
-    },
-    "/payroll/pay-run-items/{pay_run_item}": {
-      "delete": {
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "minLength": 36,
-              "maxLength": 36,
-              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-              "example": "00000000-0000-4000-8000-000000000000"
-            },
-            "name": "pay_run_item",
-            "in": "path",
-            "required": true,
-            "description": "The ID of a pay run item. UUID Version 4."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ApiError404",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError404"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "ApiFail422",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiFail422"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ApiError500",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError500"
-                }
-              }
-            }
-          }
-        },
-        "x-undocumented": true,
-        "x-external": true,
-        "description": "Delete payroll pay run item.",
-        "operationId": "payroll-pay-run-items-pay-run-item-delete",
-        "tags": [
-          "Payroll"
-        ],
-        "summary": "Delete payroll pay run item.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
-      },
-      "put": {
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "minLength": 36,
-              "maxLength": 36,
-              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-              "example": "00000000-0000-4000-8000-000000000000"
-            },
-            "name": "pay_run_item",
-            "in": "path",
-            "required": true,
-            "description": "The ID of a pay run item. UUID Version 4."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ApiError404",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError404"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "ApiFail422",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiFail422"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ApiError500",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError500"
-                }
-              }
-            }
-          }
-        },
-        "x-undocumented": true,
-        "x-external": true,
-        "description": "Update payroll pay run item.",
-        "operationId": "payroll-pay-run-items-pay-run-item-put",
-        "tags": [
-          "Payroll"
-        ],
-        "summary": "Update payroll pay run item.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
-      }
-    },
-    "/payroll/pay-runs/{pay_run}/items/add": {
-      "post": {
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "minLength": 36,
-              "maxLength": 36,
-              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-              "example": "00000000-0000-4000-8000-000000000000"
-            },
-            "name": "pay_run",
-            "in": "path",
-            "required": true,
-            "description": "The ID of a pay run. UUID Version 4."
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "201",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "ApiFail422",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiFail422"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ApiError500",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError500"
-                }
-              }
-            }
-          }
-        },
-        "x-undocumented": true,
-        "x-external": true,
-        "description": "Add pay run item to pay run.",
-        "operationId": "payroll-pay-runs-pay-run-items-add-post",
-        "tags": [
-          "Payroll"
-        ],
-        "summary": "Add pay run item to pay run.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
-      }
-    },
-    "/payroll/pay-runs/{pay_run}/items/remove": {
-      "post": {
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "minLength": 36,
-              "maxLength": 36,
-              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-              "example": "00000000-0000-4000-8000-000000000000"
-            },
-            "name": "pay_run",
-            "in": "path",
-            "required": true,
-            "description": "The ID of a pay run. UUID Version 4."
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "201",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "ApiFail422",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiFail422"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ApiError500",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError500"
-                }
-              }
-            }
-          }
-        },
-        "x-undocumented": true,
-        "x-external": true,
-        "description": "Remove pay run item from pay run.",
-        "operationId": "payroll-pay-runs-pay-run-items-remove-post",
-        "tags": [
-          "Payroll"
-        ],
-        "summary": "Remove pay run item from pay run.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
-      }
-    },
     "/products": {
       "get": {
         "responses": {
@@ -6555,11 +6171,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "ProductResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/ProductResource"
                 }
               }
             }
@@ -6595,8 +6211,18 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagsPutPayload"
+              }
+            }
+          },
+          "description": "TagsPutPayload"
+        },
         "description": "Update product tag.",
         "operationId": "put-products-product-id-tags",
         "tags": [
@@ -6730,15 +6356,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+          "204": {
+            "description": "No Content"
           },
           "404": {
             "description": "ApiError404",
@@ -6771,7 +6390,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Delete product tag.",
         "operationId": "delete-products-product-id-tags-tag-id",
@@ -6900,7 +6519,8 @@
               "maxLength": 255,
               "enum": [
                 "product",
-                "fee"
+                "fee",
+                "order"
               ],
               "example": "product"
             },
@@ -6925,12 +6545,25 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "201",
+          "200": {
+            "description": "200",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 65536,
+                      "description": "The message of the response.",
+                      "example": "Promotion code successfully redeemed."
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
@@ -6956,8 +6589,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromotionCodeRedeemPostPayload"
+              }
+            }
+          }
+        },
         "description": "Redeem promotion code.",
         "operationId": "promotion-codes-redeem-discountedType-discounted-post",
         "tags": [
@@ -16651,24 +16293,27 @@
         ],
         "additionalProperties": false
       },
-      "CustomerTeamTagsPutPayload": {
-        "title": "CustomerTeamTagsPutPayload",
+      "TagsPutPayload": {
+        "title": "TagsPutPayload",
         "type": "object",
-        "description": "Payload for updating a tag on a customer team.",
+        "description": "Payload for updating a tag.",
         "properties": {
           "tag_ids": {
             "type": "array",
-            "description": "The IDs of the tags to add to the customer team.",
+            "description": "The IDs of the tags to update for the given resource.",
             "items": {
               "type": "string",
               "format": "uuid",
               "minLength": 36,
               "maxLength": 36,
               "example": "00000000-0000-4000-8000-000000000000",
-              "description": "The ID of the tag to add to the customer team."
+              "description": "The ID of the tag to update for the given resource."
             }
           }
         },
+        "required": [
+          "tag_ids"
+        ],
         "additionalProperties": false
       },
       "TagsPostPayload": {
@@ -18440,6 +18085,26 @@
             ],
             "description": "Indicates if this is a Showcase listing",
             "example": true
+          },
+          "address_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the address associated with the listing. UUID Version 4.",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "minLength": 36,
+            "maxLength": 36,
+            "example": "00000000-0000-4000-8000-000000000000"
+          },
+          "is_draft": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the listing is in the creation/draft process",
+            "example": false
           }
         },
         "additionalProperties": false
@@ -18540,7 +18205,7 @@
             "items": {
               "type": "string",
               "description": "The JPG URL.",
-              "example": "https://www.afakedomain.com/10-rockerfeller-plaza-new-york-ny-united-states_0.jpg",
+              "example": "https://www.afakedomain.com/10-rockefeller-plaza-new-york-ny-united-states_0_0.jpg",
               "minLength": 1,
               "maxLength": 255,
               "format": "uri"
@@ -20291,30 +19956,6 @@
         "required": [
           "status",
           "data"
-        ],
-        "additionalProperties": false
-      },
-      "OrderTagsPutPayload": {
-        "title": "OrderTagsPutPayload",
-        "type": "object",
-        "description": "A request to change the currently authenticated user's password.",
-        "properties": {
-          "tag_ids": {
-            "type": "array",
-            "description": "Array of tag IDs to attach to the order.",
-            "items": {
-              "description": "ID of a tag. UUID Version 4.",
-              "type": "string",
-              "minLength": 36,
-              "maxLength": 36,
-              "format": "uuid",
-              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-              "example": "00000000-0000-4000-8000-000000000000"
-            }
-          }
-        },
-        "required": [
-          "tag_ids"
         ],
         "additionalProperties": false
       },
@@ -22685,6 +22326,23 @@
           "status"
         ],
         "additionalProperties": false
+      },
+      "PromotionCodeRedeemPostPayload": {
+        "title": "PromotionCodeRedeemPostPayload",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "The code of the promotion code to redeem.",
+            "example": "BEAVER",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "code"
+        ]
       },
       "Review": {
         "title": "Review",
