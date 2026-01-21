@@ -3689,8 +3689,7 @@
               "enum": [
                 "DELIVERED",
                 "UNDELIVERED",
-                "SCHEDULED",
-                "null"
+                "SCHEDULED"
               ],
               "example": "DELIVERED",
               "minLength": 0,
@@ -6268,14 +6267,13 @@
             "description": "The ID of a tag."
           }
         ],
-        "x-external": true,
         "responses": {
           "200": {
-            "description": "200",
+            "description": "ProductResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/ProductResource"
                 }
               }
             }
@@ -6311,7 +6309,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
+        "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagsPutPayload"
+              }
+            }
+          }
+        },
         "description": "Update tag.",
         "operationId": "put-products-product-id-tags-tag-id",
         "tags": [
@@ -6633,7 +6641,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OrderRefundResource"
                 }
               }
             }
@@ -6659,8 +6667,18 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRefundPostPayload"
+              }
+            }
+          },
+          "description": "OrderRefundPostPayload"
+        },
         "description": "Refund order payment.",
         "operationId": "refunds-orderPayment-post",
         "tags": [
@@ -6676,13 +6694,80 @@
     },
     "/regions": {
       "get": {
+        "parameters": [
+          {
+            "name": "filter[type]",
+            "in": "query",
+            "required": false,
+            "description": "The type of the region.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "COUNTRY",
+                "STATE",
+                "COUNTY"
+              ],
+              "example": "COUNTRY",
+              "minLength": 1,
+              "maxLength": 255
+            }
+          },
+          {
+            "name": "filter[country_code]",
+            "in": "query",
+            "required": false,
+            "description": "The country code of the region.",
+            "schema": {
+              "type": "string",
+              "size": 2,
+              "example": "US",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          },
+          {
+            "name": "filter[state_code]",
+            "in": "query",
+            "required": false,
+            "description": "The state code of the region.",
+            "schema": {
+              "type": "string",
+              "size": 2,
+              "example": "CA",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "25",
+              "minLength": 1,
+              "maxLength": 5
+            },
+            "in": "query",
+            "name": "per_page",
+            "description": "The number of items per page. Defaults to 25."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 5,
+              "example": "2"
+            },
+            "in": "query",
+            "name": "page",
+            "description": "The requested page. Defaults to 1."
+          }
+        ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "RegionCollection",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/RegionCollection"
                 }
               }
             }
@@ -6718,7 +6803,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "List regions.",
         "operationId": "regions-get",
@@ -6735,13 +6820,88 @@
     },
     "/scheduling/assignment": {
       "get": {
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "query",
+            "required": false,
+            "description": "The ID of an order. UUID Version 4.",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "minLength": 36,
+              "maxLength": 36
+            }
+          },
+          {
+            "name": "company_team_member_ids",
+            "in": "query",
+            "required": false,
+            "description": "The IDs of company team members. UUID Version 4.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "example": "123e4567-e89b-12d3-a456-426614174000",
+                "minLength": 36,
+                "maxLength": 36
+              }
+            }
+          },
+          {
+            "name": "strategy_type",
+            "in": "query",
+            "required": false,
+            "description": "The strategy type to use for the scheduling assignment.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DISTANCE",
+                "HOURS_PRIORITY",
+                "ROUND_ROBIN",
+                "RECOMMENDED",
+                "PRIORITY_LIST"
+              ],
+              "example": "DISTANCE",
+              "minLength": 0,
+              "maxLength": 255
+            }
+          },
+          {
+            "name": "appointment_date",
+            "in": "query",
+            "required": false,
+            "description": "The date of the appointment.",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2020-01-05T12:00:00Z",
+              "minLength": 20,
+              "maxLength": 20
+            }
+          },
+          {
+            "name": "appointment_duration",
+            "in": "query",
+            "required": false,
+            "description": "The duration of the appointment in minutes.",
+            "schema": {
+              "type": "integer",
+              "example": 60,
+              "minimum": 1,
+              "maximum": 1440
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "CompanyTeamMemberResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/CompanyTeamMemberResource"
                 }
               }
             }
@@ -6777,7 +6937,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get scheduling assignment.",
         "operationId": "scheduling-assignment-get",
@@ -7153,13 +7313,44 @@
     },
     "/scheduling/item-groupings": {
       "get": {
+        "parameters": [
+          {
+            "name": "item_ids",
+            "in": "query",
+            "required": true,
+            "description": "The IDs of the items to group.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "example": "123e4567-e89b-12d3-a456-426614174000",
+                "minLength": 36,
+                "maxLength": 36
+              }
+            }
+          },
+          {
+            "name": "appointment_id",
+            "in": "query",
+            "required": false,
+            "description": "The ID of the appointment to group.",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000",
+              "minLength": 36,
+              "maxLength": 36
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "OrderItemGroupingCollection",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OrderItemGroupingCollection"
                 }
               }
             }
@@ -7195,7 +7386,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "List schedule item groupings.",
         "operationId": "scheduling-item-groupings-get",
@@ -7351,11 +7542,11 @@
       "get": {
         "responses": {
           "200": {
-            "description": "200",
+            "description": "TaskCollection",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/TaskCollection"
                 }
               }
             }
@@ -7391,7 +7582,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "List tasks.",
         "operationId": "tasks-get",
@@ -7408,11 +7599,11 @@
       "post": {
         "responses": {
           "201": {
-            "description": "201",
+            "description": "TaskResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/TaskResource"
                 }
               }
             }
@@ -7438,8 +7629,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskPostPayload"
+              }
+            }
+          }
+        },
         "description": "Create task.",
         "operationId": "tasks-post",
         "tags": [
@@ -7472,15 +7672,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+          "204": {
+            "description": "No Content"
           },
           "404": {
             "description": "ApiError404",
@@ -7513,7 +7706,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Delete task.",
         "operationId": "tasks-task-id-delete",
@@ -7546,11 +7739,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "TaskResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/TaskResource"
                 }
               }
             }
@@ -7586,7 +7779,7 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
         "description": "Get task.",
         "operationId": "tasks-task-id-get",
@@ -7619,11 +7812,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "TaskResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/TaskResource"
                 }
               }
             }
@@ -7659,8 +7852,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskPutPayload"
+              }
+            }
+          }
+        },
         "description": "Update task.",
         "operationId": "tasks-task-id-put",
         "tags": [
@@ -7694,11 +7896,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "TaskResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/TaskResource"
                 }
               }
             }
@@ -7734,8 +7936,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCompletePutPayload"
+              }
+            }
+          }
+        },
         "description": "Complete task.",
         "operationId": "tasks-task-id-complete-put",
         "tags": [
@@ -7769,11 +7980,11 @@
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "TaskResource",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/TaskResource"
                 }
               }
             }
@@ -7809,8 +8020,17 @@
             }
           }
         },
-        "x-undocumented": true,
+        "x-undocumented": false,
         "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskReinstatePutPayload"
+              }
+            }
+          }
+        },
         "description": "Reinstate task.",
         "operationId": "tasks-task-id-reinstate-put",
         "tags": [
@@ -11907,7 +12127,9 @@
               "none",
               "both"
             ],
-            "example": "none"
+            "example": "none",
+            "minLength": 0,
+            "maxLength": 255
           },
           "url": {
             "type": "string",
@@ -12463,9 +12685,7 @@
             "maxLength": 255
           },
           "status": {
-            "type": [
-              "enum"
-            ],
+            "type": "string",
             "description": "The Esoft order status.",
             "example": "complete",
             "enum": [
@@ -12474,7 +12694,9 @@
               "draft",
               "error",
               "submitted"
-            ]
+            ],
+            "minLength": 5,
+            "maxLength": 9
           },
           "esoft_product_id": {
             "type": [
@@ -12846,8 +13068,7 @@
               "null"
             ],
             "description": "The balance amount of the order.",
-            "example": 2099,
-            "minimum": 0
+            "example": 2099
           },
           "total_tax_amount": {
             "type": [
@@ -14343,6 +14564,468 @@
         ],
         "additionalProperties": false
       },
+      "CompanyTeamMemberPermission": {
+        "title": "CompanyTeamMemberPermission",
+        "type": "object",
+        "description": "A permission for a team member of a company.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 10,
+            "enum": [
+              "PERMISSION"
+            ],
+            "example": "PERMISSION",
+            "description": "A canonical value representing a resource."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the permission",
+            "example": "ACTIVITY_LOG_VIEW",
+            "minLength": 0,
+            "maxLength": 255,
+            "enum": [
+              "ACTIVITY_LOG_VIEW",
+              "APP_STORE_VIEW_ANY",
+              "APPOINTMENTS_MANAGE",
+              "AVAILABILITY_VIEW_ANY",
+              "CALENDAR_VIEW_ANY",
+              "CUSTOMER_CREATE",
+              "CUSTOMER_DELETE",
+              "CUSTOMER_EXPORT_CREATE",
+              "CUSTOMER_IMPORT_CREATE",
+              "CUSTOMER_VIEW_ANY",
+              "FEE_VIEW_ANY",
+              "LISTING_CREATE",
+              "LISTING_DELETE",
+              "LISTING_VIEW_ANY",
+              "MEDIA_REQUEST_MANAGE",
+              "ORDER_AMOUNT_VIEW_ANY",
+              "ORDER_FORM_VIEW_ANY",
+              "ORDER_NOTES_MANAGE",
+              "ORDER_VIEW_ANY",
+              "ORDERS_MANAGE",
+              "PAYMENT_METHODS_MANAGE",
+              "PAYROLL_MANAGE",
+              "PAYROLL_PERSONAL_MANAGE",
+              "PAYROLL_PERSONAL_VIEW",
+              "PRODUCT_VIEW_ANY",
+              "REPORT_VIEW_ANY",
+              "SETTINGS_MANAGE",
+              "TAX_VIEW_ANY",
+              "TERRITORY_VIEW_ANY",
+              "ZILLOW_MEDIA_EXCLUSIVES_MANAGE"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "Fee": {
+        "title": "Fee",
+        "type": "object",
+        "description": "A fee that can be applied to an order.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "enum": [
+              "FEE"
+            ],
+            "example": "FEE",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "ID of the entity. UUID Version 4.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The title of the fee.",
+            "minLength": 0,
+            "maxLength": 65536,
+            "example": "Flat Fee"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of fee.",
+            "example": "FLAT",
+            "minLength": 0,
+            "maxLength": 255,
+            "enum": [
+              "FLAT",
+              "PERCENT",
+              "BASIC_METERED",
+              "GRADUATED_METERED",
+              "VOLUME_METERED",
+              "TERRITORY"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the fee.",
+            "example": "Flat Fee",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the fee.",
+            "example": "Flat fee for the order",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "avalara_tax_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The Avalara tax code for the fee.",
+            "example": "12345",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "quickbooks_item_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The Quickbooks item ID for the fee.",
+            "example": "12345",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the fee.",
+            "example": 100
+          }
+        },
+        "required": [
+          "object",
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "CompanyTeamMember": {
+        "title": "CompanyTeamMember",
+        "type": [
+          "object",
+          "null"
+        ],
+        "description": "A team member of a company.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 19,
+            "maxLength": 19,
+            "enum": [
+              "COMPANY_TEAM_MEMBER"
+            ],
+            "example": "COMPANY_TEAM_MEMBER",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "ID of the entity. UUID Version 4."
+          },
+          "calendar_color": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Color code for calendar display, if assigned",
+            "example": "#FF0000",
+            "minLength": 7,
+            "maxLength": 7
+          },
+          "permissions": {
+            "type": "array",
+            "description": "List of permissions granted to the team member",
+            "items": {
+              "$ref": "#/components/schemas/CompanyTeamMemberPermission"
+            }
+          },
+          "restrictions": {
+            "type": "array",
+            "description": "List of restrictions applied to the team member",
+            "items": {
+              "type": "object",
+              "description": "A key-value pair of restriction data.",
+              "additionalProperties": false
+            }
+          },
+          "is_service_provider": {
+            "type": "boolean",
+            "description": "Indicates if the team member is a service provider",
+            "example": true
+          },
+          "external_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 65536,
+            "description": "External identifier for the team member, if any",
+            "example": "1234567890"
+          },
+          "company_user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "has_owner_role": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member has the owner role",
+            "example": true
+          },
+          "is_owner": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member is the owner",
+            "example": true
+          },
+          "invitation_accepted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the company team member invitation was accepted",
+            "format": "date-time",
+            "minLength": 27,
+            "maxLength": 27,
+            "example": "2025-04-01T05:59:59.999999Z"
+          },
+          "role": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The role of the team member",
+            "example": "ADMIN",
+            "enum": [
+              "ADMIN",
+              "MEMBER",
+              "OWNER"
+            ]
+          },
+          "status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The status of the team member",
+            "example": "active",
+            "enum": [
+              "active",
+              "invited",
+              "revoked"
+            ]
+          },
+          "is_active": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member is active",
+            "example": true
+          },
+          "is_invited": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member is invited",
+            "example": true
+          },
+          "is_revoked": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member is revoked",
+            "example": true
+          },
+          "scheduling_priority": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The scheduling priority of the team member",
+            "example": 1
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the company team member was created",
+            "format": "date-time",
+            "minLength": 27,
+            "maxLength": 27,
+            "example": "2025-04-01T05:59:59.999999Z"
+          },
+          "require_appointment_confirmation": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the team member requires appointment confirmation",
+            "example": true
+          },
+          "fees": {
+            "type": "array",
+            "description": "The fees assigned to the team member",
+            "items": {
+              "$ref": "#/components/schemas/Fee"
+            }
+          },
+          "travel_fee_amount": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The travel fee amount in cents",
+            "example": 1000
+          },
+          "travel_fee_is_estimated": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the travel fee is estimated",
+            "example": true
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "permissions",
+          "restrictions",
+          "is_service_provider"
+        ],
+        "additionalProperties": false
+      },
+      "TaskTemplate": {
+        "title": "TaskTemplate",
+        "type": "object",
+        "description": "A task template is a template for a task that can be assigned to a user.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "ID of the entity. UUID Version 4.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Complete 41 Drone Shots, Variant corporis",
+            "description": "The name of the task template.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "description": {
+            "type": "string",
+            "example": "Complete 41 Drone Shots, Variant corporis",
+            "description": "The description of the task template.",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "product_variant": {
+            "$ref": "#/components/schemas/ProductVariant"
+          },
+          "default_pay_run_item_amount": {
+            "type": "integer",
+            "example": 10000,
+            "description": "The default pay run item amount of the task template."
+          },
+          "default_pay_run_item_amount_type": {
+            "type": "string",
+            "example": "flat",
+            "description": "The default pay run item amount type of the task template.",
+            "enum": [
+              "flat",
+              "percentage"
+            ],
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "pay_run_item_amount_overrides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PayRunItemAmountOverride"
+            }
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "PayRunItemAmountOverride": {
+        "title": "PayRunItemAmountOverride",
+        "type": "object",
+        "description": "A pay run item amount override is an override for a pay run item amount.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "ID of the entity. UUID Version 4."
+          },
+          "task_template": {
+            "$ref": "#/components/schemas/TaskTemplate"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 10000,
+            "description": "The amount of the pay run item amount override."
+          },
+          "amount_type": {
+            "type": "string",
+            "example": "flat",
+            "description": "The type of the pay run item amount override.",
+            "enum": [
+              "flat",
+              "percentage"
+            ],
+            "minLength": 0,
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "id",
+          "task_template",
+          "amount",
+          "amount_type"
+        ],
+        "additionalProperties": false
+      },
       "Task": {
         "title": "Task",
         "type": "object",
@@ -14416,6 +15099,15 @@
             "type": "boolean",
             "description": "Flag indicating whether the task is completed",
             "example": true
+          },
+          "completed_by": {
+            "$ref": "#/components/schemas/CompanyTeamMember"
+          },
+          "assignee": {
+            "$ref": "#/components/schemas/CompanyTeamMember"
+          },
+          "task_template": {
+            "$ref": "#/components/schemas/TaskTemplate"
           }
         },
         "required": [
@@ -14772,248 +15464,6 @@
         ],
         "additionalProperties": false
       },
-      "CompanyTeamMemberPermission": {
-        "title": "CompanyTeamMemberPermission",
-        "type": "object",
-        "description": "A permission for a team member of a company.",
-        "properties": {
-          "object": {
-            "type": "string",
-            "minLength": 10,
-            "maxLength": 10,
-            "enum": [
-              "PERMISSION"
-            ],
-            "example": "PERMISSION",
-            "description": "A canonical value representing a resource."
-          },
-          "name": {
-            "type": "string",
-            "description": "The name of the permission",
-            "example": "ACTIVITY_LOG_VIEW",
-            "minLength": 0,
-            "maxLength": 255,
-            "enum": [
-              "ACTIVITY_LOG_VIEW",
-              "APP_STORE_VIEW_ANY",
-              "APPOINTMENTS_MANAGE",
-              "AVAILABILITY_VIEW_ANY",
-              "CALENDAR_VIEW_ANY",
-              "CUSTOMER_CREATE",
-              "CUSTOMER_DELETE",
-              "CUSTOMER_EXPORT_CREATE",
-              "CUSTOMER_IMPORT_CREATE",
-              "CUSTOMER_VIEW_ANY",
-              "FEE_VIEW_ANY",
-              "LISTING_CREATE",
-              "LISTING_DELETE",
-              "LISTING_VIEW_ANY",
-              "MEDIA_REQUEST_MANAGE",
-              "ORDER_AMOUNT_VIEW_ANY",
-              "ORDER_FORM_VIEW_ANY",
-              "ORDER_NOTES_MANAGE",
-              "ORDER_VIEW_ANY",
-              "ORDERS_MANAGE",
-              "PAYMENT_METHODS_MANAGE",
-              "PAYROLL_MANAGE",
-              "PAYROLL_PERSONAL_MANAGE",
-              "PAYROLL_PERSONAL_VIEW",
-              "PRODUCT_VIEW_ANY",
-              "REPORT_VIEW_ANY",
-              "SETTINGS_MANAGE",
-              "TAX_VIEW_ANY",
-              "TERRITORY_VIEW_ANY",
-              "ZILLOW_MEDIA_EXCLUSIVES_MANAGE"
-            ]
-          }
-        },
-        "required": [
-          "name"
-        ],
-        "additionalProperties": false
-      },
-      "CompanyTeamMember": {
-        "title": "CompanyTeamMember",
-        "type": "object",
-        "description": "A team member of a company.",
-        "properties": {
-          "object": {
-            "type": "string",
-            "minLength": 19,
-            "maxLength": 19,
-            "enum": [
-              "COMPANY_TEAM_MEMBER"
-            ],
-            "example": "COMPANY_TEAM_MEMBER",
-            "description": "A canonical value representing a resource."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-            "example": "00000000-0000-4000-8000-000000000000",
-            "minLength": 36,
-            "maxLength": 36,
-            "description": "ID of the entity. UUID Version 4."
-          },
-          "calendar_color": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Color code for calendar display, if assigned",
-            "example": "#FF0000",
-            "minLength": 7,
-            "maxLength": 7
-          },
-          "permissions": {
-            "type": "array",
-            "description": "List of permissions granted to the team member",
-            "items": {
-              "$ref": "#/components/schemas/CompanyTeamMemberPermission"
-            }
-          },
-          "restrictions": {
-            "type": "array",
-            "description": "List of restrictions applied to the team member",
-            "items": {
-              "type": "object",
-              "description": "A key-value pair of restriction data.",
-              "additionalProperties": false
-            }
-          },
-          "is_service_provider": {
-            "type": "boolean",
-            "description": "Indicates if the team member is a service provider",
-            "example": true
-          },
-          "external_id": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "minLength": 0,
-            "maxLength": 65536,
-            "description": "External identifier for the team member, if any",
-            "example": "1234567890"
-          },
-          "company_user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "has_owner_role": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "description": "Indicates if the team member has the owner role",
-            "example": true
-          },
-          "is_owner": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "description": "Indicates if the team member is the owner",
-            "example": true
-          },
-          "invitation_accepted_at": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The date and time (ISO 8601 format) when the company team member invitation was accepted",
-            "format": "date-time",
-            "minLength": 27,
-            "maxLength": 27,
-            "example": "2025-04-01T05:59:59.999999Z"
-          },
-          "role": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The role of the team member",
-            "example": "ADMIN",
-            "enum": [
-              "ADMIN",
-              "MEMBER",
-              "OWNER"
-            ]
-          },
-          "status": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The status of the team member",
-            "example": "active",
-            "enum": [
-              "active",
-              "invited",
-              "revoked"
-            ]
-          },
-          "is_active": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "description": "Indicates if the team member is active",
-            "example": true
-          },
-          "is_invited": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "description": "Indicates if the team member is invited",
-            "example": true
-          },
-          "is_revoked": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "description": "Indicates if the team member is revoked",
-            "example": true
-          },
-          "scheduling_priority": {
-            "type": [
-              "integer",
-              "null"
-            ],
-            "description": "The scheduling priority of the team member",
-            "example": 1
-          },
-          "created_at": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The date and time (ISO 8601 format) when the company team member was created",
-            "format": "date-time",
-            "minLength": 27,
-            "maxLength": 27,
-            "example": "2025-04-01T05:59:59.999999Z"
-          },
-          "require_appointment_confirmation": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "description": "Indicates if the team member requires appointment confirmation",
-            "example": true
-          }
-        },
-        "required": [
-          "object",
-          "id",
-          "permissions",
-          "restrictions",
-          "is_service_provider"
-        ],
-        "additionalProperties": false
-      },
       "AppointmentAttendance": {
         "title": "AppointmentAttendance",
         "type": "object",
@@ -15338,9 +15788,9 @@
         "additionalProperties": false
       },
       "AppointmentSchedulePutPayload": {
-        "title": "AppointmentReschedulePayload",
+        "title": "AppointmentSchedulePutPayload",
         "type": "object",
-        "description": "Payload for rescheduling an appointment record.",
+        "description": "Payload for updating an appointment schedule.",
         "properties": {
           "auto_confirm": {
             "type": [
@@ -16042,6 +16492,20 @@
             "minLength": 20,
             "maxLength": 20,
             "example": "2021-06-30T20:30:00Z"
+          },
+          "strategy_type": {
+            "type": "string",
+            "enum": [
+              "DISTANCE",
+              "HOURS_PRIORITY",
+              "ROUND_ROBIN",
+              "RECOMMENDED",
+              "PRIORITY_LIST"
+            ],
+            "example": "DISTANCE",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "The strategy type to use for assignment scheduling."
           }
         },
         "required": [
@@ -17083,8 +17547,8 @@
         ],
         "additionalProperties": false
       },
-      "CreditTransactionResource": {
-        "title": "CreditTransactionResource",
+      "CreditTransaction": {
+        "title": "CreditTransaction",
         "type": "object",
         "description": "A customer user's credit transaction",
         "properties": {
@@ -17136,28 +17600,40 @@
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "description": "The date and time the transaction was created",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2025-01-01T20:30:00Z"
+            "description": "The date and time the transaction was created (ISO 8601)",
+            "minLength": 25,
+            "maxLength": 25,
+            "example": "2025-11-07T18:48:47+00:00"
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "description": "The date and time the transaction was updated",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2025-01-01T20:30:00Z"
+            "description": "The date and time the transaction was updated (ISO 8601)",
+            "minLength": 25,
+            "maxLength": 25,
+            "example": "2025-11-07T18:48:47+00:00"
           }
         },
         "required": [
           "type",
           "amount",
           "user_id",
-          "team_membership_id",
-          "team_membership_type",
           "created_at",
           "updated_at"
+        ],
+        "additionalProperties": false
+      },
+      "CreditTransactionResource": {
+        "title": "CreditTransactionResource",
+        "type": "object",
+        "description": "A customer user's credit transaction resource",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CreditTransaction"
+          }
+        },
+        "required": [
+          "data"
         ],
         "additionalProperties": false
       },
@@ -22344,6 +22820,417 @@
           "code"
         ]
       },
+      "OrderRefundPostPayload": {
+        "title": "OrderRefundPostPayload",
+        "type": "object",
+        "description": "Payload for refunding an order payment.",
+        "properties": {
+          "date": {
+            "type": "string",
+            "minLength": 19,
+            "maxLength": 19,
+            "example": "2025-11-07T17:03:26",
+            "description": "The date and time to record the refund. ISO 8601."
+          },
+          "reason": {
+            "type": "string",
+            "description": "The reason for the refund.",
+            "example": "duplicate",
+            "minLength": 1,
+            "maxLength": 255,
+            "enum": [
+              "duplicate",
+              "requested_by_customer",
+              "fraudulent",
+              "external"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the refund.",
+            "example": "This is a refund.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "amount": {
+            "type": "integer",
+            "description": "The amount of the refund.",
+            "example": 1000
+          },
+          "tip_amount": {
+            "type": "integer",
+            "description": "The tip amount of the refund.",
+            "example": 1000
+          }
+        },
+        "required": [
+          "date",
+          "reason",
+          "amount",
+          "tip_amount"
+        ],
+        "additionalProperties": false
+      },
+      "OrderPayment": {
+        "title": "OrderPayment",
+        "description": "An order payment",
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 13,
+            "maxLength": 13,
+            "enum": [
+              "ORDER_PAYMENT"
+            ],
+            "example": "ORDER_PAYMENT",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "ID of the entity. UUID Version 4."
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the payment",
+            "example": "MANUAL",
+            "minLength": 1,
+            "maxLength": 255,
+            "enum": [
+              "MANUAL",
+              "CREDIT",
+              "CHECKOUT"
+            ]
+          },
+          "collection_source": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The source of the payment",
+            "example": "CASH",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-06-30T20:30:00Z",
+            "description": "The date and time the payment was completed. ISO 8601.",
+            "minLength": 20,
+            "maxLength": 20
+          },
+          "applicable_amount": {
+            "type": "integer",
+            "description": "The applicable amount of the payment",
+            "example": 1000
+          },
+          "tip_amount": {
+            "type": "integer",
+            "description": "The tip amount of the payment",
+            "example": 1000
+          },
+          "total_amount": {
+            "type": "integer",
+            "description": "The total amount of the payment",
+            "example": 1000
+          },
+          "collected_amount": {
+            "type": "integer",
+            "description": "The collected amount of the payment",
+            "example": 1000
+          },
+          "order": {
+            "$ref": "#/components/schemas/Order"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "collection_source",
+          "completed_at",
+          "applicable_amount",
+          "tip_amount",
+          "total_amount",
+          "collected_amount"
+        ],
+        "additionalProperties": false
+      },
+      "OrderRefund": {
+        "title": "OrderRefund",
+        "description": "An order refund",
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 12,
+            "enum": [
+              "ORDER_REFUND"
+            ],
+            "example": "ORDER_REFUND",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "ID of the entity. UUID Version 4."
+          },
+          "amount": {
+            "type": "integer",
+            "description": "The amount of the refund.",
+            "example": 1000
+          },
+          "tip_amount": {
+            "type": "integer",
+            "description": "The tip amount of the refund.",
+            "example": 1000
+          },
+          "total_amount": {
+            "type": "integer",
+            "description": "The total amount of the refund.",
+            "example": 1000
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency of the refund.",
+            "example": "USD",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The description of the refund.",
+            "example": "This is a refund.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "reason": {
+            "type": "string",
+            "description": "The reason for the refund.",
+            "example": "DUPLICATE",
+            "minLength": 1,
+            "maxLength": 255,
+            "enum": [
+              "DUPLICATE",
+              "REQUESTED_BY_CUSTOMER",
+              "FRAUDULENT",
+              "EXTERNAL"
+            ]
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-06-30T20:30:00Z",
+            "description": "The date and time the refund was completed. ISO 8601.",
+            "minLength": 20,
+            "maxLength": 20
+          },
+          "company_team_member": {
+            "$ref": "#/components/schemas/CompanyTeamMember"
+          },
+          "order_payment": {
+            "$ref": "#/components/schemas/OrderPayment"
+          },
+          "payment_integration": {
+            "$ref": "#/components/schemas/PaymentGateway"
+          }
+        },
+        "required": [
+          "id",
+          "amount",
+          "tip_amount",
+          "total_amount",
+          "currency",
+          "description",
+          "reason",
+          "completed_at",
+          "order_payment"
+        ],
+        "additionalProperties": false
+      },
+      "OrderRefundResource": {
+        "title": "OrderRefundResource",
+        "type": "object",
+        "description": "An order refund.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrderRefund"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "Region": {
+        "type": "object",
+        "title": "Region",
+        "description": "A region is a geographical area that can be used to group or filter data.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the entity. UUID Version 4.",
+            "minLength": 36,
+            "maxLength": 36,
+            "format": "uuid",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the region.",
+            "enum": [
+              "COUNTRY",
+              "STATE",
+              "COUNTY"
+            ],
+            "example": "COUNTRY",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the region.",
+            "example": "United States",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The description of the region.",
+            "example": "The United States of America",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "slug": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The slug of the region.",
+            "example": "united-states",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "code": {
+            "type": "string",
+            "description": "The code of the region.",
+            "example": "US",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "country_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The country code of the region.",
+            "example": "US",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "state_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The state code of the region.",
+            "example": "CA",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "name",
+          "description",
+          "slug",
+          "code",
+          "country_code",
+          "state_code"
+        ],
+        "additionalProperties": false
+      },
+      "RegionCollection": {
+        "title": "RegionCollection",
+        "type": "object",
+        "description": "A collection of regions.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/Region"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
       "Review": {
         "title": "Review",
         "type": "object",
@@ -22945,6 +23832,111 @@
         ],
         "additionalProperties": false
       },
+      "OrderItemGrouping": {
+        "title": "OrderItemGrouping",
+        "type": "object",
+        "description": "A grouping of order items.",
+        "properties": {
+          "object": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "ORDER_ITEM_GROUPING",
+            "description": "A canonical value representing a resource.",
+            "minLength": 0,
+            "maxLength": 10
+          },
+          "users": {
+            "type": "array",
+            "description": "Users attached to the grouping.",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "company_team_members": {
+            "type": "array",
+            "description": "Company team members attached to the grouping.",
+            "items": {
+              "$ref": "#/components/schemas/CompanyTeamMember"
+            }
+          },
+          "products": {
+            "type": "array",
+            "description": "Products attached to the grouping.",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          },
+          "items": {
+            "type": "array",
+            "description": "Order items attached to the grouping.",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            }
+          },
+          "duration": {
+            "type": "integer",
+            "example": 60,
+            "minimum": 1,
+            "maximum": 1440,
+            "description": "The duration of the grouping in minutes."
+          }
+        },
+        "required": [
+          "users",
+          "company_team_members",
+          "products",
+          "items",
+          "duration"
+        ],
+        "additionalProperties": false
+      },
+      "OrderItemGroupingCollection": {
+        "title": "OrderItemGroupingCollection",
+        "type": "object",
+        "description": "A collection of order item groupings.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemGrouping"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
       "TagCollection": {
         "title": "TagCollection",
         "type": "object",
@@ -23084,6 +24076,234 @@
           }
         },
         "additionalProperties": false
+      },
+      "TaskCollection": {
+        "title": "TaskCollection",
+        "type": "object",
+        "description": "A collection of tasks.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "TaskPostPayload": {
+        "title": "TaskPostPayload",
+        "type": "object",
+        "description": "Payload for creating a task.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the task.",
+            "example": "Complete 41 Drone Shots, Variant corporis",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The description of the task.",
+            "example": "Complete 41 Drone Shots, Variant corporis",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "due_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The due date of the task.",
+            "example": "2021-06-30T20:30:00Z",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The completed date of the task.",
+            "example": "2021-06-30T20:30:00Z",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20
+          },
+          "company_team_member_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the company team member assigned to the task.",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ]
+      },
+      "TaskResource": {
+        "title": "TaskResource",
+        "type": "object",
+        "description": "A task response resource.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "TaskPutPayload": {
+        "title": "TaskPutPayload",
+        "type": "object",
+        "description": "Payload for updating a task.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the task.",
+            "example": "Complete 41 Drone Shots, Variant corporis",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The description of the task.",
+            "example": "Complete 41 Drone Shots, Variant corporis",
+            "minLength": 0,
+            "maxLength": 65536
+          },
+          "due_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The due date of the task.",
+            "example": "2021-06-30T20:30:00Z",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The completed date of the task.",
+            "example": "2021-06-30T20:30:00Z",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20
+          },
+          "company_team_member_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the company team member assigned to the task.",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ]
+      },
+      "TaskCompletePutPayload": {
+        "title": "TaskCompletePutPayload",
+        "type": "object",
+        "description": "Payload for completing a task.",
+        "properties": {
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The completed date of the task.",
+            "example": "2021-06-30T20:30:00Z",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "completed_at"
+        ]
+      },
+      "TaskReinstatePutPayload": {
+        "title": "TaskReinstatePutPayload",
+        "type": "object",
+        "description": "Payload for reinstating a task.",
+        "additionalProperties": false,
+        "required": []
       },
       "TaxPostPayload": {
         "title": "TaxPostPayload",
