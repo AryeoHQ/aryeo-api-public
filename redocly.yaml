@@ -20,6 +20,14 @@ openapi:
       - lang: 'curl'
         label: 'cURL'
 
+# Global settings
+mcp:
+  hide: false
+  # Docs MCP settings
+  docs:
+    hide: false
+    name: Aryeo MCP
+  
 ignore:
   - index.html
   - CONTRIBUTING.md
