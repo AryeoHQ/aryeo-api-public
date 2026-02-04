@@ -22390,6 +22390,106 @@
         },
         "additionalProperties": false
       },
+      "PortalAppRevision": {
+        "title": "PortalAppRevision",
+        "type": "object",
+        "description": "A revision of a portal app config.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 39,
+            "maxLength": 39,
+            "enum": [
+              "APP\\PORTALAPPS\\MODELS\\PORTALAPPREVISION"
+            ],
+            "example": "APP\\PORTALAPPS\\MODELS\\PORTALAPPREVISION",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "description": "The ID of the revision.",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "example": "00000000-0000-4000-8000-000000000000"
+          },
+          "version": {
+            "type": "string",
+            "description": "The version of app when the revision was created.",
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "1.0.0"
+          },
+          "changes": {
+            "type": "array",
+            "description": "A list of changes made to the app config for this revision.",
+            "items": {
+              "type": "object",
+              "description": "A generic payload containing metadata about the changes made to the app config for this revision.",
+              "additionalProperties": true
+            }
+          },
+          "screenshots": {
+            "type": "array",
+            "description": "A list of screenshots for this revision.",
+            "items": {
+              "type": "object",
+              "description": "A generic payload containing metadata about the screenshots for this revision.",
+              "additionalProperties": true
+            }
+          },
+          "screenshots_ready_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the screenshots were ready.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          },
+          "screenshots_started_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time (ISO 8601 format) when the screenshots were started.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The date and time (ISO 8601 format) when the revision was created.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "The date and time (ISO 8601 format) when the revision was updated.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "version",
+          "changes",
+          "screenshots",
+          "screenshots_ready_at",
+          "screenshots_started_at",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false
+      },
       "PortalAppConfig": {
         "title": "PortalAppConfig",
         "type": "object",
@@ -22635,6 +22735,9 @@
             "minLength": 20,
             "maxLength": 20,
             "example": "2021-06-30T20:30:00Z"
+          },
+          "last_revision": {
+            "$ref": "#/components/schemas/PortalAppRevision"
           },
           "last_revision_id": {
             "type": "string",
@@ -23451,6 +23554,545 @@
         "required": [
           "status"
         ]
+      },
+      "SavedViewFilter": {
+        "type": "object",
+        "title": "SavedViewFilter",
+        "description": "A filter for a saved view.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 17,
+            "maxLength": 17,
+            "enum": [
+              "SAVED_VIEW_FILTER"
+            ],
+            "example": "SAVED_VIEW_FILTER",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "description": "ID of the filter. UUID Version 4."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "delivery_status",
+              "payment_status"
+            ],
+            "example": "delivery_status",
+            "description": "The type of filter.",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "value": {
+            "type": [
+              "string",
+              "array",
+              "object"
+            ],
+            "description": "The value of the filter. Can be a string, array, or object depending on the filter type.",
+            "items": {
+              "type": "string",
+              "description": "When value is an array, it contains string elements."
+            },
+            "example": [
+              "delivered",
+              "pending"
+            ]
+          },
+          "saved_view_id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "description": "The ID of the saved view this filter belongs to."
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time the filter was created.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time the filter was last updated.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "type",
+          "value",
+          "saved_view_id"
+        ],
+        "additionalProperties": false
+      },
+      "SavedView": {
+        "type": "object",
+        "title": "SavedView",
+        "description": "A saved view.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 10,
+            "enum": [
+              "SAVED_VIEW"
+            ],
+            "example": "SAVED_VIEW",
+            "description": "A canonical value representing a resource."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "description": "ID of the saved view. UUID Version 4."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "My Saved View",
+            "description": "The title of the saved view."
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "listing",
+              "order"
+            ],
+            "example": "listing",
+            "description": "The scope of the saved view.",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "sort_by": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "created_at",
+            "description": "The field to sort by."
+          },
+          "owner_id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "description": "The ID of the owner of this saved view. UUID Version 4."
+          },
+          "owner_type": {
+            "type": "string",
+            "enum": [
+              "company",
+              "company_team_member"
+            ],
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "company",
+            "description": "The type of the owner of this saved view."
+          },
+          "created_by": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "description": "The ID of the user who created this saved view. UUID Version 4."
+          },
+          "order_index": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "example": 0,
+            "description": "The order index for this saved view for the authenticated user."
+          },
+          "filters": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "An array of filters for this saved view.",
+            "items": {
+              "$ref": "#/components/schemas/SavedViewFilter"
+            }
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time the saved view was created.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The date and time the saved view was last updated.",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          },
+          "can_edit": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether the authenticated user can edit this saved view."
+          },
+          "view_access": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The access level of the saved view.",
+            "enum": [
+              "Whole team",
+              "Only me"
+            ],
+            "example": "Whole team"
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "title",
+          "scope",
+          "owner_id",
+          "owner_type",
+          "created_by",
+          "can_edit"
+        ],
+        "additionalProperties": false
+      },
+      "SavedViewCollection": {
+        "title": "SavedViewCollection",
+        "type": "object",
+        "description": "A collection of saved views.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "A collection of objects.",
+            "items": {
+              "$ref": "#/components/schemas/SavedView"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status",
+          "data",
+          "meta",
+          "links"
+        ],
+        "additionalProperties": false
+      },
+      "SavedViewPostPayload": {
+        "type": "object",
+        "title": "SavedViewPostPayload",
+        "description": "Payload for creating a saved view.",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "My Saved View",
+            "description": "The title of the saved view."
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "listing",
+              "order"
+            ],
+            "example": "listing",
+            "description": "The scope of the saved view.",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "owner_type": {
+            "type": "string",
+            "enum": [
+              "company",
+              "company_team_member"
+            ],
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "company",
+            "description": "The type of the owner of this saved view."
+          },
+          "sort_by": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "created_at",
+            "description": "The field to sort by."
+          },
+          "filters": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "An array of filters for this saved view.",
+            "items": {
+              "type": "object",
+              "description": "A saved view filter object.",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "delivery_status",
+                    "payment_status"
+                  ],
+                  "example": "delivery_status",
+                  "description": "The type of filter.",
+                  "minLength": 1,
+                  "maxLength": 255
+                },
+                "value": {
+                  "type": [
+                    "string",
+                    "array",
+                    "object"
+                  ],
+                  "description": "The value of the filter. Can be a string, array, or object depending on the filter type.",
+                  "items": {
+                    "type": "string",
+                    "description": "When value is an array, it contains string elements."
+                  },
+                  "example": [
+                    "delivered",
+                    "pending"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "scope",
+          "owner_type"
+        ],
+        "additionalProperties": false
+      },
+      "SavedViewResource": {
+        "title": "SavedViewResource",
+        "type": "object",
+        "description": "A saved view.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SavedView"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "SavedViewRearrangePayload": {
+        "type": "object",
+        "title": "SavedViewRearrangePayload",
+        "description": "Payload for rearranging saved views for the current company team member.",
+        "properties": {
+          "order": {
+            "type": "array",
+            "description": "An ordered array of saved view IDs. The first ID will be set to order_index 0, the next to 1, and so on. Send an empty array to clear custom ordering.",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000",
+              "description": "The ID of a saved view. UUID Version 4."
+            }
+          }
+        },
+        "required": [
+          "order"
+        ],
+        "additionalProperties": false
+      },
+      "SavedViewPatchPayload": {
+        "type": "object",
+        "title": "SavedViewPatchPayload",
+        "description": "Payload for updating a saved view.",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "My Updated Saved View",
+            "description": "The title of the saved view."
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "listing",
+              "order"
+            ],
+            "example": "listing",
+            "description": "The scope of the saved view.",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "owner_type": {
+            "type": "string",
+            "enum": [
+              "company",
+              "company_team_member"
+            ],
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "company",
+            "description": "The type of the owner of this saved view."
+          },
+          "sort_by": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "created_at",
+            "description": "The field to sort by."
+          },
+          "filters": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "An array of filters for this saved view.",
+            "items": {
+              "type": "object",
+              "description": "A saved view filter object.",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "delivery_status",
+                    "payment_status"
+                  ],
+                  "example": "delivery_status",
+                  "description": "The type of filter.",
+                  "minLength": 1,
+                  "maxLength": 255
+                },
+                "value": {
+                  "type": [
+                    "string",
+                    "array",
+                    "object"
+                  ],
+                  "description": "The value of the filter. Can be a string, array, or object depending on the filter type.",
+                  "items": {
+                    "type": "string",
+                    "description": "When value is an array, it contains string elements."
+                  },
+                  "example": [
+                    "delivered",
+                    "pending"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [],
+        "additionalProperties": false
       },
       "CalendarDay": {
         "description": "A bookable time range with available users.",
