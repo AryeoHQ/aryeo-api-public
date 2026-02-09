@@ -18416,6 +18416,77 @@
         ],
         "additionalProperties": false
       },
+      "ListingCountsPayload": {
+        "title": "ListingCountsPayload",
+        "type": "object",
+        "description": "Payload for requesting listing counts.",
+        "properties": {
+          "saved_view_ids": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "An array of saved view IDs to get counts for.",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "minLength": 36,
+              "maxLength": 36,
+              "description": "A saved view ID. UUID Version 4.",
+              "example": "00000000-0000-4000-8000-000000000000"
+            }
+          },
+          "include_all_listings": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether to include the count of all listings. Defaults to true.",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ListingCountsResource": {
+        "title": "ListingCountsResource",
+        "type": "object",
+        "description": "A resource containing listing counts for all listings and saved views.",
+        "properties": {
+          "data": {
+            "type": "object",
+            "description": "The listing counts data.",
+            "properties": {
+              "all_listings": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "The total count of all listings, or null if not requested.",
+                "example": 42
+              },
+              "views": {
+                "type": "object",
+                "description": "An object mapping saved view IDs to their respective listing counts.",
+                "additionalProperties": {
+                  "type": "integer",
+                  "description": "The count of listings matching the saved view filters.",
+                  "example": 10
+                }
+              }
+            },
+            "required": [
+              "all_listings",
+              "views"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
       "ListingPutPayload": {
         "title": "ListingPutPayload",
         "type": "object",
