@@ -14615,7 +14615,8 @@
               "SETTINGS_MANAGE",
               "TAX_VIEW_ANY",
               "TERRITORY_VIEW_ANY",
-              "ZILLOW_MEDIA_EXCLUSIVES_MANAGE"
+              "ZILLOW_MEDIA_EXCLUSIVES_MANAGE",
+              "SAVED_VIEWS_MANAGE"
             ]
           }
         },
