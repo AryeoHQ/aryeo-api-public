@@ -8801,6 +8801,7 @@
             "default_reschedule_toggle_false",
             "idp_migration_in_progress",
             "listings_new_creation_flow",
+            "listings_new_edit_page",
             "min_hour_targets",
             "max_travel_distance",
             "order_form_categories",
@@ -13914,6 +13915,79 @@
         ],
         "additionalProperties": false
       },
+      "QuickBooksItem": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "title": "QuickBooksItem",
+        "description": "A record of a QuickBooks item.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "A canonical value representing a resource.",
+            "example": "QUICKBOOKS_ITEM"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "ID of the QuickBooks item.",
+            "example": "1234567890"
+          },
+          "display_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "example": "Consulting Hours",
+            "description": "Fully qualified display name of the QuickBooks item."
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "example": "Consulting",
+            "description": "Name of the QuickBooks item."
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "example": "Hourly consulting services",
+            "description": "Description of the QuickBooks item."
+          },
+          "type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "example": "Service",
+            "description": "Type of the QuickBooks item."
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the QuickBooks item is active.",
+            "example": true
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
       "DiscountableItem": {
         "title": "DiscountableItem",
         "type": "object",
@@ -14056,6 +14130,9 @@
             "example": "12345",
             "minLength": 0,
             "maxLength": 65536
+          },
+          "quickbooks_item": {
+            "$ref": "#/components/schemas/QuickBooksItem"
           },
           "amount": {
             "type": "number",
@@ -22994,6 +23071,175 @@
         "required": [
           "code"
         ]
+      },
+      "QuickBooksCustomer": {
+        "type": "object",
+        "title": "QuickBooksCustomer",
+        "description": "A record of a QuickBooks customer.",
+        "properties": {
+          "object": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "A canonical value representing a resource.",
+            "example": "QUICKBOOKS_CUSTOMER"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "ID of the QuickBooks customer.",
+            "example": "1234567890"
+          },
+          "display_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "example": "John's Auto Parts",
+            "description": "Display name of the QuickBooks customer."
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "minLength": 0,
+            "example": "John Doe",
+            "description": "Name of the QuickBooks customer."
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "email",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "john.doe@gmail.com",
+            "description": "Email address of the user."
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the QuickBooks customer is active.",
+            "example": true
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "QuickBooksCustomerCollection": {
+        "title": "QuickBooksCustomerCollection",
+        "type": "object",
+        "description": "A collection of QuickBooks customers.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/QuickBooksCustomer"
+            }
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "QuickBooksItemCollection": {
+        "title": "QuickBooksItemCollection",
+        "type": "object",
+        "description": "A collection of QuickBooks items.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/QuickBooksItem"
+            }
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "QuickBooksItemResource": {
+        "title": "QuickBooksItemResource",
+        "type": "object",
+        "description": "A QuickBooks item.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "What was the state of the request?"
+          },
+          "data": {
+            "$ref": "#/components/schemas/QuickBooksItem"
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
       },
       "OrderRefundPostPayload": {
         "title": "OrderRefundPostPayload",
