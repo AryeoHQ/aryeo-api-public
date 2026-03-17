@@ -13434,20 +13434,28 @@
               "string",
               "null"
             ],
-            "example": "RESIDENTIAL",
+            "example": "SINGLE_FAMILY",
             "description": "General type of the listing, primarily categorizing its use case. Examples include residential and commercial. ",
             "minLength": 1,
             "maxLength": 100,
             "enum": [
-              "BUSINESS_OPPORTUNITY",
-              "COMMERCIAL_LEASE",
-              "COMMERCIAL_SALE",
-              "FARM",
+              "SINGLE_FAMILY",
+              "SINGLE_FAMILY_ATTACHED",
+              "SINGLE_FAMILY_DETACHED",
+              "COLONIAL",
+              "CONDO",
+              "TOWNHOME",
+              "TWINHOME",
+              "DUPLEX",
+              "LOT",
               "LAND",
-              "MANUFACTURED_IN_PARK",
-              "RESIDENTIAL",
-              "RESIDENTIAL_INCOME",
-              "RESIDENTIAL_LEASE"
+              "MANUFACTURED_HOME",
+              "SEMI_DETACHED",
+              "MULTI_FAMILY",
+              "RENTAL",
+              "ROW_HOUSE",
+              "HORSE_FARM",
+              "OTHER"
             ]
           },
           "sub_type": {
@@ -13455,19 +13463,28 @@
               "string",
               "null"
             ],
-            "example": "SINGLE_FAMILY_RESIDENCE",
+            "example": "SINGLE_FAMILY_DETACHED",
             "description": "Further specifies the listing type. Examples include family residence and condominium.",
             "minLength": 1,
             "maxLength": 100,
             "enum": [
-              "APARTMENT",
-              "CONDOMINIUM",
+              "SINGLE_FAMILY",
+              "SINGLE_FAMILY_ATTACHED",
+              "SINGLE_FAMILY_DETACHED",
+              "COLONIAL",
+              "CONDO",
+              "TOWNHOME",
+              "TWINHOME",
               "DUPLEX",
-              "FARM",
-              "SINGLE_FAMILY_RESIDENCE",
-              "TIMESHARE",
-              "TOWNHOUSE",
-              "OFFICE"
+              "LOT",
+              "LAND",
+              "MANUFACTURED_HOME",
+              "SEMI_DETACHED",
+              "MULTI_FAMILY",
+              "RENTAL",
+              "ROW_HOUSE",
+              "HORSE_FARM",
+              "OTHER"
             ]
           },
           "status": {
@@ -18699,9 +18716,28 @@
               "null"
             ],
             "description": "The type of the listing.",
+            "enum": [
+              "Single Family",
+              "Single Family Attached",
+              "Single Family Detached",
+              "Colonial",
+              "Condo",
+              "Townhome",
+              "Twinhome",
+              "Duplex",
+              "Lot",
+              "Land",
+              "Manufactured Home",
+              "Semi-Detached",
+              "Multi Family",
+              "Rental",
+              "Row House",
+              "Horse Farm",
+              "Other"
+            ],
             "minLength": 0,
             "maxLength": 255,
-            "example": "SINGLE_FAMILY"
+            "example": "Single Family"
           },
           "is_showcase": {
             "type": [
@@ -19372,19 +19408,28 @@
               "string",
               "null"
             ],
-            "example": "SINGLE_FAMILY_RESIDENCE",
+            "example": "SINGLE_FAMILY_DETACHED",
             "description": "Further specifies the listing type. Examples include family residence and condominium.",
             "minLength": 1,
             "maxLength": 100,
             "enum": [
-              "APARTMENT",
-              "CONDOMINIUM",
+              "SINGLE_FAMILY",
+              "SINGLE_FAMILY_ATTACHED",
+              "SINGLE_FAMILY_DETACHED",
+              "COLONIAL",
+              "CONDO",
+              "TOWNHOME",
+              "TWINHOME",
               "DUPLEX",
-              "FARM",
-              "SINGLE_FAMILY_RESIDENCE",
-              "TIMESHARE",
-              "TOWNHOUSE",
-              "OFFICE"
+              "LOT",
+              "LAND",
+              "MANUFACTURED_HOME",
+              "SEMI_DETACHED",
+              "MULTI_FAMILY",
+              "RENTAL",
+              "ROW_HOUSE",
+              "HORSE_FARM",
+              "OTHER"
             ]
           },
           "status": {
