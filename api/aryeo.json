@@ -15011,6 +15011,13 @@
             ],
             "description": "Indicates if the travel fee is estimated",
             "example": true
+          },
+          "restricted_customers": {
+            "type": "array",
+            "description": "Customers that this team member is restricted from working with",
+            "items": {
+              "$ref": "#/components/schemas/Group"
+            }
           }
         },
         "required": [
@@ -18152,6 +18159,22 @@
         ],
         "additionalProperties": false
       },
+      "DraftOrderCustomerUserPutPayload": {
+        "title": "DraftOrderCustomerUserPutPayload",
+        "type": "object",
+        "description": "Payload to update a customer user on a draft order.",
+        "properties": {
+          "phone_number": {
+            "type": "string",
+            "description": "E.164 formatted phone number including country code.",
+            "example": "+15551234567",
+            "minLength": 4,
+            "maxLength": 16,
+            "pattern": "^\\+[1-9]\\d{1,14}$"
+          }
+        },
+        "additionalProperties": false
+      },
       "ForgotPasswordPostPayload": {
         "title": "ForgotPasswordPostPayload",
         "type": "object",
@@ -19535,97 +19558,6 @@
           },
           "data": {
             "$ref": "#/components/schemas/ListingMarketingContent"
-          },
-          "timestamp": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The request timestamp (ISO 8601).",
-            "format": "date-time",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2021-06-30T20:30:00Z"
-          }
-        },
-        "required": [
-          "status"
-        ],
-        "additionalProperties": false
-      },
-      "MarketingMaterialPageSize": {
-        "title": "MarketingMaterialPageSize",
-        "type": "object",
-        "description": "A defined page size for marketing material.",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "00000000-0000-4000-8000-000000000000",
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-            "minLength": 36,
-            "maxLength": 36,
-            "description": "ID of the entity. UUID Version 4."
-          },
-          "width": {
-            "type": "integer",
-            "example": 500,
-            "minimum": 0,
-            "maximum": 9999,
-            "format": "int32",
-            "description": "Width in pixels."
-          },
-          "height": {
-            "type": "integer",
-            "format": "int32",
-            "example": 500,
-            "minimum": 0,
-            "maximum": 9999,
-            "description": "Height in pixels."
-          },
-          "name": {
-            "type": "string",
-            "example": "Facebook ad",
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "Name of the page size."
-          }
-        },
-        "required": [
-          "id",
-          "width",
-          "height",
-          "name"
-        ],
-        "additionalProperties": false
-      },
-      "MarketingMaterialPageSizeCollection": {
-        "title": "MarketingMaterialPageSizeCollection",
-        "type": "object",
-        "description": "A collection of marketing material page sizes.",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "success",
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "What was the state of the request?"
-          },
-          "data": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "A collection of objects.",
-            "items": {
-              "$ref": "#/components/schemas/MarketingMaterialPageSize"
-            }
-          },
-          "meta": {
-            "$ref": "#/components/schemas/PaginationMeta"
-          },
-          "links": {
-            "$ref": "#/components/schemas/PaginationLinks"
           },
           "timestamp": {
             "type": [
@@ -25493,121 +25425,6 @@
             "description": "A collection of objects.",
             "items": {
               "$ref": "#/components/schemas/User"
-            }
-          },
-          "meta": {
-            "$ref": "#/components/schemas/PaginationMeta"
-          },
-          "links": {
-            "$ref": "#/components/schemas/PaginationLinks"
-          },
-          "timestamp": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The request timestamp (ISO 8601).",
-            "format": "date-time",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2021-06-30T20:30:00Z"
-          }
-        },
-        "required": [
-          "status"
-        ],
-        "additionalProperties": false
-      },
-      "VonageMessage": {
-        "title": "Message",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "minLength": 0,
-            "maxLength": 65536,
-            "example": "Message name",
-            "description": "The name (source) of the message."
-          },
-          "payload": {
-            "type": "object",
-            "description": "A generic payload containing metadata about the activity.",
-            "additionalProperties": true
-          },
-          "exception": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The exception message if the message failed to send.",
-            "minLength": 0,
-            "maxLength": 65536,
-            "example": "Exception message"
-          },
-          "url": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The URL of the message.",
-            "example": "https://api.vonage.com/v1/messages/1234567890",
-            "minLength": 1,
-            "maxLength": 65535
-          },
-          "headers": {
-            "type": "object",
-            "description": "The headers of the message.",
-            "additionalProperties": true
-          },
-          "created_at": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The date and time (ISO 8601 format) when the message was created.",
-            "format": "date-time",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2021-06-30T20:30:00Z"
-          },
-          "updated_at": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The date and time (ISO 8601 format) when the message was last updated.",
-            "format": "date-time",
-            "minLength": 20,
-            "maxLength": 20,
-            "example": "2021-06-30T20:30:00Z"
-          }
-        },
-        "description": "Valuation data relating to the price of a listing.",
-        "additionalProperties": false
-      },
-      "VonageMessageCollection": {
-        "title": "MessageCollection",
-        "type": "object",
-        "description": "A collection of messages.",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "success",
-            "minLength": 0,
-            "maxLength": 255,
-            "description": "What was the state of the request?"
-          },
-          "data": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "A collection of objects.",
-            "items": {
-              "$ref": "#/components/schemas/VonageMessage"
             }
           },
           "meta": {
