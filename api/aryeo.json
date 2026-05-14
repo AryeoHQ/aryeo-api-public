@@ -1413,6 +1413,100 @@
         ]
       }
     },
+    "/appointments/{appointment_id}/items": {
+      "put": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "appointment_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of an appointment. UUID Version 4."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "AppointmentResource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResource"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "ApiError403",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ApiError404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError404"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "ApiFail422",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiFail422"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ApiError500",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError500"
+                }
+              }
+            }
+          }
+        },
+        "x-undocumented": true,
+        "x-external": true,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentItemsPutPayload"
+              }
+            }
+          }
+        },
+        "description": "Sync the items attached to an appointment.",
+        "operationId": "appointments-appointment-id-items-put",
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Update appointment items.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
+      }
+    },
     "/appointments/store": {
       "post": {
         "responses": {
@@ -1465,6 +1559,145 @@
           "Appointments"
         ],
         "summary": "Create appointment.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
+      }
+    },
+    "/appointments/store-draft": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "AppointmentResource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResource"
+                }
+              }
+            }
+          }
+        },
+        "x-undocumented": true,
+        "x-external": true,
+        "description": "Create a draft appointment.",
+        "operationId": "appointments-store-draft-post",
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Create a draft appointment.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
+      }
+    },
+    "/appointments/store-drafts": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "AppointmentCollection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentCollection"
+                }
+              }
+            }
+          }
+        },
+        "x-undocumented": true,
+        "x-external": true,
+        "description": "Create multiple draft appointments.",
+        "operationId": "appointments-store-drafts-post",
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Create multiple draft appointments.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
+      }
+    },
+    "/appointments/{appointment_id}/draft": {
+      "put": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "appointment_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of an appointment."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "AppointmentResource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResource"
+                }
+              }
+            }
+          }
+        },
+        "x-undocumented": true,
+        "x-external": true,
+        "description": "Update a draft appointment.",
+        "operationId": "put-appointments-appointment_id-draft",
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Update a draft appointment.",
+        "security": [
+          {
+            "Token": []
+          }
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            },
+            "name": "appointment_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of an appointment."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "x-undocumented": true,
+        "x-external": true,
+        "description": "Delete a draft appointment.",
+        "operationId": "delete-appointments-appointment_id-draft",
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Delete a draft appointment.",
         "security": [
           {
             "Token": []
@@ -6070,6 +6303,26 @@
             "in": "query",
             "name": "filter[type]",
             "description": "Return products matching the given type. Allowed values are: MAIN, ADDON."
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "example": true
+            },
+            "in": "query",
+            "name": "filter[always_display_addons]",
+            "description": "Return products that always display addons."
+          },
+          {
+            "name": "filter[main_product_ids][]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Return products that are associated with the given main products."
           }
         ],
         "tags": [
@@ -11264,6 +11517,15 @@
             "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
             "example": "00000000-0000-4000-8000-000000000000"
           },
+          "company_id": {
+            "type": "string",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "The ID of the company the customer team belongs to.",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000"
+          },
           "name": {
             "type": "string",
             "maxLength": 255,
@@ -13136,7 +13398,10 @@
             "enum": [
               "SCHEDULED",
               "UNSCHEDULED",
-              "CANCELED"
+              "CANCELED",
+              "DRAFT",
+              "POSTPONED",
+              "RESCHEDULED"
             ]
           },
           "title": {
@@ -15605,6 +15870,14 @@
             "example": "https://aryeo.com",
             "format": "uri"
           },
+          "requires_confirmation": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Indicates if the attendance requires confirmation.",
+            "example": true
+          },
           "is_requested": {
             "type": "boolean",
             "description": "Indicates if attendance was requested",
@@ -15770,6 +16043,28 @@
               "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
               "example": "00000000-0000-4000-8000-000000000000"
             }
+          },
+          "company_team_member_ids": {
+            "type": "array",
+            "description": "Array of company team member IDs to attach to the appointment.",
+            "items": {
+              "description": "ID of a company team member. UUID Version 4.",
+              "type": "string",
+              "minLength": 36,
+              "maxLength": 36,
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            }
+          },
+          "duration_minutes": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The duration of the appointment in minutes.",
+            "example": 60,
+            "minimum": 1
           },
           "notify": {
             "type": [
@@ -16023,6 +16318,30 @@
         },
         "required": [
           "url"
+        ],
+        "additionalProperties": false
+      },
+      "AppointmentItemsPutPayload": {
+        "title": "AppointmentItemsPutPayload",
+        "type": "object",
+        "description": "Payload for syncing the items attached to an appointment.",
+        "properties": {
+          "item_ids": {
+            "type": "array",
+            "description": "Array of order item IDs to attach to the appointment.",
+            "items": {
+              "description": "ID of an order item. UUID Version 4.",
+              "type": "string",
+              "minLength": 36,
+              "maxLength": 36,
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            }
+          }
+        },
+        "required": [
+          "item_ids"
         ],
         "additionalProperties": false
       },
@@ -21899,152 +22218,6 @@
         ],
         "additionalProperties": false
       },
-      "PortalAppConfigPutPayload": {
-        "title": "PortalAppConfigPutPayload",
-        "type": "object",
-        "description": "Payload for updating a portal app config.",
-        "properties": {
-          "app_name": {
-            "type": "string",
-            "description": "The name that will be displayed under your app icon.",
-            "example": "Gold Sprint",
-            "minLength": 0,
-            "maxLength": 15
-          },
-          "primary_status": {
-            "type": "string",
-            "description": "The primary status of the app.",
-            "example": "LIVE",
-            "minLength": 0,
-            "maxLength": 65536,
-            "enum": [
-              "INFO_SUBMITTED",
-              "READY_TO_BUILD",
-              "IN_REVIEW",
-              "LIVE",
-              "LIVE_NEEDS_TRANSFER",
-              "DISCONTINUED"
-            ]
-          },
-          "app_store_name": {
-            "type": "string",
-            "description": "The name that will be displayed on the App Store and Play Store.",
-            "example": "Gold Sprint Media",
-            "minLength": 0,
-            "maxLength": 30
-          },
-          "app_store_subtitle": {
-            "type": "string",
-            "description": "The subtitle that will be displayed on the App Store and Play Store.",
-            "example": "Real-Estate Media",
-            "minLength": 0,
-            "maxLength": 30
-          },
-          "description": {
-            "type": "string",
-            "description": "A description of the portal app, detailing features and functionality.",
-            "example": "An app for Gold Sprint Media customers!",
-            "minLength": 0,
-            "maxLength": 4000
-          },
-          "short_description": {
-            "type": "string",
-            "description": "A short description for your app. Users can expand to view your full description.",
-            "example": "An app for Gold Sprint Media customers!",
-            "minLength": 0,
-            "maxLength": 80
-          },
-          "keywords": {
-            "type": "string",
-            "description": "Keywords for search results. Separate keywords with a comma.",
-            "example": "real estate photography,photography services,real estate marketing",
-            "minLength": 0,
-            "maxLength": 100
-          },
-          "marketing_url": {
-            "type": "string",
-            "description": "URL: Marketing information about your app.",
-            "minLength": 0,
-            "maxLength": 65535,
-            "example": "https://aryeo.com",
-            "format": "uri"
-          },
-          "support_url": {
-            "type": "string",
-            "description": "URL: Support information for your app.",
-            "minLength": 0,
-            "maxLength": 65535,
-            "example": "https://aryeo.com",
-            "format": "uri"
-          },
-          "package_name": {
-            "type": "string",
-            "description": "The reverse DNS path to the main application package. This should match your iOS bundle id.",
-            "example": "com.aryeo.goldsprintmedia",
-            "minLength": 0,
-            "maxLength": 65535
-          },
-          "bundle_id": {
-            "type": "string",
-            "description": "The unique identifier for your app on Apple's App Store. This should be configured in Apple's Developer Portal.",
-            "example": "com.aryeo.goldsprintmedia",
-            "minLength": 0,
-            "maxLength": 65535
-          },
-          "itunes_app_id": {
-            "type": "string",
-            "description": "The app id assigned to your app in App Store Connect. Also known as the Apple ID.",
-            "example": "1620094264",
-            "minLength": 0,
-            "maxLength": 65535
-          },
-          "one_signal_app_id": {
-            "type": "string",
-            "description": "OneSignal app id. OneSignal is used for push notifications.",
-            "minLength": 0,
-            "maxLength": 65535,
-            "example": "00000000-0000-4000-8000-000000000000",
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-            "format": "uuid"
-          },
-          "contact_name": {
-            "type": "string",
-            "description": "The name displayed in the contact section of the app.",
-            "example": "Gold Sprint Media",
-            "minLength": 0,
-            "maxLength": 65535
-          },
-          "one_signal_rest_api_key": {
-            "type": "string",
-            "description": "One Signal Rest Api Key.",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "ABCD"
-          },
-          "one_signal_custom_app_group_name": {
-            "type": "string",
-            "description": "One Signal Custom App Group Name used for iOS.",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "group.com.aryeo.app.onesignal"
-          },
-          "firebase_project_number": {
-            "type": "string",
-            "description": "Firebase project number.",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "123456789"
-          },
-          "aryeo_mobile_app_admin_account": {
-            "type": "string",
-            "description": "Aryeo mobile app admin account.",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "app@aryeo.com"
-          }
-        },
-        "additionalProperties": false
-      },
       "PortalAppDevAccounts": {
         "title": "PortalAppDevAccounts",
         "type": "object",
@@ -22680,7 +22853,10 @@
             "description": "The Aryeo admin account used to access this company's Apple and Google developer accounts."
           },
           "one_signal_app_id": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "uuid",
             "minLength": 36,
             "maxLength": 36,
@@ -22689,14 +22865,20 @@
             "example": "00000000-0000-4000-8000-000000000000"
           },
           "one_signal_rest_api_key": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "One Signal Rest Api Key.",
             "minLength": 0,
             "maxLength": 255,
             "example": "ABCD"
           },
           "one_signal_custom_app_group_name": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "One Signal Custom App Group Name used for iOS.",
             "minLength": 0,
             "maxLength": 255,
@@ -22909,6 +23091,152 @@
         "required": [
           "status"
         ],
+        "additionalProperties": false
+      },
+      "PortalAppConfigPutPayload": {
+        "title": "PortalAppConfigPutPayload",
+        "type": "object",
+        "description": "Payload for updating a portal app config.",
+        "properties": {
+          "app_name": {
+            "type": "string",
+            "description": "The name that will be displayed under your app icon.",
+            "example": "Gold Sprint",
+            "minLength": 0,
+            "maxLength": 15
+          },
+          "primary_status": {
+            "type": "string",
+            "description": "The primary status of the app.",
+            "example": "LIVE",
+            "minLength": 0,
+            "maxLength": 65536,
+            "enum": [
+              "INFO_SUBMITTED",
+              "READY_TO_BUILD",
+              "IN_REVIEW",
+              "LIVE",
+              "LIVE_NEEDS_TRANSFER",
+              "DISCONTINUED"
+            ]
+          },
+          "app_store_name": {
+            "type": "string",
+            "description": "The name that will be displayed on the App Store and Play Store.",
+            "example": "Gold Sprint Media",
+            "minLength": 0,
+            "maxLength": 30
+          },
+          "app_store_subtitle": {
+            "type": "string",
+            "description": "The subtitle that will be displayed on the App Store and Play Store.",
+            "example": "Real-Estate Media",
+            "minLength": 0,
+            "maxLength": 30
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the portal app, detailing features and functionality.",
+            "example": "An app for Gold Sprint Media customers!",
+            "minLength": 0,
+            "maxLength": 4000
+          },
+          "short_description": {
+            "type": "string",
+            "description": "A short description for your app. Users can expand to view your full description.",
+            "example": "An app for Gold Sprint Media customers!",
+            "minLength": 0,
+            "maxLength": 80
+          },
+          "keywords": {
+            "type": "string",
+            "description": "Keywords for search results. Separate keywords with a comma.",
+            "example": "real estate photography,photography services,real estate marketing",
+            "minLength": 0,
+            "maxLength": 100
+          },
+          "marketing_url": {
+            "type": "string",
+            "description": "URL: Marketing information about your app.",
+            "minLength": 0,
+            "maxLength": 65535,
+            "example": "https://aryeo.com",
+            "format": "uri"
+          },
+          "support_url": {
+            "type": "string",
+            "description": "URL: Support information for your app.",
+            "minLength": 0,
+            "maxLength": 65535,
+            "example": "https://aryeo.com",
+            "format": "uri"
+          },
+          "package_name": {
+            "type": "string",
+            "description": "The reverse DNS path to the main application package. This should match your iOS bundle id.",
+            "example": "com.aryeo.goldsprintmedia",
+            "minLength": 0,
+            "maxLength": 65535
+          },
+          "bundle_id": {
+            "type": "string",
+            "description": "The unique identifier for your app on Apple's App Store. This should be configured in Apple's Developer Portal.",
+            "example": "com.aryeo.goldsprintmedia",
+            "minLength": 0,
+            "maxLength": 65535
+          },
+          "itunes_app_id": {
+            "type": "string",
+            "description": "The app id assigned to your app in App Store Connect. Also known as the Apple ID.",
+            "example": "1620094264",
+            "minLength": 0,
+            "maxLength": 65535
+          },
+          "one_signal_app_id": {
+            "type": "string",
+            "description": "OneSignal app id. OneSignal is used for push notifications.",
+            "minLength": 0,
+            "maxLength": 65535,
+            "example": "00000000-0000-4000-8000-000000000000",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "format": "uuid"
+          },
+          "contact_name": {
+            "type": "string",
+            "description": "The name displayed in the contact section of the app.",
+            "example": "Gold Sprint Media",
+            "minLength": 0,
+            "maxLength": 65535
+          },
+          "one_signal_rest_api_key": {
+            "type": "string",
+            "description": "One Signal Rest Api Key.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "ABCD"
+          },
+          "one_signal_custom_app_group_name": {
+            "type": "string",
+            "description": "One Signal Custom App Group Name used for iOS.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "group.com.aryeo.app.onesignal"
+          },
+          "firebase_project_number": {
+            "type": "string",
+            "description": "Firebase project number.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "123456789"
+          },
+          "aryeo_mobile_app_admin_account": {
+            "type": "string",
+            "description": "Aryeo mobile app admin account.",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "app@aryeo.com"
+          }
+        },
         "additionalProperties": false
       },
       "ProductCollection": {
