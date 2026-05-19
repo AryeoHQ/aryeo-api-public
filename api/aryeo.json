@@ -9055,8 +9055,9 @@
             "idp_migration_in_progress",
             "listings_new_creation_flow",
             "listings_new_edit_page",
-            "min_hour_targets",
+            "marketing_kits",
             "max_travel_distance",
+            "min_hour_targets",
             "order_form_categories",
             "require_photographer_confirmations",
             "showcase_order_form_visibility_designations",
@@ -16262,6 +16263,30 @@
               "maxLength": 36,
               "description": "The IDs of the user assigned to the appointment."
             }
+          },
+          "booking_scenario": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "unknown",
+              "suggested_date_time",
+              "suggested_time_for_day",
+              "full_calendar",
+              null
+            ],
+            "description": "Tracks how the user selected this appointment time for analytics.",
+            "example": "full_calendar"
+          },
+          "suggested_appointments_shown": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Whether suggested appointment options were displayed to the user.",
+            "example": true,
+            "default": false
           }
         },
         "required": [
