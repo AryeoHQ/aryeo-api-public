@@ -13921,6 +13921,16 @@
             "description": "Are downloads enabled for this listing?",
             "example": true
           },
+          "downloads_enabled_setting": {
+            "type": "boolean",
+            "description": "The raw downloads_enabled setting on the listing, independent of payment state.",
+            "example": true
+          },
+          "allows_access_to_marketing_material": {
+            "type": "boolean",
+            "description": "Indicates whether the listing allows customer access to marketing material.",
+            "example": true
+          },
           "is_showcase": {
             "type": "boolean",
             "description": "Indicates if this is a Showcase listing",
