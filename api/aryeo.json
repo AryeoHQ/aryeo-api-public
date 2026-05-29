@@ -13618,6 +13618,56 @@
             "example": true,
             "description": "Indicates if the appointment requires confirmation."
           },
+          "customer_choice_enabled": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "example": false,
+            "description": "Whether customer choice booking was enabled when this appointment was created."
+          },
+          "initial_requested_company_team_member_ids": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "Company team member IDs the customer requested when filtering to specific providers.",
+            "items": {
+              "description": "ID of a company team member. UUID Version 4.",
+              "type": "string",
+              "minLength": 36,
+              "maxLength": 36,
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+              "example": "00000000-0000-4000-8000-000000000000"
+            }
+          },
+          "assignment_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "specific_company_team_member",
+            "description": "How the customer selected a provider during customer choice booking.",
+            "enum": [
+              "first_available",
+              "specific_company_team_member"
+            ]
+          },
+          "initial_assigned_company_team_member_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "The company team member initially assigned when the appointment was booked."
+          },
           "late_cancellation_fee": {
             "type": "array",
             "description": "The late cancellation fee for the appointment.",
@@ -16283,8 +16333,7 @@
               "unknown",
               "suggested_date_time",
               "suggested_time_for_day",
-              "full_calendar",
-              null
+              "full_calendar"
             ],
             "description": "Tracks how the user selected this appointment time for analytics.",
             "example": "full_calendar"
