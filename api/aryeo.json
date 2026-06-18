@@ -9053,8 +9053,7 @@
             "database_external_calendar_events",
             "default_reschedule_toggle_false",
             "idp_migration_in_progress",
-            "listings_new_creation_flow",
-            "listings_new_edit_page",
+            "listings_3_beta",
             "marketing_kits",
             "max_travel_distance",
             "min_hour_targets",
@@ -13100,6 +13099,7 @@
             "description": "The fulfillment status of the order.",
             "enum": [
               "FULFILLED",
+              "PARTIALLY_FULFILLED",
               "UNFULFILLED"
             ],
             "minLength": 0,
