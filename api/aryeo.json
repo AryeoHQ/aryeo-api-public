@@ -15019,6 +15019,7 @@
               "FEE_VIEW_ANY",
               "LISTING_CREATE",
               "LISTING_DELETE",
+              "LISTING_MERGE",
               "LISTING_VIEW_ANY",
               "MEDIA_REQUEST_MANAGE",
               "ORDER_AMOUNT_VIEW_ANY",
