@@ -22949,16 +22949,6 @@
             "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
             "example": "00000000-0000-4000-8000-000000000000"
           },
-          "one_signal_rest_api_key": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "One Signal Rest Api Key.",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "ABCD"
-          },
           "one_signal_custom_app_group_name": {
             "type": [
               "string",
