@@ -5016,22 +5016,7 @@
                     "minimum": 0
                   },
                   "collection_source": {
-                    "type": "string",
-                    "enum": [
-                      "PAYPAL",
-                      "VENMO",
-                      "STRIPE",
-                      "SQUARE",
-                      "QUICKBOOKS",
-                      "CONCIERGE",
-                      "CASH",
-                      "CHECK",
-                      "OTHER"
-                    ],
-                    "minLength": 5,
-                    "maxLength": 10,
-                    "description": "The source of the payment",
-                    "example": "CASH"
+                    "$ref": "#/components/schemas/OrderPaymentCollectionSource"
                   },
                   "date": {
                     "type": "string",
@@ -15791,6 +15776,26 @@
         ],
         "additionalProperties": false
       },
+      "OrderPaymentCollectionSource": {
+        "title": "OrderPaymentCollectionSource",
+        "type": "string",
+        "description": "The source of the payment collection.",
+        "example": "CASH",
+        "minLength": 1,
+        "maxLength": 255,
+        "enum": [
+          "PAYPAL",
+          "VENMO",
+          "ZELLE",
+          "STRIPE",
+          "SQUARE",
+          "QUICKBOOKS",
+          "CONCIERGE",
+          "CASH",
+          "CHECK",
+          "OTHER"
+        ]
+      },
       "Payment": {
         "title": "Payment",
         "description": "A payment is a single unit of payment that can be applied to an order.",
@@ -15828,22 +15833,7 @@
             ]
           },
           "collection_source": {
-            "type": "string",
-            "description": "Source of payment collection",
-            "minLength": 0,
-            "maxLength": 255,
-            "example": "CASH",
-            "enum": [
-              "PAYPAL",
-              "VENMO",
-              "STRIPE",
-              "SQUARE",
-              "QUICKBOOKS",
-              "CONCIERGE",
-              "CASH",
-              "CHECK",
-              "OTHER"
-            ]
+            "$ref": "#/components/schemas/OrderPaymentCollectionSource"
           },
           "completed_at": {
             "type": [
