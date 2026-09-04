@@ -6814,6 +6814,26 @@
               }
             }
           },
+          "403": {
+            "description": "ApiError403",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ApiError404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError404"
+                }
+              }
+            }
+          },
           "422": {
             "description": "ApiFail422",
             "content": {
@@ -6852,7 +6872,11 @@
           "Discounts"
         ],
         "summary": "Redeem promotion code.",
-        "security": []
+        "security": [
+          {
+            "Token": []
+          }
+        ]
       }
     },
     "/refunds/{orderPayment}": {
