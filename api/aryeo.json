@@ -9062,6 +9062,9 @@
             "database_external_calendar_events",
             "default_reschedule_toggle_false",
             "idp_migration_in_progress",
+            "invoices",
+            "invoices_bulk_payment",
+            "invoices_ui",
             "listings_3_beta",
             "marketing_kits",
             "max_travel_distance",
@@ -15010,12 +15013,13 @@
           },
           "name": {
             "type": "string",
-            "description": "The name of the permission",
+            "description": "The name of the permission. `ZILLOW_MEDIA_EXCLUSIVES_MANAGE` is deprecated and will be removed in a future release; use `ZILLOW_INTEGRATIONS_MANAGE` instead.",
             "example": "ACTIVITY_LOG_VIEW",
             "minLength": 0,
             "maxLength": 255,
             "enum": [
               "ACTIVITY_LOG_VIEW",
+              "AI_CHAT_ACCESS",
               "APP_STORE_VIEW_ANY",
               "APPOINTMENTS_MANAGE",
               "AVAILABILITY_VIEW_ANY",
@@ -15046,6 +15050,7 @@
               "TAX_VIEW_ANY",
               "TERRITORY_VIEW_ANY",
               "ZILLOW_MEDIA_EXCLUSIVES_MANAGE",
+              "ZILLOW_INTEGRATIONS_MANAGE",
               "SAVED_VIEWS_MANAGE"
             ]
           }
@@ -15254,9 +15259,8 @@
               "null"
             ],
             "description": "The role of the team member",
-            "example": "ADMIN",
+            "example": "MEMBER",
             "enum": [
-              "ADMIN",
               "MEMBER",
               "OWNER"
             ]
