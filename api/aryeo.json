@@ -382,7 +382,7 @@
               "type": "string",
               "minLength": 0,
               "maxLength": 255,
-              "example": "owner,items,users,order,order.address,order.customer,order.customerGroup,order.listing,order.items,order.items.appointment"
+              "example": "owner,items,users,order,order.address,order.customer,order.customerGroup,order.listing,order.items,order.items.appointment,items.product_variant"
             },
             "in": "query",
             "name": "include",
@@ -530,7 +530,7 @@
               "type": "string",
               "minLength": 0,
               "maxLength": 255,
-              "example": "owner,items,users,order,order.address,order.customer,order.customerGroup, order.listing,order.items,.order.items.appointment"
+              "example": "owner,items,users,order,order.address,order.customer,order.listing,order.items,order.items.appointment,items.product_variant"
             },
             "in": "query",
             "name": "include",
@@ -7275,6 +7275,32 @@
         "description": "List available dates. Availability can be listed using a specific start & end date range, or using a timeframe. When using a timeframe, the page parameter can be used to flip through weeks, months, etc.",
         "parameters": [
           {
+            "name": "order_id",
+            "in": "query",
+            "description": "UUID of the order to calculate availability for. When filter[appointment_id] is provided, the order can be derived from that appointment.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "example": "123e4567-e89b-42d3-a456-426614174000"
+            }
+          },
+          {
+            "name": "order_item_ids",
+            "in": "query",
+            "description": "Selected order item UUIDs for the proposed appointment. Used with order_id to include product processing time in maximum weekly hours when enabled. Items outside that company's order are ignored. Existing appointments use their attached items instead.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
             "schema": {
               "type": "array",
               "items": {
@@ -7464,6 +7490,32 @@
         "operationId": "get-available-timeslots",
         "description": "List available timeslots. Timeslots are returned for the entire day in the local timezone. \n\nResults are returned in UTC!",
         "parameters": [
+          {
+            "name": "order_id",
+            "in": "query",
+            "description": "UUID of the order to calculate availability for. When filter[appointment_id] is provided, the order can be derived from that appointment.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "minLength": 36,
+              "maxLength": 36,
+              "example": "123e4567-e89b-42d3-a456-426614174000"
+            }
+          },
+          {
+            "name": "order_item_ids",
+            "in": "query",
+            "description": "Selected order item UUIDs for the proposed appointment. Used with order_id to include product processing time in maximum weekly hours when enabled. Items outside that company's order are ignored. Existing appointments use their attached items instead.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
           {
             "schema": {
               "type": "array",
@@ -14196,6 +14248,16 @@
             "example": 60,
             "description": "The duration of the product item, in minutes.",
             "minimum": 0
+          },
+          "additional_processing_time_minutes": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 1440,
+            "example": 30,
+            "description": "Estimated additional processing time in minutes per unit of this variant, separate from appointment duration. Null means not configured. Only returned when additional_product_processing_time is enabled. This is the current catalog estimate, not a historical snapshot or actual worked time."
           }
         },
         "required": [
