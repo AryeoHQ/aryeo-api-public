@@ -6872,11 +6872,7 @@
           "Discounts"
         ],
         "summary": "Redeem promotion code.",
-        "security": [
-          {
-            "Token": []
-          }
-        ]
+        "security": []
       }
     },
     "/refunds/{orderPayment}": {
