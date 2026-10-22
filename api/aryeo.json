@@ -5732,7 +5732,29 @@
             "Token": []
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "example": "50"
+            },
+            "in": "query",
+            "name": "per_page",
+            "description": "The number of items per page. Defaults to 50. Values are clamped to between 1 and 100."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 5,
+              "example": "2"
+            },
+            "in": "query",
+            "name": "page",
+            "description": "The requested page. Defaults to 1."
+          }
+        ],
         "tags": [
           "Order Forms"
         ],
