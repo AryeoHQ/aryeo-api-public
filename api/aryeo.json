@@ -15132,7 +15132,12 @@
               "TERRITORY_VIEW_ANY",
               "ZILLOW_MEDIA_EXCLUSIVES_MANAGE",
               "ZILLOW_INTEGRATIONS_MANAGE",
-              "SAVED_VIEWS_MANAGE"
+              "SAVED_VIEWS_MANAGE",
+              "APPLICATION_VIEW_ANY",
+              "APPLICATION_MANAGE",
+              "APPLICATION_CREDENTIAL_MANAGE",
+              "APPLICATION_INSTALLATION_VIEW_ANY",
+              "APPLICATION_INSTALLATION_MANAGE"
             ]
           }
         },
