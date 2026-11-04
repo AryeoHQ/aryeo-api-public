@@ -15268,6 +15268,22 @@
             "maxLength": 36,
             "description": "ID of the entity. UUID Version 4."
           },
+          "display_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255,
+            "description": "Optional customer-facing name. When null, use the company user's full name.",
+            "example": "Alex Taylor"
+          },
+          "customer_display_name": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 511,
+            "description": "Resolved customer-facing name: display_name when set, otherwise the company user's full name. Included when company_user is loaded.",
+            "example": "Alex Taylor"
+          },
           "calendar_color": {
             "type": [
               "string",
