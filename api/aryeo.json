@@ -5967,6 +5967,16 @@
           "Order Items"
         ],
         "operationId": "put-order-items-order-item-id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderItemPutPayload"
+              }
+            }
+          },
+          "description": "OrderItemPutPayload"
+        },
         "responses": {
           "200": {
             "description": "OrderItemResource",
@@ -13625,6 +13635,11 @@
             "description": "The length of the appointment in minutes.",
             "example": 60
           },
+          "duration_adjustment": {
+            "type": "integer",
+            "description": "Minutes added to (positive) or removed from (negative) the appointment's item time. Only returned to company users.",
+            "example": 15
+          },
           "user_has_appointments_manage_permission": {
             "type": "boolean",
             "example": true,
@@ -15741,6 +15756,12 @@
             "type": "integer",
             "example": 2,
             "description": "A positive integer representing the number of instances of this item that was or will be serviced.",
+            "minimum": 0
+          },
+          "duration": {
+            "type": "integer",
+            "example": 60,
+            "description": "The number of minutes a single instance of this item takes to service. This is multiplied by the quantity to calculate the item's contribution to its appointment's duration.",
             "minimum": 0
           },
           "gross_total_amount": {
@@ -21000,6 +21021,61 @@
               },
               "additionalProperties": false
             }
+          },
+          "custom_items": {
+            "type": "array",
+            "description": "An array of custom items.",
+            "items": {
+              "type": "object",
+              "description": "A custom item that is not created from a product variant.",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Aerial Video",
+                  "minLength": 0,
+                  "maxLength": 255,
+                  "description": "The title of the item."
+                },
+                "description": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "example": "A fly-by drone video of the property.",
+                  "minLength": 0,
+                  "maxLength": 2000,
+                  "description": "The description of the item."
+                },
+                "amount": {
+                  "type": "integer",
+                  "example": 2099,
+                  "description": "An integer in the smallest currency unit (that is, 100 cents for $1.00) representing the cost of a single instance of this item."
+                },
+                "quantity": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "example": 1,
+                  "description": "A positive integer representing the number of instances of this item that was or will be serviced."
+                },
+                "duration": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "example": 60,
+                  "minimum": 0,
+                  "maximum": 1440,
+                  "description": "The number of minutes a single instance of this item takes to service. This is multiplied by the quantity to calculate the item's contribution to its appointment's duration."
+                }
+              },
+              "required": [
+                "title",
+                "amount"
+              ],
+              "additionalProperties": false
+            }
           }
         },
         "additionalProperties": false
@@ -22098,6 +22174,16 @@
             "minLength": 0,
             "maxLength": 255
           },
+          "duration": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "example": 60,
+            "description": "The number of minutes a single instance of this item takes to service. This is multiplied by the quantity to calculate the item's contribution to its appointment's duration. Only applies to custom items; product items use the product variant's duration.",
+            "minimum": 0,
+            "maximum": 1440
+          },
           "appointment_id": {
             "type": "string",
             "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
@@ -22152,6 +22238,89 @@
         "required": [
           "status"
         ],
+        "additionalProperties": false
+      },
+      "OrderItemPutPayload": {
+        "title": "OrderItemPutPayload",
+        "type": "object",
+        "description": "Payload for updating an order item.",
+        "properties": {
+          "product_variant_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "description": "ID of the product variant to switch this order item to. Only applies to product items. UUID Version 4.",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "quantity": {
+            "type": "integer",
+            "example": 3,
+            "description": "A positive integer representing the number of instances of this item that was or will be serviced."
+          },
+          "unit_price_amount": {
+            "type": "integer",
+            "example": 2099,
+            "description": "A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the cost of a single instance of this item. This is multiplied by the quantity to calculate what was or will be charged.",
+            "minimum": 0
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the item.",
+            "example": "Aerial Video",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "subtitle": {
+            "type": "string",
+            "description": "The subtitle of the item.",
+            "example": "3000-3999 square feet",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the item.",
+            "example": "A fly-by drone video of the property.",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "duration": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "example": 60,
+            "description": "The number of minutes a single instance of this item takes to service. This is multiplied by the quantity to calculate the item's contribution to its appointment's duration. Only applies to custom items; product items keep their duration. Omit to keep the current duration.",
+            "minimum": 0,
+            "maximum": 1440
+          },
+          "appointment_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "description": "ID of the appointment that is scheduled to service this order item. Omit to keep the current appointment, or pass null to unassign it. UUID Version 4.",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "assigned_company_team_member_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "example": "00000000-0000-4000-8000-000000000000",
+            "description": "ID of the company team member assigned to this order item. UUID Version 4.",
+            "format": "uuid",
+            "minLength": 36,
+            "maxLength": 36
+          }
+        },
         "additionalProperties": false
       },
       "OrderItemPayRunItemDefaults": {
