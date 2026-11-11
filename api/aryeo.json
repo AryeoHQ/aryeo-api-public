@@ -196,6 +196,16 @@
               }
             }
           },
+          "403": {
+            "description": "ApiError403",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError403"
+                }
+              }
+            }
+          },
           "404": {
             "description": "ApiError404",
             "content": {
@@ -261,6 +271,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AddressResource"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "ApiError403",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError403"
                 }
               }
             }
@@ -10394,6 +10414,17 @@
             "example": "{ApiError message.}",
             "minLength": 0,
             "maxLength": 255
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The request timestamp (ISO 8601).",
+            "format": "date-time",
+            "minLength": 20,
+            "maxLength": 20,
+            "example": "2021-06-30T20:30:00Z"
           },
           "code": {
             "type": [
