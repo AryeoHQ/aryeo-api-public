@@ -21497,6 +21497,28 @@
         "description": "A payment info config",
         "type": "object",
         "properties": {
+          "vgs_vault_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the VGS vault. VGS is no longer used, so this is always null.",
+            "example": "something",
+            "minLength": 1,
+            "maxLength": 255,
+            "deprecated": true
+          },
+          "vgs_environment": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The environment of the VGS vault. VGS is no longer used, so this is always null.",
+            "example": "sandbox",
+            "minLength": 1,
+            "maxLength": 255,
+            "deprecated": true
+          },
           "square_client_id": {
             "type": [
               "string",
@@ -21509,6 +21531,8 @@
           }
         },
         "required": [
+          "vgs_vault_id",
+          "vgs_environment",
           "square_client_id"
         ],
         "additionalProperties": false
